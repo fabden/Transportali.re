@@ -1,63 +1,38 @@
 {
-  "name": "react-modele",
-  "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --open  --config config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "lint": "eslint src/**/*.js",
-    "lint:fix": "eslint --fix src/**/*.js",
-    "clean": "rm -rf dist",
-    "clean:all": "rm -rf dist node_modules yarn.lock package-lock.json",
-    "test": "NODE_PATH=./ mocha --require tests/.setup.js tests/**/*.test.js",
-    "test:watch": "NODE_PATH=./ mocha --watch --require tests/.setup.js tests/**/*.test.js"
-  },
-  "devDependencies": {
-    "@babel/core": "*",
-    "@babel/plugin-proposal-class-properties": "*",
-    "@babel/plugin-proposal-object-rest-spread": "*",
-    "@babel/preset-env": "*",
-    "@babel/preset-react": "*",
-    "@babel/register": "*",
-    "babel-eslint": "*",
-    "babel-loader": "*",
-    "bundle-stats": "*",
-    "chai": "*",
-    "clean-webpack-plugin": "*",
-    "copy-webpack-plugin": "*",
-    "cross-env": "*",
-    "css-loader": "*",
-    "cssnano": "*",
-    "enzyme": "*",
-    "enzyme-adapter-react-16": "*",
-    "eslint": "*",
-    "eslint-config-airbnb": "*",
-    "eslint-import-resolver-alias": "*",
-    "eslint-plugin-import": "*",
-    "eslint-plugin-jsx-a11y": "*",
-    "eslint-plugin-react": "*",
-    "eslint-plugin-react-hooks": "*",
-    "file-loader": "*",
-    "html-webpack-plugin": "*",
-    "ignore-styles": "*",
-    "image-webpack-loader": "*",
-    "imagemin": "*",
-    "mini-css-extract-plugin": "*",
-    "mocha": "*",
-    "optimize-css-assets-webpack-plugin": "*",
-    "postcss-loader": "*",
-    "postcss-preset-env": "*",
-    "resolve-url-loader": "*",
-    "sass": "*",
-    "sass-loader": "*",
-    "style-loader": "*",
-    "terser-webpack-plugin": "*",
-    "webpack": "*",
-    "webpack-cli": "*",
-    "webpack-dev-server": "*",
-    "webpack-merge": "*"
-  },
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "prop-types": "*",
-    "react": "*",
-    "react-dom": "*"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

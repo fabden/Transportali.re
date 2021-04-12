@@ -1,20 +1,17 @@
-// == Import : npm
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-
-// == Import : local
-// Composants
-import App from 'src/components/App';
-
-// == Render
-// 1. Le composant racine (celui qui contient l'ensemble de l'app)
-const rootComponent = (
-
-  <App />
-
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
-// 2. La cible du DOM (là où la structure doit prendre vie dans le DOM)
-const target = document.getElementById('root');
-// Le rendu de React => DOM
-render(rootComponent, target);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
