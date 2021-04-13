@@ -2,6 +2,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+// import routes
+
+const routeDevisColis = require('./routes/devisColis');
+const routeDevisDemenagemnt = require('./routes/devisDemenagements');
+const routePartenaires = require('./routes/Patenaires');
+
 const app = express();
 
 // connection a la base de donnees
@@ -16,6 +22,11 @@ const connectDB = async () => {
 };
 connectDB();
 
+// routes
+
+app.use('/devis-colis', routeDevisColis);
+app.use('/devis-demenagement', routeDevisDemenagemnt);
+app.use('/partenaire', routePartenaires);
 
 // export
 module.exports = app;
