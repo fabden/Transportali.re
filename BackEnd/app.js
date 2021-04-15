@@ -8,6 +8,10 @@ const routeDevisColis = require('./routes/devisColis');
 const routeDevisDemenagemnt = require('./routes/devisDemenagements');
 const routePartenaires = require('./routes/Partenaires');
 
+// import midelware
+
+const generateurPdf = require('./midelwares/GenerateurPdf');
+
 const app = express();
 
 // connection a la base de donnees
@@ -28,7 +32,7 @@ app.use(express.json());
 
 // routes
 
-app.use('/devis-colis', routeDevisColis);
+app.use('/devis-colis', generateurPdf, routeDevisColis);
 app.use('/devis-demenagement', routeDevisDemenagemnt);
 app.use('/partenaire', routePartenaires);
 
