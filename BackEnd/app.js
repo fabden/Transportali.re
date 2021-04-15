@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const routeDevisColis = require('./routes/devisColis');
 const routeDevisDemenagemnt = require('./routes/devisDemenagements');
-const routePartenaires = require('./routes/Patenaires');
+const routePartenaires = require('./routes/Partenaires');
 
 const app = express();
 
@@ -21,6 +21,10 @@ const connectDB = async () => {
   }
 };
 connectDB();
+
+// Analyse les corps de requête entrants dans le middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // routes
 
