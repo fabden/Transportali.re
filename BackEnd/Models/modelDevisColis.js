@@ -37,4 +37,4 @@ const modelDevisColisSchema = mongoose.Schema({
 });
 
 // export schema devi colis
-module.exports = mongoose.model('shemaDeviscolis', modelDevisColisSchema);
+module.exports = mongoose.model('devis_colis', modelDevisColisSchema);

@@ -1,10 +1,8 @@
 const PDFDocument = require('pdfkit');
 const shemaDeviscolis = require('../Models/modelDevisColis');
 
-// generer PDF
+// generateur devisColis PDF
 exports.generateurPDFColis = (req, res) => {
-  console.log('midelware generation pdf ');
-
   const doc = new PDFDocument();
   // doc.pipe(fs.createWriteStream('./telechargement/file.pdf')); // write to PDF
   doc.text('Bon envoi colis a scanner par le livreur', 100, 100);
@@ -15,7 +13,10 @@ exports.generateurPDFColis = (req, res) => {
   doc.pipe(res); // HTTP response
 };
 
+///
 // enregistrement devis colis en base de donnees
+///
+
 exports.enregistrementsDataBase = (req, res, next) => {
   const nouveauDevisColis = new shemaDeviscolis({
     expediteur: {
@@ -54,7 +55,10 @@ exports.enregistrementsDataBase = (req, res, next) => {
       res.status(500).json({ message: error });
     });
 };
+
+///
 // consultation tous les colis  en base de donnees
+///
 
 exports.tousDeviscolis = (req, res) => {
   shemaDeviscolis.find()
