@@ -1,14 +1,14 @@
 // Imports
 const express = require('express');
+const ctrlColis = require('../Controleurs/ctrlColis');
 
+// import controleur
 const devisColisRouteur = express.Router();
 
 // enregistrement un colis en base de donnees
 devisColisRouteur.route('/')
-  .get((req, res) => {
-    console.log('chemin colis ok');
-    res.download('file.pdf');
-  });
+  .get(ctrlColis.generateurPDFColis);
 
 // Export
+
 module.exports = devisColisRouteur;

@@ -3,9 +3,13 @@ const express = require('express');
 
 const PartenairesRouteur = express.Router();
 
+// import controleur
+
+const ctrlPartenaires = require('../Controleurs/ctrlPartenaires');
+
 // enregistrement un colis en base de donnees
 PartenairesRouteur.route('/')
-  .get((req, res) => { console.log('chemin partenaires ok'); });
+  .get(ctrlPartenaires.generateurPDFPartenaires);
 
 // Export
 module.exports = PartenairesRouteur;
