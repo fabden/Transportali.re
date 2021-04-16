@@ -1,8 +1,21 @@
 const PDFDocument = require('pdfkit');
 const ShemaDeviscolis = require('../Models/modelDevisColis');
 
+///
+// consultation tous les colis  en base de donnees
+///
+
+exports.tousDeviscolis = (req, res) => {
+  ShemaDeviscolis.find()
+    .then((doc) => { res.status(200).json(doc); })
+    .catch((err) => { res.status(500).json({ error: err }); });
+};
+
 // generateur devisColis PDF
 exports.generateurPDFColis = (req, res) => {
+  ///
+  // qdcode();
+  ///
   const doc = new PDFDocument();
   // doc.pipe(fs.createWriteStream('./telechargement/file.pdf')); // write to PDF
   doc.text('Bon envoi colis a scanner par le livreur', 100, 100);
@@ -47,6 +60,7 @@ exports.enregistrementsDataBase = (req, res, next) => {
       types: req.body.reference_colis.types,
     },
   });
+
   nouveauDevisColis.save()
     .then(() => {
       next();
@@ -54,14 +68,4 @@ exports.enregistrementsDataBase = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({ message: error });
     });
-};
-
-///
-// consultation tous les colis  en base de donnees
-///
-
-exports.tousDeviscolis = (req, res) => {
-  ShemaDeviscolis.find()
-    .then((doc) => { res.status(200).json(doc); })
-    .catch((err) => { res.status(500).json({ error: err }); });
 };
