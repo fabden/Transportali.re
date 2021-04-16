@@ -1,5 +1,5 @@
 const PDFDocument = require('pdfkit');
- 
+
 exports.generateurPDFColis = (req, res) => {
   console.log('midelware generation pdf ');
 
