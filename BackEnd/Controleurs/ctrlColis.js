@@ -1,5 +1,5 @@
 const PDFDocument = require('pdfkit');
-const shemaDeviscolis = require('../Models/modelDevisColis');
+const ShemaDeviscolis = require('../Models/modelDevisColis');
 
 // generateur devisColis PDF
 exports.generateurPDFColis = (req, res) => {
@@ -18,7 +18,7 @@ exports.generateurPDFColis = (req, res) => {
 ///
 
 exports.enregistrementsDataBase = (req, res, next) => {
-  const nouveauDevisColis = new shemaDeviscolis({
+  const nouveauDevisColis = new ShemaDeviscolis({
     expediteur: {
       nom: req.body.expediteur.nom,
       prenom: req.body.expediteur.prenom,
@@ -61,7 +61,7 @@ exports.enregistrementsDataBase = (req, res, next) => {
 ///
 
 exports.tousDeviscolis = (req, res) => {
-  shemaDeviscolis.find()
+  ShemaDeviscolis.find()
     .then((doc) => { res.status(200).json(doc); })
     .catch((err) => { res.status(500).json({ error: err }); });
 };
