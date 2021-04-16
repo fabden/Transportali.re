@@ -9,7 +9,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.9.25",
-    "pdfkit": "^0.12.1"
+    "pdfkit": "^0.12.1",
+    "qrcode": "^1.4.4"
   },
   "devDependencies": {
     "chai": "^4.2.0",
