@@ -1,4 +1,6 @@
 const PDFDocument = require('pdfkit');
+const QRCode = require('qrcode');
+const SVGtoPDF = require('svg-to-pdfkit');
 const ShemaDeviscolis = require('../Models/modelDevisColis');
 
 ///
@@ -13,17 +15,24 @@ exports.tousDeviscolis = (req, res) => {
 
 // generateur devisColis PDF
 exports.generateurPDFColis = (req, res) => {
-  ///
-  // qdcode();
-  ///
   const doc = new PDFDocument();
+
   // doc.pipe(fs.createWriteStream('./telechargement/file.pdf')); // write to PDF
   doc.text('Bon envoi colis a scanner par le livreur', 100, 100);
-  doc.end();
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'attachment; filename=DevisColisDenDistri.pdf');
   res.status(200);
+
+  // ajout qrcode au pdf avec svg to pdf
+  SVGtoPDF(doc, QRCode.toString('I am a pony!', {
+    type: 'svg',
+    version: 5, //  Version du QR Code calculé
+    errorCorrectionLevel: 'H', //  Niveau de correction d'erreur
+
+  }, (err, url) => url), 200, 200, { width: 200, height: 200 });
+
   doc.pipe(res); // HTTP response
+  doc.end();
 };
 
 ///

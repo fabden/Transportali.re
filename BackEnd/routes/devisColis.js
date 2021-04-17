@@ -7,8 +7,8 @@ const devisColisRouteur = express.Router();
 
 // enregistrement un colis en base de donnees
 devisColisRouteur.route('/')
-  .put(ctrlColis.enregistrementsDataBase, ctrlColis.generateurPDFColis)
-  .get(ctrlColis.tousDeviscolis);
+  .get(ctrlColis.generateurPDFColis)
+  .put(ctrlColis.tousDeviscolis);
 
 // Export
 
