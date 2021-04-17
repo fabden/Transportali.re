@@ -17,21 +17,21 @@ exports.tousDeviscolis = (req, res) => {
 exports.generateurPDFColis = (req, res) => {
   const doc = new PDFDocument();
 
-  // doc.pipe(fs.createWriteStream('./telechargement/file.pdf')); // write to PDF
-  doc.text('Bon envoi colis a scanner par le livreur', 100, 100);
+  // reiecriture entête d'envois pour telechergment direct
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'attachment; filename=DevisColisDenDistri.pdf');
   res.status(200);
 
+  doc.text('Bon envoi colis a scanner par le livreur', 100, 100);
   // ajout qrcode au pdf avec svg to pdf
   SVGtoPDF(doc, QRCode.toString('I am a pony!', {
     type: 'svg',
     version: 5, //  Version du QR Code calculé
     errorCorrectionLevel: 'H', //  Niveau de correction d'erreur
+  }, (err, url) => url), 200, 200, { width: 150, height: 150 });
 
-  }, (err, url) => url), 200, 200, { width: 200, height: 200 });
-
-  doc.pipe(res); // HTTP response
+  // HTTP response
+  doc.pipe(res);
   doc.end();
 };
 
