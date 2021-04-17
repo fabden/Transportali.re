@@ -13,7 +13,9 @@ exports.tousDeviscolis = (req, res) => {
     .catch((err) => { res.status(500).json({ error: err }); });
 };
 
+///
 // generateur devisColis PDF
+///
 exports.generateurPDFColis = (req, res) => {
   const doc = new PDFDocument();
 
@@ -22,7 +24,12 @@ exports.generateurPDFColis = (req, res) => {
   res.setHeader('Content-Disposition', 'attachment; filename=DevisColisDenDistri.pdf');
   res.status(200);
 
-  doc.text('Bon envoi colis a scanner par le livreur', 100, 100);
+  doc.text('Bon envoi colis a scanner par le livreur', 100, 100)
+    .moveDown();
+  doc.text('ligne 2')
+    .moveDown(0);
+  doc.text('ligne3');
+
   // ajout qrcode au pdf avec svg to pdf
   SVGtoPDF(doc, QRCode.toString('I am a pony!', {
     type: 'svg',
@@ -69,7 +76,6 @@ exports.enregistrementsDataBase = (req, res, next) => {
       types: req.body.reference_colis.types,
     },
   });
-
   nouveauDevisColis.save()
     .then(() => {
       next();
@@ -77,4 +83,13 @@ exports.enregistrementsDataBase = (req, res, next) => {
     .catch((error) => {
       res.status(500).json({ message: error });
     });
+};
+
+///
+// calculateur de distance pour livraison
+///
+
+exports.calculateurDistance = (req, res, next) => {
+  console.log('calculateur de distance');
+  next();
 };
