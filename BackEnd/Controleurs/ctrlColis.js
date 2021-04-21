@@ -18,7 +18,6 @@ exports.tousDeviscolis = (req, res) => {
 // generateur devisColis PDF
 ///
 exports.generateurPDFColis = (req, res) => {
-  data.forEach((e) => { console.log(`la ville de : ${e.nom} : avec le nombre de population : ${e.population}`); });
   const doc = new PDFDocument();
 
   // reiecriture entête d'envois pour telechergment direct
@@ -92,6 +91,6 @@ exports.enregistrementsDataBase = (req, res, next) => {
 ///
 
 exports.calculateurDistance = (req, res, next) => {
-  console.log('calculateur de distance');
+  console.log(`https://api.mapbox.com/directions/v5/mapbox/cycling/-122.42,37.78;-77.03,38.91?access_token=${process.env.KEY_BOX_MAP}`);
   next();
 };
