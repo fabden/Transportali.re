@@ -30,6 +30,8 @@ app.use(express.json());
 
 // routes
 
+console.log(process.env.KEY_BOX_MAP);
+
 app.use('/devis-colis', routeDevisColis);
 app.use('/devis-demenagement', routeDevisDemenagemnt);
 app.use('/devis-partenaire', routePartenaires);
