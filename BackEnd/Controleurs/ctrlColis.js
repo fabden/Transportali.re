@@ -2,6 +2,7 @@ const PDFDocument = require('pdfkit');
 const QRCode = require('qrcode');
 const SVGtoPDF = require('svg-to-pdfkit');
 const ShemaDeviscolis = require('../Models/modelDevisColis');
+const data = require('../datas');
 
 ///
 // consultation tous les colis  en base de donnees
@@ -17,6 +18,7 @@ exports.tousDeviscolis = (req, res) => {
 // generateur devisColis PDF
 ///
 exports.generateurPDFColis = (req, res) => {
+  data.forEach((e) => { console.log(`la ville de : ${e.nom} : avec le nombre de population : ${e.population}`); });
   const doc = new PDFDocument();
 
   // reiecriture entête d'envois pour telechergment direct
