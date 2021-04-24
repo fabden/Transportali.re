@@ -122,5 +122,4 @@ module.exports = [{
   code_postal: '97480',
   nom_ville: 'Saint-Joseph',
   coordonnee: { long: '-21.3667', lat: '55.6167' },
-},
-];
+}];
