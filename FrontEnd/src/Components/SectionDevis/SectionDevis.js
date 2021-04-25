@@ -10,15 +10,18 @@ import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormCo
 
 //style materila ui
 const useStyles = makeStyles({
-    root: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      border: 0,
-      borderRadius: 3,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
+    padding_10: {
+      padding: '5px 15px',
     },
+    margin_50:{        
+        margin:'50px 0 0 0',
+        
+    },
+    couleurBack:{
+        backgroundColor: 'red',
+        borderRadius:'5px 5px 0 0 ',
+        height:'200px',
+    }
   });
 
 function SectionDevis() {
@@ -28,6 +31,7 @@ const [villeDepart, setVilleDepart] = React.useState('Le Tampon');
 const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
 const [valeurCategorie, setValeurCategorie]= React.useState('M');
 const [coutDevis, setCoutDevis]=React.useState (0);
+const [metreCarre, setMetreCarre]= React.useState(0);
 
 
 const handleChangeVilleDepart = (event) => {
@@ -36,9 +40,13 @@ const handleChangeVilleDepart = (event) => {
 const handleChangeVilleArrive = (event) => {
     setVilleArrive(event.target.value);
 };
-const handleChangeValeurCategorie =(event)=>{
+const handleChangeValeurCategorie =(event) => {
     setValeurCategorie(event.target.value);
 };
+const handleChangeValeurmetrecarre =  (event, newValue) => {
+    setMetreCarre(newValue);
+};
+
 
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
@@ -58,25 +66,25 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
   const classes = useStyles();
 
     return (       
-        <Container maxWidth="md" component="main">
-            <Grid container justify="space-around" spacing={2}>  
-                <Grid item  xs={4}>
-                    <Card variant="outlined" className={classes.root}>
+        <Container component="main">
+            <Grid container justify="center" spacing={2} >  
+                <Grid item  xs={11} sm={3} >
+                    <Card variant="outlined"  >
                     <Grid container direction="column" > 
-                        <CardHeader title="Livraison colis/meubles" />
-                        <FormControl margin="normal">
-                            <InputLabel  >Ville Depart</InputLabel>
+                        <CardHeader title="Livraison colis/meubles" className={classes.couleurBack}/>
+                        <FormControl margin="normal" className={classes.padding_10}>
+                            <InputLabel  className={classes.padding_10}>Ville Depart</InputLabel >
                             <Select value={villeDepart} onChange={handleChangeVilleDepart}>
                                 {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
-                        <FormControl margin="normal">
-                            <InputLabel >Ville Arrivé</InputLabel>
+                        <FormControl margin="normal" className={classes.padding_10}>
+                            <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
                             <Select value={villeArrive} onChange={handleChangeVilleArrive}>
                                  {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
-                        <FormControl margin="normal">
+                        <FormControl margin="normal" className={classes.padding_10}>
                             <FormLabel >Categorie Colis</FormLabel>
                                 <RadioGroup defaultValue='M'>
                                     <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="right-end">
@@ -93,37 +101,38 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                                     </Tooltip>
                                 </RadioGroup>
                         </FormControl>
-                        
-                        Estimation prix:  {coutDevis.toFixed(2)}  €                    
-                        
+                            <Typography className={classes.padding_10} >
+                                Estimation prix:  {coutDevis.toFixed(2)}  €                    
+                            </Typography>
                         <Button  variant="contained">Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
-                <Grid  item xs={4}>
-                    <Card variant="outlined">
+                <Grid  item xs={11} sm={4} >
+                    <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch"> 
-                            <CardHeader title="Demenagement" />
-                            <FormControl margin="normal">
-                                <InputLabel  >Ville Depart</InputLabel>
+                            <CardHeader title="Demenagement" className={classes.couleurBack}/>
+                            <FormControl margin="normal" className={classes.padding_10}>
+                                <InputLabel className={classes.padding_10} >Ville Depart</InputLabel>
                                 <Select value={villeDepart} onChange={handleChangeVilleDepart}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
-                            <FormControl margin="normal">
-                                <InputLabel >Ville Arrivé</InputLabel>
+                            <FormControl margin="normal" className={classes.padding_10}>
+                                <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
                                 <Select value={villeArrive} onChange={handleChangeVilleArrive}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
-                            <Typography >
-                              Mon appartment /maison fait environ :
+                            <Typography className={classes.padding_10} >
+                              Mon appartment /maison fait environ : {metreCarre}M²
                             </Typography>
-                            <Typography >
-                               M²
-                            </Typography>
-                                <Slider  min={0} max={200} aria-labelledby="continuous-slider" valueLabelDisplay="on" defaultValue={20}/>
-                                <FormControl margin="normal" component="fieldset">
+                            <Grid container justify="space-around" className={classes.margin_50}>
+                                <Grid item xs={11} >
+                                    <Slider onChange={handleChangeValeurmetrecarre} min={0} max={200} aria-labelledby="continuous-slider" valueLabelDisplay="on" value={metreCarre} />
+                                </Grid>
+                            </Grid>                         
+                                <FormControl  className={classes.padding_10} margin="normal" component="fieldset">
                                     <FormLabel component="legend">Autre elements </FormLabel>
                                     <FormControlLabel value="Escalier" control={<Checkbox color="primary" />} label="Escalier" labelPlacement="end" />
                                     <FormControlLabel value="Ascenseur" control={<Checkbox color="primary" />} label="Ascenseur" labelPlacement="end" />
@@ -133,12 +142,12 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         </Grid >
                     </Card>
                 </Grid >
-                <Grid  item xs={4}>
+                <Grid  item xs={11} sm={3} >
                     <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch">
-                        <CardHeader title="Livraison Partenaires" />
+                        <CardHeader title="Livraison Partenaires" className={classes.couleurBack} />
                         
-                            <Grid  container>
+                            <Grid  container className={classes.padding_10}>
                                 <Button size="large" >
                                         Ravate
                                 </Button>
@@ -153,12 +162,29 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                                 </Button>
                             </Grid> 
                                        
-                            <FormControl margin="normal">
-                                <InputLabel >Ville Arrivé</InputLabel>
+                            <FormControl margin="normal" className={classes.padding_10}>
+                                <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
                                 <Select value={villeArrive} onChange={handleChangeVilleArrive}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
+                            <FormControl margin="normal" className={classes.padding_10}>
+                            <FormLabel >Je recupere</FormLabel>
+                                <RadioGroup defaultValue='M'>
+                                    
+                                         <FormControlLabel value="Meuble" control={<Radio/>} label="Meuble" />                                   
+                                     
+                                     
+                                         <FormControlLabel value="Electromenagé" control={<Radio/>} label="Electromenagé" />
+                                    
+                                    
+                                        <FormControlLabel value="Table" control={<Radio/>} label="Table" />
+                                    
+                                   
+                                        <FormControlLabel value="Kit Cuisine" control={<Radio/>} label="Kit Cuisine" />
+                                   
+                                </RadioGroup>
+                        </FormControl>
                             <Button  variant="contained">Je Commande</Button>
                         </Grid>
                     </Card>

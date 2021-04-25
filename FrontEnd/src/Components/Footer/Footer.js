@@ -4,14 +4,13 @@ import {Container,Grid} from '@material-ui/core';
 
 function Footer() {
   return (
-    <Container  component="footer">
+    
      <Grid container >
-    
-        Footer contenaire
-    
-
+       <Grid item>
+         Footer contenaire
+       </Grid>
       </Grid>
-    </Container>
+    
   );
 }
 export default Footer;
