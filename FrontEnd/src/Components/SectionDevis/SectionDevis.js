@@ -1,8 +1,25 @@
 import React from 'react';
-import './styles.css';
+import './styles.js';
 import data from '../../datas';
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip} from '@material-ui/core';
+
+
+
+
+//style materila ui
+const useStyles = makeStyles({
+    root: {
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      border: 0,
+      borderRadius: 3,
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      color: 'white',
+      height: 48,
+      padding: '0 30px',
+    },
+  });
 
 function SectionDevis() {
 
@@ -37,11 +54,14 @@ const recuperer_devis_rapide = ()=>{
 React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]);
 
 
+//style de la pages
+  const classes = useStyles();
+
     return (       
         <Container maxWidth="md" component="main">
             <Grid container justify="space-around" spacing={2}>  
                 <Grid item  xs={4}>
-                    <Card variant="outlined">
+                    <Card variant="outlined" className={classes.root}>
                     <Grid container direction="column" > 
                         <CardHeader title="Livraison colis/meubles" />
                         <FormControl margin="normal">
