@@ -2,20 +2,17 @@ import React from 'react';
 import './styles.css';
 import data from '../../datas';
 import axios from 'axios';
-import {Button,Container,Grid,Card, CardHeader,Accordion,AccordionSummary,AccordionDetails,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip} from '@material-ui/core';
+import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip} from '@material-ui/core';
 
 function SectionDevis() {
 
-const [expanded, setExpanded] = React.useState(false);
+
 const [villeDepart, setVilleDepart] = React.useState('Le Tampon');
 const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
 const [valeurCategorie, setValeurCategorie]= React.useState('M');
 const [coutDevis, setCoutDevis]=React.useState (0);
 
 
-const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-};
 const handleChangeVilleDepart = (event) => {
     setVilleDepart(event.target.value);
 };
@@ -44,22 +41,22 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
         <Container maxWidth="md" component="main">
             <Grid container justify="space-around" spacing={2}>  
                 <Grid item  xs={4}>
-                    <Card>
+                    <Card variant="outlined">
                     <Grid container direction="column" > 
                         <CardHeader title="Livraison colis/meubles" />
-                        <FormControl >
+                        <FormControl margin="normal">
                             <InputLabel  >Ville Depart</InputLabel>
                             <Select value={villeDepart} onChange={handleChangeVilleDepart}>
                                 {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
-                        <FormControl >
+                        <FormControl margin="normal">
                             <InputLabel >Ville Arrivé</InputLabel>
                             <Select value={villeArrive} onChange={handleChangeVilleArrive}>
                                  {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
-                        <FormControl >
+                        <FormControl margin="normal">
                             <FormLabel >Categorie Colis</FormLabel>
                                 <RadioGroup defaultValue='M'>
                                     <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="right-end">
@@ -79,67 +76,71 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         
                         Estimation prix:  {coutDevis.toFixed(2)}  €                    
                         
-                        <Button variant="contained">Je Commande</Button>
+                        <Button  variant="contained">Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
                 <Grid  item xs={4}>
-                    <Card>
+                    <Card variant="outlined">
                         <Grid container direction="column" alignItems="stretch"> 
                             <CardHeader title="Demenagement" />
-                            <FormControl >
+                            <FormControl margin="normal">
                                 <InputLabel  >Ville Depart</InputLabel>
                                 <Select value={villeDepart} onChange={handleChangeVilleDepart}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
-                            <FormControl >
+                            <FormControl margin="normal">
                                 <InputLabel >Ville Arrivé</InputLabel>
                                 <Select value={villeArrive} onChange={handleChangeVilleArrive}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
-
-                            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                                <AccordionSummary>                              
-                            Cathegorie Colis
-                                </AccordionSummary>
-                                <AccordionDetails>
-                            jjjjjjjjjj
-                                </AccordionDetails>
-                            </Accordion> 
+                            <Typography >
+                              Mon appartment /maison fait environ :
+                            </Typography>
+                            <Typography >
+                               M²
+                            </Typography>
+                                <Slider  min={0} max={200} aria-labelledby="continuous-slider" valueLabelDisplay="on" defaultValue={20}/>
+                                <FormControl margin="normal" component="fieldset">
+                                    <FormLabel component="legend">Autre elements </FormLabel>
+                                    <FormControlLabel value="Escalier" control={<Checkbox color="primary" />} label="Escalier" labelPlacement="end" />
+                                    <FormControlLabel value="Ascenseur" control={<Checkbox color="primary" />} label="Ascenseur" labelPlacement="end" />
+                                    <FormControlLabel value="Parking" control={<Checkbox color="primary" />} label="Parking" labelPlacement="end" />
+                                </FormControl>
+                            <Button variant="contained">je choisi ma formule</Button>
                         </Grid >
                     </Card>
                 </Grid >
                 <Grid  item xs={4}>
-                    <Card>
+                    <Card variant="outlined" >
+                        <Grid container direction="column" alignItems="stretch">
                         <CardHeader title="Livraison Partenaires" />
-                    
-                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                            <AccordionSummary>                              
-                            Code postale Expediteur
-                            </AccordionSummary>
-                            <AccordionDetails>
-                            jjjjjjjjjj
-                            </AccordionDetails>
-                        </Accordion>
-                            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                                <AccordionSummary>                              
-                                Code postale Destinataire
-                                </AccordionSummary>
-                                <AccordionDetails>
-                            jjjjjjjjjj
-                                </AccordionDetails>
-                            </Accordion>
-
-                            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                                <AccordionSummary>                              
-                            Cathegorie Colis
-                                </AccordionSummary>
-                                <AccordionDetails>
-                            jjjjjjjjjj
-                                </AccordionDetails>
-                        </Accordion> 
+                        
+                            <Grid  container>
+                                <Button size="large" >
+                                        Ravate
+                                </Button>
+                                <Button size="large" >
+                                        Weldom
+                                </Button>
+                                <Button size="large" >
+                                        BUT
+                                </Button>
+                                <Button size="large" >
+                                        Leclere
+                                </Button>
+                            </Grid> 
+                                       
+                            <FormControl margin="normal">
+                                <InputLabel >Ville Arrivé</InputLabel>
+                                <Select value={villeArrive} onChange={handleChangeVilleArrive}>
+                                    {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
+                                </Select>
+                            </FormControl>
+                            <Button  variant="contained">Je Commande</Button>
+                        </Grid>
                     </Card>
                 </Grid>
             </Grid>
