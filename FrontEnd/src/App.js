@@ -1,15 +1,15 @@
 import './App.css';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
-import Section from './Components/Section/Section';
+import SectionDevis from './Components/SectionDevis/SectionDevis';
 
 function App() {
   return (
-    <div >
+    < >
       <Header/>
-      <Section/>
+      <SectionDevis/>
       <Footer/>
-    </div>
+    </>
   );
 }
 export default App;
