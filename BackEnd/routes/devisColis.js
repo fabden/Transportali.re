@@ -7,7 +7,7 @@ const devisColisRouteur = express.Router();
 
 // enregistrement un colis en base de donnees
 devisColisRouteur.route('/')
-  .get(ctrlColis.calculateurDistancePrix)
+  .post(ctrlColis.calculateurDistancePrix)
   .put(ctrlColis.tousDeviscolis);
 
 // Export

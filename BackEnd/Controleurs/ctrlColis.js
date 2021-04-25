@@ -3,6 +3,8 @@ const QRCode = require('qrcode');
 const SVGtoPDF = require('svg-to-pdfkit');
 const axios = require('axios');
 const ShemaDeviscolis = require('../Models/modelDevisColis');
+const dataVille = require('../datasVille');
+const dataCategory = require('../datasCategorie');
 
 ///
 // consultation tous les colis  en base de donnees
@@ -91,9 +93,20 @@ exports.enregistrementsDataBase = (req, res, next) => {
 ///
 
 exports.calculateurDistancePrix = (req, res) => {
-  axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${req.body.coordonnee.depart.lat},${req.body.coordonnee.depart.long};${req.body.coordonnee.arriver.lat},${req.body.coordonnee.arriver.long}?access_token=${process.env.KEY_BOX_MAP}`)
+  // recuperation coordonne gpe ville
+  const coordonneeGpsDepart = dataVille.filter(
+    (e) => e.nom_ville === req.body.ville.depart,
+  )[0].coordonnee;
+  const coordonneeGpsArrive = dataVille.filter(
+    (e) => e.nom_ville === req.body.ville.arrive,
+  )[0].coordonnee;
+
+  // recuperation categorie
+
+  const categorie = dataCategory[req.body.categorie];
+  axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordonneeGpsDepart.lat},${coordonneeGpsDepart.long};${coordonneeGpsArrive.lat},${coordonneeGpsArrive.long}?access_token=${process.env.KEY_BOX_MAP}`)
     .then((e) => {
-      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + 30;
+      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + categorie;
       const distanceLivraison = e.data.routes[0].distance / 1000;
       res.status(200).json({
         prix: estimationPrix,

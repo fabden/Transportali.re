@@ -1,14 +1,16 @@
 import React from 'react';
 import './styles.css';
 import data from '../../datas';
-import {Container,Grid,Card, CardHeader,Accordion,AccordionSummary,AccordionDetails,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip,Paper} from '@material-ui/core';
+import axios from 'axios';
+import {Button,Container,Grid,Card, CardHeader,Accordion,AccordionSummary,AccordionDetails,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip} from '@material-ui/core';
 
 function SectionDevis() {
 
 const [expanded, setExpanded] = React.useState(false);
-const [villeDepart, setVilleDepart] = React.useState('');
-const [villeArrive, setVilleArrive] = React.useState('');
-const [valeurCategorie, setValeurCategorie]= React.useState('');
+const [villeDepart, setVilleDepart] = React.useState('Le Tampon');
+const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
+const [valeurCategorie, setValeurCategorie]= React.useState('M');
+const [coutDevis, setCoutDevis]=React.useState (0);
 
 
 const handleChange = (panel) => (event, isExpanded) => {
@@ -24,6 +26,18 @@ const handleChangeValeurCategorie =(event)=>{
     setValeurCategorie(event.target.value);
 };
 
+//fonction calcul prix 
+const recuperer_devis_rapide = ()=>{    
+    axios.post('http://localhost:8080/devis-colis',{ville:{depart:villeDepart,
+    arrive:villeArrive},
+    categorie:valeurCategorie
+    })
+        .then((res) => setCoutDevis(res.data.prix))
+        .catch((e) => console.log(e))
+}
+
+// useeffect pour le calcule autmatique 
+React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]);
 
 
     return (       
@@ -31,7 +45,8 @@ const handleChangeValeurCategorie =(event)=>{
             <Grid container justify="space-around" spacing={2}>  
                 <Grid item  xs={4}>
                     <Card>
-                        <CardHeader title="Livraison colis" />
+                    <Grid container direction="column" > 
+                        <CardHeader title="Livraison colis/meubles" />
                         <FormControl >
                             <InputLabel  >Ville Depart</InputLabel>
                             <Select value={villeDepart} onChange={handleChangeVilleDepart}>
@@ -46,7 +61,7 @@ const handleChangeValeurCategorie =(event)=>{
                         </FormControl>
                         <FormControl >
                             <FormLabel >Categorie Colis</FormLabel>
-                                <RadioGroup >
+                                <RadioGroup defaultValue='M'>
                                     <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="right-end">
                                          <FormControlLabel value="M" control={<Radio/>} label="M" onChange={handleChangeValeurCategorie}/>                                   
                                      </Tooltip>
@@ -61,44 +76,39 @@ const handleChangeValeurCategorie =(event)=>{
                                     </Tooltip>
                                 </RadioGroup>
                         </FormControl>
-                        <Paper elevation={3}>
-                        Estimation prix:
-                        </Paper >
-
-
-
-
+                        
+                        Estimation prix:  {coutDevis.toFixed(2)}  €                    
+                        
+                        <Button variant="contained">Je Commande</Button>
+                        </Grid>
                     </Card>
                 </Grid>
                 <Grid  item xs={4}>
-                <Card>
-                        <CardHeader title="Demenagement" />
-                        
-                            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                    <Card>
+                        <Grid container direction="column" alignItems="stretch"> 
+                            <CardHeader title="Demenagement" />
+                            <FormControl >
+                                <InputLabel  >Ville Depart</InputLabel>
+                                <Select value={villeDepart} onChange={handleChangeVilleDepart}>
+                                    {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
+                                </Select>
+                            </FormControl>
+                            <FormControl >
+                                <InputLabel >Ville Arrivé</InputLabel>
+                                <Select value={villeArrive} onChange={handleChangeVilleArrive}>
+                                    {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
+                                </Select>
+                            </FormControl>
+
+                            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                                 <AccordionSummary>                              
-                               Code postale Expediteur
+                            Cathegorie Colis
                                 </AccordionSummary>
                                 <AccordionDetails>
-                               jjjjjjjjjj
+                            jjjjjjjjjj
                                 </AccordionDetails>
-                            </Accordion>
-                                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                                    <AccordionSummary>                              
-                                    Code postale Destinataire
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                jjjjjjjjjj
-                                    </AccordionDetails>
-                                </Accordion>
-
-                                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                                    <AccordionSummary>                              
-                                Cathegorie Colis
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                jjjjjjjjjj
-                                    </AccordionDetails>
-                                </Accordion> 
+                            </Accordion> 
+                        </Grid >
                     </Card>
                 </Grid >
                 <Grid  item xs={4}>
