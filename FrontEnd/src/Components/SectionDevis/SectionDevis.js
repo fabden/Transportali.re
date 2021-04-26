@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles.js';
 import data from '../../datas';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,7 +24,6 @@ const useStyles = makeStyles({
   });
 
 function SectionDevis() {
-
 
 const [villeDepart, setVilleDepart] = React.useState('Le Tampon');
 const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
