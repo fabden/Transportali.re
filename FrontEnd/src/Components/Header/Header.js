@@ -32,7 +32,7 @@ const useStyles = makeStyles({
         borderColor: "rgb(255 255 255)",
     },
     margeBas:{
-        margin:"10px 0 20px 0",
+        margin:"10px 0px 20px 0px",
     },
 
   });
@@ -44,7 +44,7 @@ function Header() {
 
     return (
     <>
-        <Container disableGutters justify="center" alignItems="center" maxWidth >
+        <Container  justify="center" alignItems="center" maxWidth >
             <Grid container alignItems="center" justify="center" className={classes.margeBas}>
                 <Grid item xs={12} sm={12} md>
                     <Typography align="center">
@@ -92,12 +92,7 @@ function Header() {
                     <Typography align="center">
                         Facebook
                     </Typography>
-                    <Typography align="center">
-                        tweeter
-                    </Typography>
-                    <Typography align="center">
-                        instagrm
-                    </Typography>
+ 
                 </Grid>
             </Grid >
 
@@ -121,10 +116,10 @@ function Header() {
         <Grid container className={classes.image} alignItems="center" justify="center" > 
             <Grid item xs={11} sm={8} md container alignItems="center" justify="center" className={classes.image_text}>
                 <Typography  align="center">
-                    <Typography variant="h2" gutterBottom>
+                    <Typography variant="h2" >
                         livraison Rapide
                     </Typography>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" >
                         Lorsqu'il est temps de quitter votre domicile ou votre entreprise,<br></br> il est temps d'appeler DMST. <br></br> Nous vous facilitons la tâche et plus rapidement que les autres. <br></br><br></br>
                     </Typography> 
                     <Button align="center" variant="outlined" size="large" className={classes.couleurBlanc} >Devis</Button>

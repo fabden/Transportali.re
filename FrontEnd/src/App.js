@@ -4,6 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import Avis from './Components/Avis/Avis';
+import Metier from './Components/Metier/Metier';
+
 
 function App() {
   return (
@@ -11,9 +13,11 @@ function App() {
     <>
       <CssBaseline />  
       <Header/>
-      <SectionDevis/>  
-      <Footer></Footer>
+      <SectionDevis/> 
+      <Metier></Metier>
       <Avis></Avis>
+      <Footer></Footer>
+   
     </>
   );
 }
