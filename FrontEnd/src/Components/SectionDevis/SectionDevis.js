@@ -65,7 +65,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
 
     return (       
         <Container >
-            <Grid container justify="center" spacing={2} >  
+            <Grid container justify="center" spacing={4} >  
                 <Grid item  xs={11} sm={3} >
                     <Card variant="outlined"  >
                     <Grid container direction="column" > 
