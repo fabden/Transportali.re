@@ -8,7 +8,7 @@ const useStyles = makeStyles({
 
     couleurFond:{
         backgroundColor:'rgb(51, 68, 99, 92%)',
-        margin:'15px 0 10px 0',
+        //margin:'15px 0 10px 0',
         
     
         
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         borderRadius:"10px",
         color:'rgb(255 255 255)',
         margin: '15px',
-        padding:'5px',
+       // padding:'5px',
     },
     image:{
         backgroundImage:`url(${image})`,

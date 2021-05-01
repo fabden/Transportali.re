@@ -3,6 +3,7 @@ import data from '../../datas';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip} from '@material-ui/core';
+import DevisElectro from './DevisElectro';
 
 
 
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
       padding: '5px 15px',
     },
     margin_50:{        
-        margin:'50px 0 0 0',
+      margin:'50px 0 0 0',
         
     },
     couleurBack:{
@@ -24,6 +25,8 @@ const useStyles = makeStyles({
     },
     couleurGris:{
         backgroundColor:"rgb(224, 225, 224)",
+        padding: '15px 0 0  0',
+       
     }
   });
 
@@ -67,10 +70,11 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
 //style de la pages
   const classes = useStyles();
 
-    return (       
+    return ( 
+    <>      
         <Container className={classes.couleurGris} maxWidth>
-            <Grid container justify="center" spacing={4} >  
-                <Grid item  xs={11} sm md={3} >
+            <Grid container justify="space-around"  >  
+                <Grid item  xs={11} sm={5} md={3} >
                     <Card variant="outlined"  >
                     <Grid container direction="column" > 
                         <CardHeader title="Livraison electromenagé/meubles" className={`${classes.couleurBackElectro} ${classes.couleurBack}`}/>
@@ -103,14 +107,14 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                                     </Tooltip>
                                 </RadioGroup>
                         </FormControl>
-                            <Typography className={classes.padding_10} >
-                                Estimation prix:  {coutDevis.toFixed(2)}  €                    
+                            <Typography variant="h5" align='right' className={classes.padding_10} >
+                                Estimation :  {coutDevis.toFixed(2)}  €                    
                             </Typography>
                         <Button  variant="contained">Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
-                <Grid  item xs={11} sm md={4}  >
+                <Grid  item xs={11} sm={5} md={4}  >
                     <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch"> 
                             <CardHeader title="Demenagement" className={classes.couleurBack}/>
@@ -144,7 +148,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         </Grid >
                     </Card>
                 </Grid >
-                <Grid  item xs={11} sm md={3} >
+                <Grid  item xs={11} sm={6} md={3} >
                     <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch">
                         <CardHeader title="Livraison Partenaires" className={classes.couleurBack} />
@@ -193,6 +197,8 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                 </Grid>
             </Grid>
         </Container>
+      <DevisElectro></DevisElectro>
+     </>
     )
 }
 
