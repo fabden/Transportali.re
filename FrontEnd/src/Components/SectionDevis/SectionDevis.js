@@ -25,8 +25,12 @@ const useStyles = makeStyles({
     },
     couleurGris:{
         backgroundColor:"rgb(224, 225, 224)",
-        padding: '15px 0 0  0',
+        padding: '15px 0 15px  0',
        
+    },
+    couleurBoutton:{
+        backgroundColor: 'rgb(237, 154, 59, 95%)',
+        borderRadius:'0 0 0 0',
     }
   });
 
@@ -110,7 +114,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                             <Typography variant="h5" align='right' className={classes.padding_10} >
                                 Estimation :  {coutDevis.toFixed(2)}  €                    
                             </Typography>
-                        <Button  variant="contained">Je Commande</Button>
+                        <Button  variant="contained" className={classes.couleurBoutton}>Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
@@ -144,7 +148,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                                     <FormControlLabel value="Ascenseur" control={<Checkbox color="primary" />} label="Ascenseur" labelPlacement="end" />
                                     <FormControlLabel value="Parking" control={<Checkbox color="primary" />} label="Parking" labelPlacement="end" />
                                 </FormControl>
-                            <Button variant="contained">je choisi ma formule</Button>
+                            <Button variant="contained" className={classes.couleurBoutton}>je choisi ma formule</Button>
                         </Grid >
                     </Card>
                 </Grid >
@@ -191,7 +195,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                                    
                                 </RadioGroup>
                         </FormControl>
-                            <Button  variant="contained">Je Commande</Button>
+                            <Button  variant="contained" className={classes.couleurBoutton}>Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
