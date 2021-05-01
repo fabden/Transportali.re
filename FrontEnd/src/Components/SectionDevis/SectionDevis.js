@@ -17,9 +17,13 @@ const useStyles = makeStyles({
         
     },
     couleurBack:{
-        backgroundColor: 'red',
+        backgroundColor: 'rgb(237, 154, 59, 95%)',
         borderRadius:'5px 5px 0 0 ',
         height:'200px',
+        color:'rgb(255, 255, 255)',
+    },
+    couleurGris:{
+        backgroundColor:"rgb(224, 225, 224)",
     }
   });
 
@@ -64,12 +68,12 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
   const classes = useStyles();
 
     return (       
-        <Container >
+        <Container className={classes.couleurGris} maxWidth>
             <Grid container justify="center" spacing={4} >  
-                <Grid item  xs={11} sm={3} >
+                <Grid item  xs={11} sm md={3} >
                     <Card variant="outlined"  >
                     <Grid container direction="column" > 
-                        <CardHeader title="Livraison colis/meubles" className={classes.couleurBack}/>
+                        <CardHeader title="Livraison electromenagé/meubles" className={`${classes.couleurBackElectro} ${classes.couleurBack}`}/>
                         <FormControl margin="normal" className={classes.padding_10}>
                             <InputLabel  className={classes.padding_10}>Ville Depart</InputLabel >
                             <Select value={villeDepart} onChange={handleChangeVilleDepart}>
@@ -85,17 +89,17 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         <FormControl margin="normal" className={classes.padding_10}>
                             <FormLabel >Categorie Colis</FormLabel>
                                 <RadioGroup defaultValue='M'>
-                                    <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="right-end">
-                                         <FormControlLabel value="M" control={<Radio/>} label="M" onChange={handleChangeValeurCategorie}/>                                   
+                                    <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="left">
+                                         <FormControlLabel value="M" control={<Radio/>} label="M --  Taille: 50cm x 50cm x 50cm / maximun 10Kg" onChange={handleChangeValeurCategorie}/>                                   
                                      </Tooltip>
                                      <Tooltip title="Colis de taille: 50cm x 50cm x 100cm ou maximun 30Kg" placement="right-end">
-                                         <FormControlLabel value="L" control={<Radio/>} label="L" onChange={handleChangeValeurCategorie}/>
+                                         <FormControlLabel value="L" control={<Radio/>} label="L -- Taille: 50cm x 50cm x 100cm / maximun 30Kg" onChange={handleChangeValeurCategorie}/>
                                     </Tooltip>
                                     <Tooltip title="Colis de taille 100cm  x 100 x 50cm cm ou maximun 40Kg" placement="right-end">
-                                        <FormControlLabel value="XL" control={<Radio/>} label="XL" onChange={handleChangeValeurCategorie}/>
+                                        <FormControlLabel value="XL" control={<Radio/>} label="XL -- Taille 100cm  x 100 x 50cm cm / maximun 40Kg" onChange={handleChangeValeurCategorie}/>
                                     </Tooltip>
                                     <Tooltip title="Colis de taille </br> 200cm x 100cm x 100cm ou maximun 50Kg" placement="right-end">
-                                        <FormControlLabel value="XXL" control={<Radio/>} label="XXL" onChange={handleChangeValeurCategorie}/>
+                                        <FormControlLabel value="XXL" control={<Radio/>} label="XXL -- Taille 200cm x 100cm x 100cm / maximun 50Kg" onChange={handleChangeValeurCategorie}/>
                                     </Tooltip>
                                 </RadioGroup>
                         </FormControl>
@@ -106,7 +110,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         </Grid>
                     </Card>
                 </Grid>
-                <Grid  item xs={11} sm={4} >
+                <Grid  item xs={11} sm md={4}  >
                     <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch"> 
                             <CardHeader title="Demenagement" className={classes.couleurBack}/>
@@ -140,7 +144,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         </Grid >
                     </Card>
                 </Grid >
-                <Grid  item xs={11} sm={3} >
+                <Grid  item xs={11} sm md={3} >
                     <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch">
                         <CardHeader title="Livraison Partenaires" className={classes.couleurBack} />

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import image from '../../Asset/1280.jpg';
 
 
 const useStyles = makeStyles({
 
     couleurFond:{
-        backgroundColor:'rgb(51, 68, 99, 90%)',
-        margin:'20px 0 10px 0',
+        backgroundColor:'rgb(51, 68, 99, 92%)',
+        margin:'15px 0 10px 0',
         
     
         
@@ -19,18 +19,25 @@ const useStyles = makeStyles({
         color:'rgb(255 255 255)',
         margin: '15px',
         padding:'5px',
-},
+    },
+    image:{
+        backgroundImage:`url(${image})`,
+        backgroundRepeat:'no-repeat', 
+        backgroundPosition:'center',
+        backgroundSize:'cover',
+    },
 
 });
 
 function Metier() {
+
     const classes = useStyles();
 
 
     return (
-    <Container maxWidth>
-        <Grid container  direction="row" justify="space-evenly" alignItems="baseline" className={classes.couleurFond}>
-            <Grid xs={12} sm={5} md item container   direction="column" justify="center" alignItems="center" className={classes.couleurFondu}>
+    <Container maxWidth disableGutters className={classes.image}>
+        <Grid container   direction="row" justify="space-evenly" alignItems="baseline" className={classes.couleurFond}>
+            <Grid xs={12} sm={5} md={2} item container   direction="column" justify="center" alignItems="center" className={classes.couleurFondu}>
                 icone
                 <br></br>
                 <Typography variant="h5" align='center'>
@@ -42,7 +49,7 @@ function Metier() {
                 Nous offrons du matériel d'emballage, des instructions d'emballage et des conseils ainsi que de la main-d'œuvre et du soutien pour rendre votre déménagement efficace et sans stress.
                 </Typography>
             </Grid>
-            <Grid xs={12} sm={5} md item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
+            <Grid xs={12} sm={5} md={2} item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
                 icone
                 <Typography variant="h5" align='center'>
                 <br></br>
@@ -55,7 +62,7 @@ function Metier() {
                 </Typography>
             </Grid>
 
-            <Grid xs={12} sm={5} md  item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
+            <Grid xs={12} sm={5} md={2}  item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
                 icone
                 <Typography variant="h5" align='center'>
                 <br></br>
@@ -66,7 +73,7 @@ function Metier() {
                 Qu'il s'agisse de déplacer simplement des étages ou d'un bout à l'autre du pays, nos déménageurs sont expérimentés et formés pour manipuler, transporter et équiper efficacement.
                 </Typography> 
             </Grid>
-            <Grid xs={12} sm={5} md item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
+            <Grid xs={12} sm={5} md={2} item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
                 icone
                 <Typography variant="h5" align='center'>
                 <br></br>

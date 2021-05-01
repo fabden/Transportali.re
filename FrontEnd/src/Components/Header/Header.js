@@ -18,7 +18,7 @@ const useStyles = makeStyles({
        // backgroundBlendMode:'overlay',
         backgroundSize:'fill',
         height:'500px',   
-        margin: '0 0 50px 0', 
+        margin: '0 0 15px 0', 
         backgroundColor: '#232323',  
         color: "rgb(255 255 255)",
     },
@@ -97,7 +97,7 @@ function Header() {
             </Grid >
 
         </Container>
-        <Container  maxWidth >
+        <Container  maxWidth disableGutters>
         <Grid container className={classes.menu} alignItems="center" justify="flex-start"> 
             <Grid item xs={4}  container alignItems="center" justify="space-around" className={classes.couleurBlanc}>
                     <Typography >
@@ -112,7 +112,7 @@ function Header() {
                 </Grid>
             </Grid>
         </Container>
-        <Container maxWidth >
+        <Container maxWidth disableGutters>
         <Grid container className={classes.image} alignItems="center" justify="center" > 
             <Grid item xs={11} sm={8} md container alignItems="center" justify="center" className={classes.image_text}>
                 <Typography  align="center">
