@@ -10,7 +10,7 @@ devisColisRouteur.route('/')
   .post(ctrlColis.calculateurDistancePrix)
   .put(ctrlColis.generateurPDFColis);
 devisColisRouteur.route('/pdf')
-  .get(ctrlColis.generateurPDFColis);
+  .post(ctrlColis.generateurPDFColis);
 
 // Export
 

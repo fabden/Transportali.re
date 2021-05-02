@@ -21,27 +21,57 @@ exports.tousDeviscolis = (req, res) => {
 ///
 exports.generateurPDFColis = (req, res) => {
   const doc = new PDFDocument();
-  console.log(req.body);
+
   // reiecriture entête d'envois pour telechergment direct
   res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'attachment; filename=DevisColisDenDistri.pdf');
+  // res.setHeader('Content-Disposition', 'attachment; filename=DevisColisDenDistri.pdf');
   res.status(200);
 
   doc.text('Bon envoi colis a scanner par le livreur', 100, 100)
-    .moveDown();
-  doc.text('ligne 2')
+    .moveDown(2);
+  doc.text(`livraison prevu le : ${req.body.dateLivraison}`)
+    .moveDown(2);
+  doc.text(`Adresse de livraison : ${req.body.adresseLivraison.adresse}`)
     .moveDown(0);
-  doc.text('ligne3');
+  doc.text(`ville de livraison : ${req.body.adresseLivraison.code_postale}`)
+    .moveDown(0);
+  doc.text(`contact de livraison : ${req.body.adresseLivraison.nom_contact}`)
+    .moveDown(0);
+  doc.text(`telephone contact de livraison : ${req.body.adresseLivraison.telephone_contact}`)
+    .moveDown(0);
+  doc.text(`commentaire de livraison : ${req.body.adresseLivraison.commentaire_contact}`)
+    .moveDown(0);
+  doc.text(`mail contact  de livraison: ${req.body.adresseLivraison.mail_contact}`)
+    .moveDown(5);
+  doc.text(`adresse de destination : ${req.body.adresseChargement.adresse}`)
+    .moveDown(0);
+  doc.text(`ville  de destination : ${req.body.adresseChargement.code_postale}`)
+    .moveDown(0);
+  doc.text(`nom contact de destination : ${req.body.adresseChargement.nom_contact}`)
+    .moveDown(0);
+  doc.text(`telephone contact  : ${req.body.adresseChargement.telephone_contact}`)
+    .moveDown(0);
+  doc.text(`mail contact de destination : ${req.body.adresseChargement.mail_contact}`)
+    .moveDown(0);
+  doc.text(`commentaire contact  : ${req.body.adresseChargement.commentaire_contact}`)
+    .moveDown(5);
+  doc.text(`mail contact de destination : ${req.body.valueCategorie}`)
+    .moveDown(0);
+  doc.text('fin');
 
   // ajout qrcode au pdf avec svg to pdf
   SVGtoPDF(doc, QRCode.toString('I am a pony!', {
     type: 'svg',
     version: 5, //  Version du QR Code calculé
     errorCorrectionLevel: 'H', //  Niveau de correction d'erreur
-  }, (err, url) => url), 200, 200, { width: 150, height: 150 });
-  doc.end();
+  }, (err, url) => url), 400, 200, { width: 150, height: 150 });
+
+  doc.on('finish', () => { console.log('fini'); });
+
   // HTTP response
+
   doc.pipe(res);
+  doc.end();
 };
 
 ///

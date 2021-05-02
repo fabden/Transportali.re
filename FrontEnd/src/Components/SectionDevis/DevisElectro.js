@@ -141,19 +141,21 @@ function DevisElectro() {
 
     ///Generateur de pdf (devis)
     const generateur_pdf_devis = ()=>{
-        axios.get('http://localhost:8080/devis-colis/pdf',{adresseLivraison, adresseChargement, valueCategorie })
-            .then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'Bon_DMST.pdf');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link)
-              })
-            .catch((e) => console.log(e))
-
+    axios({
+        method:'post',
+        url:'http://localhost:8080/devis-colis/pdf',
+        responseType:'arraybuffer',
+        data: {adresseLivraison, adresseChargement, valueCategorie, dateLivraison}
+      })
+      .then(function(response) {
+          let blob = new Blob([response.data], { type:'application/pdf' } );
+          let link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'Bon_Livraison_DMST.pdf';
+          link.click();
+      });
     }
+  
 
 
     ///
@@ -168,7 +170,7 @@ function DevisElectro() {
     const handleChangeDate = (event) => {
         setDateLivraison(event.target.value);
       };
-
+    
     ///
 
     return (

@@ -117,7 +117,7 @@ function Header() {
                         livraison Rapide
                     </Typography>
                     <Typography variant="h5" >
-                        Lorsqu'il est temps de quitter votre domicile ou votre entreprise,<br></br> il est temps d'appeler DMST. <br></br> Nous vous facilitons la tâche et plus rapidement que les autres. <br></br><br></br>
+                        Lorsqu'il est temps de quitter votre domicile ou votre entreprise,<br></br> il est temps d'appeler DMST. <br></br> Nous vous facilitons la tâche. <br></br><br></br>
                     </Typography> 
                     <Button align="center" variant="outlined" size="large" className={classes.couleurBlanc} >Devis</Button>
                 </Typography>
