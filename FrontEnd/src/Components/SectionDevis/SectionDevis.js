@@ -2,7 +2,7 @@ import React from 'react';
 import data from '../../datas';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip} from '@material-ui/core';
+import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip, Collapse} from '@material-ui/core';
 import DevisElectro from './DevisElectro';
 
 
@@ -41,7 +41,12 @@ const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
 const [valeurCategorie, setValeurCategorie]= React.useState('M');
 const [coutDevis, setCoutDevis]=React.useState (0);
 const [metreCarre, setMetreCarre]= React.useState(0);
+const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false)
 
+const handleChangeElecro = () => {
+    setAffichageDevisElectro(!affichageDevisElectro);
+    console.log(affichageDevisElectro);
+  };
 
 const handleChangeVilleDepart = (event) => {
     setVilleDepart(event.target.value);
@@ -114,7 +119,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                             <Typography variant="h5" align='right' className={classes.padding_10} >
                                 Estimation :  {coutDevis.toFixed(2)}  €                    
                             </Typography>
-                        <Button  variant="contained" className={classes.couleurBoutton}>Je Commande</Button>
+                        <Button  variant="contained" className={classes.couleurBoutton} onClick={handleChangeElecro}>Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
@@ -201,7 +206,9 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                 </Grid>
             </Grid>
         </Container>
-      <DevisElectro></DevisElectro>
+        <Collapse in={affichageDevisElectro}>
+            <DevisElectro></DevisElectro>
+        </Collapse>
      </>
     )
 }
