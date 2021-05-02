@@ -1,5 +1,6 @@
-import { Container, Grid,TextField,MenuItem,Select,InputLabel,FormControl, Typography, BottomNavigation , Box, BottomNavigationAction, Divider, Button   } from '@material-ui/core';
+import {Tooltip, Container, Grid,TextField,MenuItem,Select,InputLabel,FormControl, Typography, BottomNavigation , Box, BottomNavigationAction, Divider, Button   } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Check from '@material-ui/icons/Check';
 import axios from 'axios';
 import data from '../../datas';
 import React from 'react';
@@ -283,13 +284,21 @@ function DevisElectro() {
                 <Grid item container alignItems="center" justify="center" direction="column" className={`${classes.margin_20_bas}`}>
                     <Typography variant="h6">Catégorie :</Typography>                   
                     <BottomNavigation value={value} onChange={handleChange} showLabels>
-                        <BottomNavigationAction label="M" value="M" />
+                            <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="end">
+                                <BottomNavigationAction label="M" value="M" icon={(value==='M')?(<Check></Check>):(<></>)} />
+                            </Tooltip>
                         <Divider orientation="vertical" flexItem />
-                        <BottomNavigationAction label="L" value="L" />
+                            <Tooltip title="Colis de taille: 50cm x 50cm x 100cm ou maximun 30Kg" placement="end">
+                                <BottomNavigationAction label="L" value="L"icon={(value==='L')?(<Check></Check>):(<></>)}/>
+                            </Tooltip>
                         <Divider orientation="vertical" flexItem />
-                        <BottomNavigationAction label="XL" value="XL"  />
+                            <Tooltip title="Colis de taille 100cm  x 100 x 50cm cm ou maximun 40Kg" placement="end">
+                                <BottomNavigationAction label="XL" value="XL" icon={(value==='XL')?(<Check></Check>):(<></>)}/>
+                            </Tooltip>
                         <Divider orientation="vertical" flexItem />
-                        <BottomNavigationAction label="XXL" value="XXL"   />
+                            <Tooltip title="Colis de taille 200cm x 100cm x 100cm ou maximun 50Kg" placement="end">
+                                <BottomNavigationAction label="XXL" value="XXL" icon={(value==='XXL')?(<Check></Check>):(<></>)}/>
+                            </Tooltip>
                     </BottomNavigation>
                 </Grid>
                 {/*Parti payement */}

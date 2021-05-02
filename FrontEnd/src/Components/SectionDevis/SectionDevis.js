@@ -60,8 +60,6 @@ const handleChangeValeurCategorie =(event) => {
 const handleChangeValeurmetrecarre =  (event, newValue) => {
     setMetreCarre(newValue);
 };
-
-
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
     axios.post('http://localhost:8080/devis-colis',{ville:{depart:villeDepart,
@@ -206,7 +204,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                 </Grid>
             </Grid>
         </Container>
-        <Collapse in={affichageDevisElectro}>
+        <Collapse in={affichageDevisElectro} timeout='auto'>
             <DevisElectro></DevisElectro>
         </Collapse>
      </>
