@@ -21,7 +21,7 @@ exports.tousDeviscolis = (req, res) => {
 ///
 exports.generateurPDFColis = (req, res) => {
   const doc = new PDFDocument();
-
+  console.log(req.body);
   // reiecriture entête d'envois pour telechergment direct
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'attachment; filename=DevisColisDenDistri.pdf');
@@ -39,10 +39,9 @@ exports.generateurPDFColis = (req, res) => {
     version: 5, //  Version du QR Code calculé
     errorCorrectionLevel: 'H', //  Niveau de correction d'erreur
   }, (err, url) => url), 200, 200, { width: 150, height: 150 });
-
+  doc.end();
   // HTTP response
   doc.pipe(res);
-  doc.end();
 };
 
 ///

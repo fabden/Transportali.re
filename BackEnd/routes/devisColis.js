@@ -8,7 +8,9 @@ const devisColisRouteur = express.Router();
 // enregistrement un colis en base de donnees
 devisColisRouteur.route('/')
   .post(ctrlColis.calculateurDistancePrix)
-  .put(ctrlColis.tousDeviscolis);
+  .put(ctrlColis.generateurPDFColis);
+devisColisRouteur.route('/pdf')
+  .get(ctrlColis.generateurPDFColis);
 
 // Export
 

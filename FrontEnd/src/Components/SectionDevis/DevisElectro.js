@@ -44,7 +44,7 @@ function DevisElectro() {
     const classes = useStyles();
 
     //gestion menu categorie
-    const [value, setValue] = React.useState('M');
+    const [valueCategorie, setValue] = React.useState('M');
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -121,7 +121,7 @@ function DevisElectro() {
       };
 
     ///
-    /// Calcule cout livraison
+    /// Calcule coût livraison
 
     const [coutDevis, setCoutDevis]=React.useState ({distance_livraison:0,
         prix:0,
@@ -130,7 +130,7 @@ function DevisElectro() {
     const recuperer_devis_rapide = ()=>{    
         axios.post('http://localhost:8080/devis-colis',{ville:{depart:adresseChargement.code_postale,
         arrive:adresseLivraison.code_postale},
-        categorie:value
+        categorie:valueCategorie
         })
             .then((res) => {
                 console.log(res);
@@ -139,8 +139,27 @@ function DevisElectro() {
             .catch((e) => console.log(e))
     }
 
+    ///Generateur de pdf (devis)
+    const generateur_pdf_devis = ()=>{
+        axios.get('http://localhost:8080/devis-colis/pdf',{adresseLivraison, adresseChargement, valueCategorie })
+            .then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Bon_DMST.pdf');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link)
+              })
+            .catch((e) => console.log(e))
+
+    }
+
+
+    ///
+
     // useeffect pour le calcule autmatique 
-        React.useEffect(recuperer_devis_rapide,[adresseChargement.code_postale,adresseLivraison.code_postale,value]);
+        React.useEffect(recuperer_devis_rapide,[adresseChargement.code_postale,adresseLivraison.code_postale,valueCategorie]);
     ///
 
     ///gestion Date livraison
@@ -283,21 +302,21 @@ function DevisElectro() {
                 {/*Parti cathegory */}
                 <Grid item container alignItems="center" justify="center" direction="column" className={`${classes.margin_20_bas}`}>
                     <Typography variant="h6">Catégorie :</Typography>                   
-                    <BottomNavigation value={value} onChange={handleChange} showLabels>
+                    <BottomNavigation value={valueCategorie} onChange={handleChange} showLabels>
                             <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="end">
-                                <BottomNavigationAction label="M" value="M" icon={(value==='M')?(<Check></Check>):(<></>)} />
+                                <BottomNavigationAction label="M" value="M" icon={(valueCategorie==='M')?(<Check></Check>):(<></>)} />
                             </Tooltip>
                         <Divider orientation="vertical" flexItem />
                             <Tooltip title="Colis de taille: 50cm x 50cm x 100cm ou maximun 30Kg" placement="end">
-                                <BottomNavigationAction label="L" value="L"icon={(value==='L')?(<Check></Check>):(<></>)}/>
+                                <BottomNavigationAction label="L" value="L"icon={(valueCategorie==='L')?(<Check></Check>):(<></>)}/>
                             </Tooltip>
                         <Divider orientation="vertical" flexItem />
                             <Tooltip title="Colis de taille 100cm  x 100 x 50cm cm ou maximun 40Kg" placement="end">
-                                <BottomNavigationAction label="XL" value="XL" icon={(value==='XL')?(<Check></Check>):(<></>)}/>
+                                <BottomNavigationAction label="XL" value="XL" icon={(valueCategorie==='XL')?(<Check></Check>):(<></>)}/>
                             </Tooltip>
                         <Divider orientation="vertical" flexItem />
                             <Tooltip title="Colis de taille 200cm x 100cm x 100cm ou maximun 50Kg" placement="end">
-                                <BottomNavigationAction label="XXL" value="XXL" icon={(value==='XXL')?(<Check></Check>):(<></>)}/>
+                                <BottomNavigationAction label="XXL" value="XXL" icon={(valueCategorie==='XXL')?(<Check></Check>):(<></>)}/>
                             </Tooltip>
                     </BottomNavigation>
                 </Grid>
@@ -314,7 +333,7 @@ function DevisElectro() {
                         </Typography>
                     </Grid>
                     <Grid item xs alignItems="center" justify="center" container >
-                        <Button xs variant="contained">Payement</Button>
+                        <Button xs variant="contained" onClick={generateur_pdf_devis}>Payement</Button>
                     </Grid>
                 </Grid>
             </Grid>
