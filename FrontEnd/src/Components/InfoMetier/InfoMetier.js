@@ -1,18 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
+import PeopleAlt from '@material-ui/icons/PeopleAlt';
+import DirectionsRun from '@material-ui/icons/DirectionsRun';
+import OpenInNew from '@material-ui/icons/OpenInNew';
+import Storefront from '@material-ui/icons/Storefront';
 
 
 
-const useStyles = makeStyles({
-    height_100:{
-        height:'100px',
-    },
-});
+
+
+
 
 
 function InfoMetier() {
-    const classes = useStyles();
+   
   
     return (
         <>
@@ -20,11 +21,9 @@ function InfoMetier() {
             <Grid container justify="space-around" alignItems="center" >
                 <Grid container xs={12} sm={6} md item  justify="center" alignItems="center">
                     <Grid xs={1} item>
-                        <Typography>
-                            icone
-                        </Typography>
+                        <PeopleAlt fontSize='large'></PeopleAlt>
                     </Grid>
-                    <Grid xs={8} item  container direction="column" justify="center" alignItems="center">
+                    <Grid xs={7} item  container direction="column" justify="center" alignItems="center">
                         <Grid item xs={12}> 
                             <Typography variant="h3">
                                 652 
@@ -37,11 +36,9 @@ function InfoMetier() {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid container xs={12}  sm={6} md item  justify="center" alignItems="center">
+                <Grid container xs={7}  sm={6} md item  justify="center" alignItems="center">
                     <Grid xs={1} item>
-                        <Typography>
-                            icone
-                        </Typography>
+                     <DirectionsRun fontSize='large'></DirectionsRun>
                     </Grid>
                     <Grid xs={8} item container direction="column" justify="center" alignItems="center">
                         <Grid item> 
@@ -58,9 +55,7 @@ function InfoMetier() {
                 </Grid>
                 <Grid container xs={12} sm={6}  md  item  justify="center" alignItems="center">
                     <Grid xs={1} item>
-                        <Typography>
-                            icone
-                        </Typography>
+                    <OpenInNew fontSize='large'></OpenInNew>
                     </Grid>
                     <Grid xs={8} item  container direction="column" justify="center" alignItems="center">
                         <Grid item > 
@@ -77,9 +72,7 @@ function InfoMetier() {
                 </Grid>
                 <Grid container xs={12} sm={6}  md  item  justify="center" alignItems="center">
                     <Grid xs={1} item>
-                        <Typography>
-                            icone
-                        </Typography>
+                  <Storefront fontSize='large'></Storefront>
                     </Grid>
                     <Grid xs={8} item  container direction="column" justify="center" alignItems="center">
                         <Grid item> 

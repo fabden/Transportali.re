@@ -2,7 +2,9 @@ import { Button, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import image from '../../Asset/5367362.jpg';
-//import Facebook from '@material-ui/icons/Facebook';
+import Home from '@material-ui/icons/Home';
+import Email from '@material-ui/icons/Email';
+import Facebook from '@material-ui/icons/Facebook';
 
 
 //style materila ui
@@ -56,29 +58,27 @@ function Header() {
                     </Typography> 
                     <Typography align='center'>
                        010203040506
+                       <br></br>
                     </Typography>                
                 </Grid>
                 <Grid item xs={12} sm={6} md container spacing={2} alignItems="center" justify="center">                  
-                    <Grid item container alignItems="center" justify="center" spacing={2}>
+                    <Grid item container alignItems="center" justify="start" spacing={2}>
                         <Grid item >
-                            <Typography >
-                                icone
-                            </Typography>
+                           <Home></Home>
                         </Grid>
                         <Grid item>
                             <Typography>
                                 12 rue edmond albiuis <br></br>
                                 97441 st suzanne
+                                <br></br>
                             </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={6} md container spacing={2} alignItems="center"  justify="center">
-                    <Grid item container spacing={2} alignItems="center"  justify="center">
+                    <Grid item container spacing={2} alignItems="center"  justify="start">
                         <Grid item>
-                            <Typography >
-                            icone
-                            </Typography>
+                         <Email ></Email>
                         </Grid>
                         <Grid item >
                             <Typography >
@@ -88,9 +88,7 @@ function Header() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md container spacing={2} alignItems="center" justify="center">
-                    <Typography align="center">
-                        Facebook
-                    </Typography>
+                  <Facebook fontSize='large'></Facebook>
  
                 </Grid>
             </Grid >

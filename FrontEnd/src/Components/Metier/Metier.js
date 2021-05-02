@@ -2,7 +2,10 @@ import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import image from '../../Asset/1280.jpg';
-
+import Home from '@material-ui/icons/Home';
+import MoveToInbox from '@material-ui/icons/MoveToInbox';
+import Store from '@material-ui/icons/Store';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 
 const useStyles = makeStyles({
 
@@ -33,15 +36,12 @@ function Metier() {
 
     const classes = useStyles();
 
-
     return (
     <Container maxWidth disableGutters className={classes.image}>
         <Grid container   direction="row" justify="space-evenly" alignItems="baseline" className={classes.couleurFond}>
             <Grid xs={12} sm={5} md={2} item container   direction="column" justify="center" alignItems="center" className={classes.couleurFondu}>
-                icone
-                <br></br>
+                <Home fontSize='large'></Home>
                 <Typography variant="h5" align='center'>
-                <br></br>
                  Demenagement Residense
                 </Typography>
                 <br></br>
@@ -50,11 +50,9 @@ function Metier() {
                 </Typography>
             </Grid>
             <Grid xs={12} sm={5} md={2} item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
-                icone
-                <Typography variant="h5" align='center'>
-                <br></br>
+                <MoveToInbox fontSize='large'></MoveToInbox>
+                <Typography variant="h5" align='center'>                
                     Livraison colis
-                    
                 </Typography>
                 <Typography align='center'>
                 <br></br>
@@ -63,10 +61,9 @@ function Metier() {
             </Grid>
 
             <Grid xs={12} sm={5} md={2}  item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
-                icone
+               <Store fontSize='large'></Store>
                 <Typography variant="h5" align='center'>
-                <br></br>
-                Demenagment Commerce
+                    Demenagment Commerce
                 </Typography>
                 <Typography align='center'>
                 <br></br>
@@ -74,9 +71,8 @@ function Metier() {
                 </Typography> 
             </Grid>
             <Grid xs={12} sm={5} md={2} item container  direction="column" justify="flex-start" alignItems="center" className={classes.couleurFondu}>
-                icone
+                <ShoppingCart fontSize='large'></ShoppingCart>
                 <Typography variant="h5" align='center'>
-                <br></br>
                     Chargement / Dechargement
                 </Typography>
                 <Typography align='center'>
