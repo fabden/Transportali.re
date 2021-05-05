@@ -9,14 +9,14 @@ const useStyles = makeStyles({
     border_adresse_arriver:{
         borderColor:'rgb(220,20,60)',
         borderStyle:"solid",
-        borderRadius:'10px',
+        borderRadius:'5px',
         padding:'5px',
         margin:'0 0 10px 0',
     },
     border_adresse_depart:{
         borderColor:'rgb(4, 170, 109)',
         borderStyle:"solid",
-        borderRadius:'10px',
+        borderRadius:'5px',
         padding:'5px',
         margin:'0 0 10px 0',
     },
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         margin:'0 0 20px 0',
     },
     Fond_devis:{
-        backgroundColor:'rgb(237, 154, 59, 40%)',
+        backgroundColor:'rgb(38, 53, 80)',
         borderRadius:'5px',
         padding: '15px',
     },
@@ -34,7 +34,10 @@ const useStyles = makeStyles({
         height:'300px',
         backgroundColor:'rgb(4, 10, 9,5%)',
         width:"100%",
-        borderRadius:'20px'
+        borderRadius:'5px',
+    },
+    couleurblancfont:{
+        color:'rgb(255, 255, 255)',
     }
 
 });
@@ -174,12 +177,12 @@ function DevisElectro() {
     ///
 
     return (
-    <Container maxWidth>
+    <Container maxWidth >
         <Grid container className={classes.padding_20} justify="space-around" alignItems="center">
             {/*partie de gauche adresse */}
-            <Grid item xs={12} sm={12} md={12} lg={7} container justify="space-around" alignItems="center" >
+            <Grid item xs={12} sm={12} md={12} lg={8} container justify="space-around" alignItems="center" >
                 {/*Date de la mission*/}
-                <Grid item container xs={12} sm={10} md={12} justify="center" alignItems="center" className={classes.padding_20} >
+                <Grid item container xs={12} sm={10} md={10} justify="space-around" alignItems="center" className={classes.padding_20} >
                     <Grid item xs={12} sm={5} >
                         <Typography variant="h5">Mission prevu pour le  :</Typography>
                    </Grid> 
@@ -190,7 +193,7 @@ function DevisElectro() {
                     </Grid>
                 </Grid>
                 {/*case de chargement*/}
-                <Grid item xs={12} sm={12} md={12} container justify="space-around" alignItems="center" direction="column" className={classes.border_adresse_depart}>
+                <Grid item xs={12} sm={12} md={9} container justify="space-around" alignItems="center" direction="column" className={classes.border_adresse_depart}>
                     <Grid item xs={12}>
                         <Typography align="center" variant="h5">
                             Ardesse de chargement
@@ -235,7 +238,7 @@ function DevisElectro() {
                     </Grid>
                 </Grid>
                 {/*case livraison */}
-                <Grid item xs={12} sm={12} md={12} container justify="space-around" alignItems="center" direction="column" className={classes.border_adresse_arriver} >
+                <Grid item xs={12} sm={12} md={9} container justify="space-around" alignItems="center" direction="column" className={classes.border_adresse_arriver} >
                     <Grid item xs={12}>
                             <Typography align="center" variant="h5">
                                 Ardesse de livraison
@@ -292,10 +295,10 @@ function DevisElectro() {
                     </Grid>                    
                     <Grid item xs container alignItems="center" justify="center" className={`${classes.margin_20_bas}`}>
                         <Grid xs item container alignItems="center" justify="start" >
-                            <Typography variant="h4">
+                            <Typography variant="h4" className={classes.couleurblancfont}>
                                     Distance : 
                             </Typography> 
-                            <Typography variant="h4">
+                            <Typography variant="h4" className={classes.couleurblancfont}>
                                  {` ${coutDevis.distance_livraison.toFixed(2)} Km`}
                             </Typography> 
                         </Grid>
@@ -303,7 +306,7 @@ function DevisElectro() {
                 </Grid>
                 {/*Parti cathegory */}
                 <Grid item container alignItems="center" justify="center" direction="column" className={`${classes.margin_20_bas}`}>
-                    <Typography variant="h6">Catégorie :</Typography>                   
+                    <Typography variant="h6" className={classes.couleurblancfont}>Catégorie :</Typography>                   
                     <BottomNavigation value={valueCategorie} onChange={handleChange} showLabels>
                             <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="end">
                                 <BottomNavigationAction label="M" value="M" icon={(valueCategorie==='M')?(<Check></Check>):(<></>)} />
@@ -327,10 +330,10 @@ function DevisElectro() {
                 
                 <Grid item container alignItems="center" justify="center" >
                     <Grid item container xs alignItems="center" justify="center" >
-                        <Typography variant="h5">
+                        <Typography variant="h5" className={classes.couleurblancfont}>
                           Payment   :
                         </Typography>
-                        <Typography variant="h5">
+                        <Typography variant="h5" className={classes.couleurblancfont}>
                             {` ${coutDevis.prix.toFixed(2)} €`}
                         </Typography>
                     </Grid>

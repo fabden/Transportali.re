@@ -31,10 +31,20 @@ const useStyles = makeStyles({
     couleurBlanc:{
         color: "rgb(255 255 255)",
         borderColor: "rgb(255 255 255)",
+        
+    },
+    couleurOrange:{
+        color:"rgb(237, 154, 59)"
     },
     margeBas:{
         margin:"10px 0px 20px 0px",
     },
+    couleurbouton:{
+        color: "rgb(255 255 255)",
+        borderColor: "rgb(237, 154, 59)",
+        backgroundColor:"rgb(237, 154, 59)",
+    },
+
 
   });
   
@@ -64,7 +74,7 @@ function Header() {
                 <Grid item xs={12} sm={6} md container spacing={2} alignItems="center" justify="center">                  
                     <Grid item container alignItems="center" justify="start" spacing={2}>
                         <Grid item >
-                           <Home></Home>
+                           <Home className={classes.couleurFont}></Home>
                         </Grid>
                         <Grid item>
                             <Typography>
@@ -78,7 +88,7 @@ function Header() {
                 <Grid item xs={12} sm={6} md container spacing={2} alignItems="center"  justify="center">
                     <Grid item container spacing={2} alignItems="center"  justify="start">
                         <Grid item>
-                         <Email ></Email>
+                         <Email className={classes.couleurFont}></Email>
                         </Grid>
                         <Grid item >
                             <Typography >
@@ -88,7 +98,7 @@ function Header() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md container spacing={2} alignItems="center" justify="center">
-                  <Facebook fontSize='large'></Facebook>
+                  <Facebook fontSize='large' className={classes.couleurFont}></Facebook>
  
                 </Grid>
             </Grid >
@@ -117,9 +127,9 @@ function Header() {
                         livraison Rapide
                     </Typography>
                     <Typography variant="h5" >
-                        Lorsqu'il est temps de quitter votre domicile ou votre entreprise,<br></br> il est temps d'appeler DMST. <br></br> Nous vous facilitons la tâche. <br></br><br></br>
+                        Lorsqu'il est temps de quitter votre domicile ou votre entreprise,<span className={classes.couleurOrange}>  il est temps d'appeler DMST.</span>  Nous vous facilitons la tâche. <br></br><br></br>
                     </Typography> 
-                    <Button align="center" variant="outlined" size="large" className={classes.couleurBlanc} >Devis</Button>
+                    <Button align="center" variant="contained" size="large" className={classes.couleurbouton} >Devis</Button>
                 </Typography>
             </Grid>
             <Grid item xs={0} sm={0} md container alignItems="center" justify="center">

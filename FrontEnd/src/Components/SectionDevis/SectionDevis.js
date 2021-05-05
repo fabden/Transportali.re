@@ -79,7 +79,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
 
     return ( 
     <>      
-        <Container className={classes.couleurGris} maxWidth>
+        <Container className={classes.couleurGris} maxWidth >
             <Grid container justify="space-around"  >  
                 <Grid item  xs={11} sm={5} md={3} >
                     <Card variant="outlined"  >
@@ -204,8 +204,8 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                 </Grid>
             </Grid>
         </Container>
-        <Collapse in={affichageDevisElectro} timeout='auto'>
-            <DevisElectro></DevisElectro>
+        <Collapse in={affichageDevisElectro} timeout='auto' >
+            <DevisElectro ></DevisElectro>
         </Collapse>
      </>
     )
