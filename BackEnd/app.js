@@ -16,7 +16,7 @@ const app = express();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost/transportali', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect('mongodb://localhost', { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connexion à MongoDB réussie !');
   } catch (err) {
     console.log('Connexion à MongoDB échouée !', err);

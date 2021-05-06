@@ -129,7 +129,8 @@ function Header() {
                     <Typography variant="h5" >
                         Lorsqu'il est temps de quitter votre domicile ou votre entreprise,<span className={classes.couleurOrange}>  il est temps d'appeler DMST.</span>  Nous vous facilitons la tâche. <br></br><br></br>
                     </Typography> 
-                    <Button align="center" variant="contained" size="large" className={classes.couleurbouton} >Devis</Button>
+                    <Button align="center" variant="contained" size="large" className={classes.couleurbouton} href="#devis" >Devis</Button>
+                   
                 </Typography>
             </Grid>
             <Grid item xs={0} sm={0} md container alignItems="center" justify="center">

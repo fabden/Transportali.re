@@ -45,7 +45,6 @@ const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false)
 
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
-    console.log(affichageDevisElectro);
   };
 
 const handleChangeVilleDepart = (event) => {
@@ -79,7 +78,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
 
     return ( 
     <>      
-        <Container className={classes.couleurGris} maxWidth >
+        <Container className={classes.couleurGris} maxWidth id="devis">
             <Grid container justify="space-around"  >  
                 <Grid item  xs={11} sm={5} md={3} >
                     <Card variant="outlined"  >
@@ -117,7 +116,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                             <Typography variant="h5" align='right' className={classes.padding_10} >
                                 Estimation :  {coutDevis.toFixed(2)}  €                    
                             </Typography>
-                        <Button  variant="contained" className={classes.couleurBoutton} onClick={handleChangeElecro}>Je Commande</Button>
+                        <Button  variant="contained" className={classes.couleurBoutton} href='#deviselectro' onClick={handleChangeElecro}>Je Commande</Button>
                         </Grid>
                     </Card>
                 </Grid>
@@ -204,7 +203,7 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                 </Grid>
             </Grid>
         </Container>
-        <Collapse in={affichageDevisElectro} timeout='auto' >
+        <Collapse in={affichageDevisElectro} timeout='auto' id='#deviselectro'>
             <DevisElectro ></DevisElectro>
         </Collapse>
      </>
