@@ -131,7 +131,7 @@ function DevisElectro() {
     });
 
     const recuperer_devis_rapide = ()=>{    
-        axios.post('http://localhost:8080/devis-colis',{ville:{depart:adresseChargement.code_postale,
+        axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:adresseChargement.code_postale,
         arrive:adresseLivraison.code_postale},
         categorie:valueCategorie
         })
@@ -146,7 +146,7 @@ function DevisElectro() {
     const generateur_pdf_devis = ()=>{
     axios({
         method:'post',
-        url:'http://localhost:8080/devis-colis/pdf',
+        url:'http://82.165.56.203/api/devis-colis/pdf',
         responseType:'arraybuffer',
         data: {adresseLivraison, adresseChargement, valueCategorie, dateLivraison}
       })

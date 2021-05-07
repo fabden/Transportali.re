@@ -61,7 +61,7 @@ const handleChangeValeurmetrecarre =  (event, newValue) => {
 };
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://localhost:8080/devis-colis',{ville:{depart:villeDepart, arrive:villeArrive},
+    axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:villeDepart, arrive:villeArrive},
     categorie:valeurCategorie
     })
         .then((res) => setCoutDevis(res.data.prix))
