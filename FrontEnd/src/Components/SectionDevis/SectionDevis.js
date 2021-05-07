@@ -17,6 +17,9 @@ const useStyles = makeStyles({
       margin:'50px 0 0 0',
         
     },
+    Boutton_partenaire:{
+        height:"150px",
+    },
     couleurBack:{
         backgroundColor: 'rgb(237, 154, 59, 95%)',
         borderRadius:'5px 5px 0 0 ',
@@ -30,8 +33,11 @@ const useStyles = makeStyles({
     },
     couleurBoutton:{
         backgroundColor: 'rgb(237, 154, 59, 95%)',
-        borderRadius:'0 0 0 0',
-    }
+        borderRadius:'5 5 5 5',        
+    },
+    bouton_wight:{
+        width:'200px',
+    },
   });
 
 function SectionDevis() {
@@ -156,47 +162,11 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                 <Grid  item xs={11} sm={6} md={3} >
                     <Card variant="outlined" >
                         <Grid container direction="column" alignItems="stretch">
-                        <CardHeader title="Livraison Partenaires" className={classes.couleurBack} />
-                        
-                            <Grid  container className={classes.padding_10}>
-                                <Button size="large" >
-                                        Ravate
-                                </Button>
-                                <Button size="large" >
-                                        Weldom
-                                </Button>
-                                <Button size="large" >
-                                        BUT
-                                </Button>
-                                <Button size="large" >
-                                        Leclere
-                                </Button>
-                            </Grid> 
-                                       
-                            <FormControl margin="normal" className={classes.padding_10}>
-                                <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
-                                <Select value={villeArrive} onChange={handleChangeVilleArrive}>
-                                    {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
-                                </Select>
-                            </FormControl>
-                            <FormControl margin="normal" className={classes.padding_10}>
-                            <FormLabel >Je recupere</FormLabel>
-                                <RadioGroup defaultValue='M'>
-                                    
-                                         <FormControlLabel value="Meuble" control={<Radio/>} label="Meuble" />                                   
-                                     
-                                     
-                                         <FormControlLabel value="Electromenagé" control={<Radio/>} label="Electromenagé" />
-                                    
-                                    
-                                        <FormControlLabel value="Table" control={<Radio/>} label="Table" />
-                                    
-                                   
-                                        <FormControlLabel value="Kit Cuisine" control={<Radio/>} label="Kit Cuisine" />
-                                   
-                                </RadioGroup>
-                        </FormControl>
-                            <Button  variant="contained" className={classes.couleurBoutton}>Je Commande</Button>
+                        <CardHeader title="Connexion Partenaires" className={classes.couleurBack} />
+                            <Grid item container direction="column" justify="space-around" alignItems="center" className={`${classes.Boutton_partenaire}`}>
+                                <Button className={`${classes.couleurBoutton} ${classes.bouton_wight}`}>Magazin</Button>
+                                <Button className={`${classes.couleurBoutton} ${classes.bouton_wight}`}>Chaufeur</Button>
+                           </Grid>                            
                         </Grid>
                     </Card>
                 </Grid>
