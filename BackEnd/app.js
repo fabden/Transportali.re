@@ -39,9 +39,9 @@ app.use(express.json());
 
 // routes
 
-app.use('/devis-colis', routeDevisColis);
-app.use('/devis-demenagement', routeDevisDemenagemnt);
-app.use('/devis-partenaire', routePartenaires);
+app.use('/api/devis-colis', routeDevisColis);
+app.use('/api/devis-demenagement', routeDevisDemenagemnt);
+app.use('/api/devis-partenaire', routePartenaires);
 
 // export
 module.exports = app;
