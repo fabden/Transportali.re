@@ -55,7 +55,7 @@ function Header() {
 
     return (
     <>
-        <Container maxWidth >
+        <Container maxWidth={false}>
             <Grid container alignItems="center" justify="center" className={classes.margeBas}>
                 <Grid item xs={12} sm={12} md>
                     <Typography align="center">
@@ -72,7 +72,7 @@ function Header() {
                     </Typography>                
                 </Grid>
                 <Grid item xs={12} sm={6} md container spacing={2} alignItems="center" justify="center">                  
-                    <Grid item container alignItems="center" justify="start" spacing={2}>
+                    <Grid item container alignItems="center" justify="flex-start" spacing={2}>
                         <Grid item >
                            <Home className={classes.couleurFont}></Home>
                         </Grid>
@@ -86,7 +86,7 @@ function Header() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={6} md container spacing={2} alignItems="center"  justify="center">
-                    <Grid item container spacing={2} alignItems="center"  justify="start">
+                    <Grid item container spacing={2} alignItems="center"  justify="flex-start">
                         <Grid item>
                          <Email className={classes.couleurFont}></Email>
                         </Grid>
@@ -104,7 +104,7 @@ function Header() {
             </Grid >
 
         </Container>
-        <Container  maxWidth disableGutters>
+        <Container  maxWidth={false} disableGutters>
         <Grid container className={classes.menu} alignItems="center" justify="flex-start"> 
             <Grid item xs={4}  container alignItems="center" justify="space-around" className={classes.couleurBlanc}>
                     <Typography >
@@ -119,7 +119,7 @@ function Header() {
                 </Grid>
             </Grid>
         </Container>
-        <Container maxWidth disableGutters>
+        <Container maxWidth={false} disableGutters>
         <Grid container className={classes.image} alignItems="center" justify="center" > 
             <Grid item xs={11} sm={8} md container alignItems="center" justify="center" className={classes.image_text}>
                 <Typography  align="center">
@@ -133,7 +133,7 @@ function Header() {
                    
                 </Typography>
             </Grid>
-            <Grid item xs={0} sm={0} md container alignItems="center" justify="center">
+            <Grid item xs sm md container alignItems="center" justify="center">
         
             </Grid>
             </Grid>

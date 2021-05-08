@@ -43,40 +43,61 @@ const useStyles = makeStyles({
 function SectionDevis() {
 
 //state devis meuble/electro
-const [devisMeubleElectro, setDevisMeubleElectro] = React.useState({
-    ville_depart:"",
-    ville_arrive:"",
+const [devisElectroDepart,setDevisElectroDepart]=React.useState({
+    ville:"",
+    adresse:"",
+    contact:"",
+    email:"",
+    telephone:"",
+    commentaire:"",
+    },);
+
+const [devisElectroArrive,setDevisElectroArrive]=React.useState({
+    ville:"",
+    adresse:"",
+    contact:"",
+    email:"",
+    telephone:"",
+    commentaire:"",
+    });
+const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
     choix_meuble_electro:"",
     longeur:0,
     largeur:0,
     hauteur:0,
     poids:0,
+    distance:"",
+    prix:0,
 });
 
-const [valeurCategorie, setValeurCategorie]= React.useState('');
 const [coutDevis, setCoutDevis]=React.useState (0);
 const [metreCarre, setMetreCarre]= React.useState(0);
 const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false)
 
-const changevaleurinput =(e)=>{
+const changevaleurinputElectroDepart =(e)=>{
     console.log(e.target);
-    setDevisMeubleElectro({...devisMeubleElectro,[e.target.name]: e.target.value})
-}
+    setDevisElectroDepart({...devisElectroDepart,[e.target.name]: e.target.value})
+};
+const changevaleurinputElectroArrive =(e)=>{
+    console.log(e.target);
+    setDevisElectroArrive({...devisElectroArrive,[e.target.name]: e.target.value})
+};
+const changevaleurinputparamMeubleElectro =(e)=>{
+    console.log(e.target);
+    setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
+};
 
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
   };
 
-const handleChangeValeurCategorie =(event) => {
-    setValeurCategorie(event.target.value);
-};
 const handleChangeValeurmetrecarre =  (event, newValue) => {
     setMetreCarre(newValue);
 };
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
     axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:"villeDepart", arrive:"villeArrive"},
-    categorie:valeurCategorie
+    categorie:"valeurCategorie"
     })
     /*.then((res) => setCoutDevis(res.data.prix))*/
         .then((res) => setCoutDevis(5))
@@ -85,7 +106,7 @@ const recuperer_devis_rapide = ()=>{
 
 
 // useeffect pour le calcule autmatique 
-React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
+React.useEffect(recuperer_devis_rapide,[]);
 
 
 //style de la pages
@@ -93,7 +114,7 @@ React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
 
     return ( 
     <>      
-        <Container className={classes.couleurGris} maxWidth id="devis">
+        <Container className={classes.couleurGris} maxWidth={false} id="devis">
             <Grid container justify="space-around"  >  
                 <Grid item  xs={11} sm={5} md={3} >
                     <Card variant="outlined"  >
@@ -101,32 +122,32 @@ React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
                         <CardHeader title="Livraison electromenagé/meubles" className={`${classes.couleurBackElectro} ${classes.couleurBack}`}/>
                         <FormControl margin="normal" className={classes.padding_10}>
                             <InputLabel  className={classes.padding_10}>Ville Depart</InputLabel >
-                            <Select  id='ville_depart'name='ville_depart'value={devisMeubleElectro.ville_depart} onChange={changevaleurinput}>
+                            <Select  id='ville_depart'name='ville'value={devisElectroDepart.ville} onChange={changevaleurinputElectroDepart}>
                                 {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
                         <FormControl margin="normal" className={classes.padding_10}>
                             <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
-                            <Select id='ville_arrive'name='ville_arrive'value={devisMeubleElectro.ville_arrive} onChange={changevaleurinput}>
+                            <Select id='ville_arrive'name='ville'value={devisElectroArrive.ville} onChange={changevaleurinputElectroArrive}>
                                  {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
                         <FormControl margin="normal" className={classes.padding_10}>
                                 <FormControl  className={classes.formControl}>
                                     <InputLabel>Selectionnner votre meuble/electromenager</InputLabel>
-                                    <Select id='choix_meuble_electro'name='choix_meuble_electro'onChange={changevaleurinput} native  value={devisMeubleElectro.choix_meuble_electro}>  
+                                    <Select id='choix_meuble_electro'name='choix_meuble_electro'onChange={changevaleurinputparamMeubleElectro} native  value={paramMeubleElectro.choix_meuble_electro}>  
                                     <option aria-label="Selectionnner votre meuble/electromenager" />                                      
                                                 <optgroup label="Meuble">
-                                                    <option value={1}>canapé 1 place</option>
-                                                    <option value={2}>canapé 2 places</option>
-                                                    <option value={3}>canapé 3 places</option>
-                                                    <option value={4}>table 2m x 3m</option>
+                                                    <option value="canapé 1 place">canapé 1 place</option>
+                                                    <option value="canapé 1 place">canapé 2 places</option>
+                                                    <option value="canapé 1 place">canapé 3 places</option>
+                                                    <option value="canapé 1 place">table 2m x 3m</option>
                                                 </optgroup>
                                                 <optgroup label="electromenagé">
-                                                    <option value={2}>Frigidere</option>
-                                                    <option value={1}>Machine a laver</option>
-                                                    <option value={1}>Lave vaiselle</option>
-                                                    <option value={1}>seche linge</option>                                                    
+                                                    <option value="Frigidere">Frigidere</option>
+                                                    <option value="Machine a laver">Machine a laver</option>
+                                                    <option value="Lave vaiselle">Lave vaiselle</option>
+                                                    <option value="seche linge">seche linge</option>                                                    
                                                 </optgroup>
                                     </Select>
                                 </FormControl>
@@ -141,18 +162,18 @@ React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
                                 <form autoComplete="off">
                                     <Grid container>
                                         <Grid xs item>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur'value={devisMeubleElectro.longeur} onChange={changevaleurinput}/>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur'value={paramMeubleElectro.longeur} onChange={changevaleurinputparamMeubleElectro}/>
                                         </Grid>
                                         <Grid xs item >
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur'value={devisMeubleElectro.largeur} onChange={changevaleurinput} />
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur'value={paramMeubleElectro.largeur} onChange={changevaleurinputparamMeubleElectro} />
                                         </Grid>
                                     </Grid>
                                     <Grid container>
                                         <Grid xs  item>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur'value={devisMeubleElectro.hauteur} onChange={changevaleurinput}/>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur'value={paramMeubleElectro.hauteur} onChange={changevaleurinputparamMeubleElectro}/>
                                         </Grid>
                                         <Grid item xs>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids'value={devisMeubleElectro.poids} onChange={changevaleurinput} />
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids'value={paramMeubleElectro.poids} onChange={changevaleurinputparamMeubleElectro} />
                                         </Grid> 
                                    </Grid>
                                     </form>
@@ -170,7 +191,7 @@ React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
                             <CardHeader title="Demenagement" className={classes.couleurBack}/>
                             <FormControl margin="normal" className={classes.padding_10}>
                                 <InputLabel className={classes.padding_10} >Ville Depart</InputLabel>
-                                <Select value="{villeDepart}" onChange={()=>{}}>
+                                <Select >
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
@@ -212,7 +233,7 @@ React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
             </Grid>
         </Container>
         <Collapse in={affichageDevisElectro} timeout='auto' id='#deviselectro'>
-            <DevisElectro ></DevisElectro>
+            <DevisElectro ville_depart={devisElectroDepart} ville_arrive={devisElectroArrive} changeInputdepart={changevaleurinputElectroDepart} changeInputarrive={changevaleurinputElectroArrive} paramMeubleElectro={paramMeubleElectro}></DevisElectro>
         </Collapse>
      </>
     )

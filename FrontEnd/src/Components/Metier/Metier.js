@@ -41,7 +41,7 @@ function Metier() {
     const classes = useStyles();
 
     return (
-    <Container maxWidth disableGutters className={classes.image}>
+    <Container maxWidth={false} disableGutters className={classes.image}>
         <Grid container   direction="row" justify="space-evenly" alignItems="baseline" className={classes.couleurFond}>
             <Grid xs={12} sm={5} md={2} item container   direction="column" justify="center" alignItems="center" className={classes.couleurFondu}>
                 <Home fontSize='large' className={classes.couleurBleu}></Home>
