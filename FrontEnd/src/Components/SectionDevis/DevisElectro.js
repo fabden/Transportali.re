@@ -306,7 +306,7 @@ function DevisElectro() {
                 </Grid>
                 {/*Parti cathegory */}
                 <Grid item container alignItems="center" justify="center" direction="column" className={`${classes.margin_20_bas}`}>
-                    <Typography variant="h6" className={classes.couleurblancfont}>Catégorie :</Typography>                   
+                    <Typography variant="h6" className={classes.couleurblancfont}>Meuble / Electromenagé</Typography>                   
                     <BottomNavigation value={valueCategorie} onChange={handleChange} showLabels>
                             <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="end">
                                 <BottomNavigationAction label="M" value="M" icon={(valueCategorie==='M')?(<Check></Check>):(<></>)} />

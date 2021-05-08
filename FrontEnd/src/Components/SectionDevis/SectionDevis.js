@@ -102,21 +102,27 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                             </Select>
                         </FormControl>
                         <FormControl margin="normal" className={classes.padding_10}>
-                            <FormLabel >Categorie Colis</FormLabel>
-                                <RadioGroup defaultValue='M'>
-                                    <Tooltip title="Colis de taille: 50cm x 50cm x 50cm ou maximun 10Kg" placement="left">
-                                         <FormControlLabel value="M" control={<Radio/>} label="M --  Taille: 50cm x 50cm x 50cm / maximun 10Kg" onChange={handleChangeValeurCategorie}/>                                   
-                                     </Tooltip>
-                                     <Tooltip title="Colis de taille: 50cm x 50cm x 100cm ou maximun 30Kg" placement="right-end">
-                                         <FormControlLabel value="L" control={<Radio/>} label="L -- Taille: 50cm x 50cm x 100cm / maximun 30Kg" onChange={handleChangeValeurCategorie}/>
-                                    </Tooltip>
-                                    <Tooltip title="Colis de taille 100cm  x 100 x 50cm cm ou maximun 40Kg" placement="right-end">
-                                        <FormControlLabel value="XL" control={<Radio/>} label="XL -- Taille 100cm  x 100 x 50cm cm / maximun 40Kg" onChange={handleChangeValeurCategorie}/>
-                                    </Tooltip>
-                                    <Tooltip title="Colis de taille </br> 200cm x 100cm x 100cm ou maximun 50Kg" placement="right-end">
-                                        <FormControlLabel value="XXL" control={<Radio/>} label="XXL -- Taille 200cm x 100cm x 100cm / maximun 50Kg" onChange={handleChangeValeurCategorie}/>
-                                    </Tooltip>
-                                </RadioGroup>
+                                <FormControl  className={classes.formControl}>
+                                    <InputLabel id="demo-simple-select-outlined-label">Selectionnner votre meuble/electromenager</InputLabel>
+                                    <Select
+                                    defaultValue=""
+                                    onChange={()=>{}}
+                                    native>
+                                        <option aria-label="Selectionnner votre meuble/electromenager" value="" />
+                                                <optgroup label="Meuble">
+                                                    <option value={1}>canapé 1 place</option>
+                                                    <option value={2}>canapé 2 places</option>
+                                                    <option value={2}>canapé 3 places</option>
+                                                    <option value={2}>table 2m x 3m</option>
+                                                </optgroup>
+                                                <optgroup label="electromenagé">
+                                                    <option value={3}>Frigidere</option>
+                                                    <option value={4}>Machine a laver</option>
+                                                    <option value={2}>Lave vaiselle</option>
+                                                    <option value={2}>seche linge</option>                                                    
+                                                </optgroup>
+                                    </Select>
+                                </FormControl>
                         </FormControl>
                             <Typography variant="h5" align='right' className={classes.padding_10} >
                                 Estimation :  {coutDevis.toFixed(2)}  €                    
