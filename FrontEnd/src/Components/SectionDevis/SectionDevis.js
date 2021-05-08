@@ -2,7 +2,7 @@ import React from 'react';
 import data from '../../datas';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,Divider,FormControlLabel,TextField,Tooltip, Collapse} from '@material-ui/core';
+import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,Divider,FormControlLabel,TextField, Collapse} from '@material-ui/core';
 import DevisElectro from './DevisElectro';
 
 //style materila ui

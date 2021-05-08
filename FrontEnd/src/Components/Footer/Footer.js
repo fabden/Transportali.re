@@ -21,7 +21,7 @@ function Footer() {
 
     return (
         
-        <Container justify="center" alignItems="center" maxWidth disableGutters id="footer">
+        <Container maxWidth disableGutters id="footer">
             <Grid container className={classes.height_80} justify="center" alignItems="center">
                 <Grid item>
                     <Typography>

@@ -55,7 +55,7 @@ function Header() {
 
     return (
     <>
-        <Container  justify="center" alignItems="center" maxWidth >
+        <Container maxWidth >
             <Grid container alignItems="center" justify="center" className={classes.margeBas}>
                 <Grid item xs={12} sm={12} md>
                     <Typography align="center">
