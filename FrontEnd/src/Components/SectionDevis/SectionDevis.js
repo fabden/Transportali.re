@@ -42,23 +42,31 @@ const useStyles = makeStyles({
 
 function SectionDevis() {
 
-const [villeDepart, setVilleDepart] = React.useState('Le Tampon');
-const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
+//state devis meuble/electro
+const [devisMeubleElectro, setDevisMeubleElectro] = React.useState({
+    ville_depart:"",
+    ville_arrive:"",
+    choix_meuble_electro:"",
+    longeur:0,
+    largeur:0,
+    hauteur:0,
+    poids:0,
+});
+
 const [valeurCategorie, setValeurCategorie]= React.useState('');
 const [coutDevis, setCoutDevis]=React.useState (0);
 const [metreCarre, setMetreCarre]= React.useState(0);
 const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false)
 
+const changevaleurinput =(e)=>{
+    console.log(e.target);
+    setDevisMeubleElectro({...devisMeubleElectro,[e.target.name]: e.target.value})
+}
+
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
   };
 
-const handleChangeVilleDepart = (event) => {
-    setVilleDepart(event.target.value);
-};
-const handleChangeVilleArrive = (event) => {
-    setVilleArrive(event.target.value);
-};
 const handleChangeValeurCategorie =(event) => {
     setValeurCategorie(event.target.value);
 };
@@ -67,7 +75,7 @@ const handleChangeValeurmetrecarre =  (event, newValue) => {
 };
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:villeDepart, arrive:villeArrive},
+    axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:"villeDepart", arrive:"villeArrive"},
     categorie:valeurCategorie
     })
     /*.then((res) => setCoutDevis(res.data.prix))*/
@@ -77,7 +85,7 @@ const recuperer_devis_rapide = ()=>{
 
 
 // useeffect pour le calcule autmatique 
-React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]);
+React.useEffect(recuperer_devis_rapide,[valeurCategorie]);
 
 
 //style de la pages
@@ -93,23 +101,21 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         <CardHeader title="Livraison electromenagé/meubles" className={`${classes.couleurBackElectro} ${classes.couleurBack}`}/>
                         <FormControl margin="normal" className={classes.padding_10}>
                             <InputLabel  className={classes.padding_10}>Ville Depart</InputLabel >
-                            <Select value={villeDepart} onChange={handleChangeVilleDepart}>
+                            <Select  id='ville_depart'name='ville_depart'value={devisMeubleElectro.ville_depart} onChange={changevaleurinput}>
                                 {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
                         <FormControl margin="normal" className={classes.padding_10}>
                             <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
-                            <Select value={villeArrive} onChange={handleChangeVilleArrive}>
+                            <Select id='ville_arrive'name='ville_arrive'value={devisMeubleElectro.ville_arrive} onChange={changevaleurinput}>
                                  {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                             </Select>
                         </FormControl>
                         <FormControl margin="normal" className={classes.padding_10}>
                                 <FormControl  className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-outlined-label">Selectionnner votre meuble/electromenager</InputLabel>
-                                    <Select                                    
-                                    onChange={handleChangeValeurCategorie}
-                                    native>  
-                                    <option aria-label="Selectionnner votre meuble/electromenager"/>                                      
+                                    <InputLabel>Selectionnner votre meuble/electromenager</InputLabel>
+                                    <Select id='choix_meuble_electro'name='choix_meuble_electro'onChange={changevaleurinput} native  value={devisMeubleElectro.choix_meuble_electro}>  
+                                    <option aria-label="Selectionnner votre meuble/electromenager" />                                      
                                                 <optgroup label="Meuble">
                                                     <option value={1}>canapé 1 place</option>
                                                     <option value={2}>canapé 2 places</option>
@@ -132,12 +138,24 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
 
                                 <Divider className={classes.margin_10} />
 
-                                <form  autoComplete="off">
-                                    <TextField xs label="Longeur" variant="outlined"/>
-                                    <TextField xs label="Largeur" variant="outlined" />
-                                    <TextField xs label="Hauteur" variant="outlined" />
-                                    <TextField xs label="Poids" variant="outlined" />
-                                </form>
+                                <form autoComplete="off">
+                                    <Grid container>
+                                        <Grid xs item>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur'value={devisMeubleElectro.longeur} onChange={changevaleurinput}/>
+                                        </Grid>
+                                        <Grid xs item >
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur'value={devisMeubleElectro.largeur} onChange={changevaleurinput} />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container>
+                                        <Grid xs  item>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur'value={devisMeubleElectro.hauteur} onChange={changevaleurinput}/>
+                                        </Grid>
+                                        <Grid item xs>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids'value={devisMeubleElectro.poids} onChange={changevaleurinput} />
+                                        </Grid> 
+                                   </Grid>
+                                    </form>
                         </FormControl>
                             <Typography variant="h5" align='right' className={classes.padding_10} >
                                 Estimation :  {coutDevis.toFixed(2)}  €                    
@@ -152,13 +170,13 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                             <CardHeader title="Demenagement" className={classes.couleurBack}/>
                             <FormControl margin="normal" className={classes.padding_10}>
                                 <InputLabel className={classes.padding_10} >Ville Depart</InputLabel>
-                                <Select value={villeDepart} onChange={handleChangeVilleDepart}>
+                                <Select value="{villeDepart}" onChange={()=>{}}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
                             <FormControl margin="normal" className={classes.padding_10}>
                                 <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
-                                <Select value={villeArrive} onChange={handleChangeVilleArrive}>
+                                <Select value="{villeArrive}" onChange={()=>{}}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
