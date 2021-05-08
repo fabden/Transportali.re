@@ -2,11 +2,8 @@ import React from 'react';
 import data from '../../datas';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,RadioGroup,FormControlLabel,Radio,Tooltip, Collapse} from '@material-ui/core';
+import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,Divider,FormControlLabel,TextField,Tooltip, Collapse} from '@material-ui/core';
 import DevisElectro from './DevisElectro';
-
-
-
 
 //style materila ui
 const useStyles = makeStyles({
@@ -16,6 +13,9 @@ const useStyles = makeStyles({
     margin_50:{        
       margin:'50px 0 0 0',
         
+    },
+    margin_10:{
+        margin:'10px',
     },
     Boutton_partenaire:{
         height:"150px",
@@ -44,7 +44,7 @@ function SectionDevis() {
 
 const [villeDepart, setVilleDepart] = React.useState('Le Tampon');
 const [villeArrive, setVilleArrive] = React.useState('Le Tampon');
-const [valeurCategorie, setValeurCategorie]= React.useState('M');
+const [valeurCategorie, setValeurCategorie]= React.useState('');
 const [coutDevis, setCoutDevis]=React.useState (0);
 const [metreCarre, setMetreCarre]= React.useState(0);
 const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false)
@@ -70,9 +70,11 @@ const recuperer_devis_rapide = ()=>{
     axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:villeDepart, arrive:villeArrive},
     categorie:valeurCategorie
     })
-        .then((res) => setCoutDevis(res.data.prix))
+    /*.then((res) => setCoutDevis(res.data.prix))*/
+        .then((res) => setCoutDevis(5))
         .catch((e) => console.log(e))
-}
+};
+
 
 // useeffect pour le calcule autmatique 
 React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]);
@@ -104,25 +106,38 @@ React.useEffect(recuperer_devis_rapide,[villeDepart,villeArrive,valeurCategorie]
                         <FormControl margin="normal" className={classes.padding_10}>
                                 <FormControl  className={classes.formControl}>
                                     <InputLabel id="demo-simple-select-outlined-label">Selectionnner votre meuble/electromenager</InputLabel>
-                                    <Select
-                                    defaultValue=""
-                                    onChange={()=>{}}
-                                    native>
-                                        <option aria-label="Selectionnner votre meuble/electromenager" value="" />
+                                    <Select                                    
+                                    onChange={handleChangeValeurCategorie}
+                                    native>  
+                                    <option aria-label="Selectionnner votre meuble/electromenager"/>                                      
                                                 <optgroup label="Meuble">
                                                     <option value={1}>canapé 1 place</option>
                                                     <option value={2}>canapé 2 places</option>
-                                                    <option value={2}>canapé 3 places</option>
-                                                    <option value={2}>table 2m x 3m</option>
+                                                    <option value={3}>canapé 3 places</option>
+                                                    <option value={4}>table 2m x 3m</option>
                                                 </optgroup>
                                                 <optgroup label="electromenagé">
-                                                    <option value={3}>Frigidere</option>
-                                                    <option value={4}>Machine a laver</option>
-                                                    <option value={2}>Lave vaiselle</option>
-                                                    <option value={2}>seche linge</option>                                                    
+                                                    <option value={2}>Frigidere</option>
+                                                    <option value={1}>Machine a laver</option>
+                                                    <option value={1}>Lave vaiselle</option>
+                                                    <option value={1}>seche linge</option>                                                    
                                                 </optgroup>
                                     </Select>
                                 </FormControl>
+                                <Divider className={classes.margin_10} />
+
+                                <Typography variant="h5" align='center'>
+                                    Autre(si pas dans la liste):
+                                </Typography>
+
+                                <Divider className={classes.margin_10} />
+
+                                <form  autoComplete="off">
+                                    <TextField xs label="Longeur" variant="outlined"/>
+                                    <TextField xs label="Largeur" variant="outlined" />
+                                    <TextField xs label="Hauteur" variant="outlined" />
+                                    <TextField xs label="Poids" variant="outlined" />
+                                </form>
                         </FormControl>
                             <Typography variant="h5" align='right' className={classes.padding_10} >
                                 Estimation :  {coutDevis.toFixed(2)}  €                    
