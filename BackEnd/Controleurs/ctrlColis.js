@@ -122,20 +122,23 @@ exports.enregistrementsDataBase = (req, res, next) => {
 ///
 
 exports.calculateurDistancePrix = (req, res) => {
+  
   // recuperation coordonne gpe ville
   const coordonneeGpsDepart = dataVille.filter(
-    (e) => e.nom_ville === req.body.ville.depart,
+    (e) => e.nom_ville === req.body.devisElectroDepart.ville,
   )[0].coordonnee;
+
   const coordonneeGpsArrive = dataVille.filter(
-    (e) => e.nom_ville === req.body.ville.arrive,
+    (e) => e.nom_ville === req.body.devisElectroArrive.ville,
   )[0].coordonnee;
 
   // recuperation categorie
 
-  const categorie = dataCategory[req.body.categorie];
+  const volume = req.body.paramMeubleElectro.longeur * req.body.paramMeubleElectro.largeur * req.body.paramMeubleElectro.hauteur;
+
   axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordonneeGpsDepart.lat},${coordonneeGpsDepart.long};${coordonneeGpsArrive.lat},${coordonneeGpsArrive.long}?access_token=${process.env.KEY_BOX_MAP}`)
     .then((e) => {
-      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + categorie;
+      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + (volume * 2/20000);
       const distanceLivraison = e.data.routes[0].distance / 1000;
       res.status(200).json({
         prix: estimationPrix,

@@ -1,6 +1,5 @@
 import { Container, Grid,TextField,MenuItem,Select,InputLabel,FormControl, Typography,Box,Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 import axios from 'axios';
 import data from '../../datas';
 import React from 'react';
@@ -42,29 +41,12 @@ const useStyles = makeStyles({
 
 });
 
-function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInputarrive, paramMeubleElectro}) {
+function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInputarrive, paramMeubleElectro, coutDevis}) {
 
     const classes = useStyles();
 
   
-    /// Calcule coût livraison
-
-    const [coutDevis, setCoutDevis]=React.useState ({distance_livraison:0,
-        prix:0,
-    });
-
-    const recuperer_devis_rapide = ()=>{    
-        axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:'"rr"',
-        arrive:'rr'},
-        categorie:"valueCategorie"
-        })
-            .then((res) => {
-                console.log(res);
-                setCoutDevis(res.data);
-            })
-            .catch((e) => console.log(e))
-    }
-
+   
     ///Generateur de pdf (devis)
     const generateur_pdf_devis = ()=>{
 
@@ -84,12 +66,6 @@ function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInput
       });
     }
   
-
-
-    ///
-
-    // useeffect pour le calcule autmatique 
-        React.useEffect(recuperer_devis_rapide,[]);
     ///
 
     ///gestion Date livraison

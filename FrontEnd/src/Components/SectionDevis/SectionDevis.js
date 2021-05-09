@@ -70,9 +70,11 @@ const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
     prix:0,
 });
 
-const [coutDevis, setCoutDevis]=React.useState (0);
+const [coutDevis, setCoutDevis]=React.useState ({prix:0, distance_livraison:0});
 const [metreCarre, setMetreCarre]= React.useState(0);
-const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false)
+const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false);
+
+console.log(coutDevis);
 
 const changevaleurinputElectroDepart =(e)=>{
     console.log(e.target);
@@ -96,17 +98,14 @@ const handleChangeValeurmetrecarre =  (event, newValue) => {
 };
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://82.165.56.203/api/devis-colis',{ville:{depart:"villeDepart", arrive:"villeArrive"},
-    categorie:"valeurCategorie"
-    })
-    /*.then((res) => setCoutDevis(res.data.prix))*/
-        .then((res) => setCoutDevis(5))
+    axios.post('http://127.0.0.1:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro })
+        .then((res) => setCoutDevis(res.data))
         .catch((e) => console.log(e))
 };
 
 
 // useeffect pour le calcule autmatique 
-React.useEffect(recuperer_devis_rapide,[]);
+React.useEffect(recuperer_devis_rapide,[devisElectroDepart, devisElectroArrive, paramMeubleElectro ]);
 
 
 //style de la pages
@@ -134,7 +133,7 @@ React.useEffect(recuperer_devis_rapide,[]);
                         </FormControl>
                         <FormControl margin="normal" className={classes.padding_10}>
                                 <FormControl  className={classes.formControl}>
-                                    <InputLabel>Selectionnner votre meuble/electromenager</InputLabel>
+                                    <InputLabel>Selectionnner </InputLabel>
                                     <Select id='choix_meuble_electro'name='choix_meuble_electro'onChange={changevaleurinputparamMeubleElectro} native  value={paramMeubleElectro.choix_meuble_electro}>  
                                     <option aria-label="Selectionnner votre meuble/electromenager" />                                      
                                                 <optgroup label="Meuble">
@@ -179,7 +178,7 @@ React.useEffect(recuperer_devis_rapide,[]);
                                     </form>
                         </FormControl>
                             <Typography variant="h5" align='right' className={classes.padding_10} >
-                                Estimation :  {coutDevis.toFixed(2)}  €                    
+                                Estimation :  {coutDevis.prix.toFixed(2)}  €                    
                             </Typography>
                         <Button  variant="contained" className={classes.couleurBoutton} href='#deviselectro' onClick={handleChangeElecro}>Je Commande</Button>
                         </Grid>
@@ -233,7 +232,7 @@ React.useEffect(recuperer_devis_rapide,[]);
             </Grid>
         </Container>
         <Collapse in={affichageDevisElectro} timeout='auto' id='#deviselectro'>
-            <DevisElectro ville_depart={devisElectroDepart} ville_arrive={devisElectroArrive} changeInputdepart={changevaleurinputElectroDepart} changeInputarrive={changevaleurinputElectroArrive} paramMeubleElectro={paramMeubleElectro}></DevisElectro>
+            <DevisElectro ville_depart={devisElectroDepart} ville_arrive={devisElectroArrive} coutDevis={coutDevis} changeInputdepart={changevaleurinputElectroDepart} changeInputarrive={changevaleurinputElectroArrive} paramMeubleElectro={paramMeubleElectro}></DevisElectro>
         </Collapse>
      </>
     )
