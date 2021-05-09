@@ -21,6 +21,7 @@ exports.tousDeviscolis = (req, res) => {
 ///
 exports.generateurPDFColis = (req, res) => {
   const doc = new PDFDocument();
+  console.log(req.body);
 
   // reiecriture entête d'envois pour telechergment direct
   res.setHeader('Content-Type', 'application/pdf');
@@ -29,33 +30,33 @@ exports.generateurPDFColis = (req, res) => {
 
   doc.text('Bon envoi colis a scanner par le livreur', 100, 100)
     .moveDown(2);
-  doc.text(`livraison prevu le : ${req.body.dateLivraison}`)
+  doc.text(`livraison prevu le : ${req.body.datedeviselecro}`)
     .moveDown(2);
-  doc.text(`Adresse de livraison : ${req.body.adresseLivraison.adresse}`)
+  doc.text(`Adresse de livraison : ${req.body.ville_depart.adresse}`)
     .moveDown(0);
-  doc.text(`ville de livraison : ${req.body.adresseLivraison.code_postale}`)
+  doc.text(`ville de livraison : ${req.body.ville_depart.ville}`)
     .moveDown(0);
-  doc.text(`contact de livraison : ${req.body.adresseLivraison.nom_contact}`)
+  doc.text(`contact de livraison : ${req.body.ville_depart.contact}`)
     .moveDown(0);
-  doc.text(`telephone contact de livraison : ${req.body.adresseLivraison.telephone_contact}`)
+  doc.text(`telephone contact de livraison : ${req.body.ville_depart.telephone}`)
     .moveDown(0);
-  doc.text(`commentaire de livraison : ${req.body.adresseLivraison.commentaire_contact}`)
+  doc.text(`commentaire de livraison : ${req.body.ville_depart.commentaire}`)
     .moveDown(0);
-  doc.text(`mail contact  de livraison: ${req.body.adresseLivraison.mail_contact}`)
+  doc.text(`mail contact  de livraison: ${req.body.ville_depart.email}`)
     .moveDown(5);
-  doc.text(`adresse de destination : ${req.body.adresseChargement.adresse}`)
+  doc.text(`adresse de destination : ${req.body.ville_arrive.adresse}`)
     .moveDown(0);
-  doc.text(`ville  de destination : ${req.body.adresseChargement.code_postale}`)
+  doc.text(`ville  de destination : ${req.body.ville_arrive.ville}`)
     .moveDown(0);
-  doc.text(`nom contact de destination : ${req.body.adresseChargement.nom_contact}`)
+  doc.text(`nom contact de destination : ${req.body.ville_arrive.contact}`)
     .moveDown(0);
-  doc.text(`telephone contact  : ${req.body.adresseChargement.telephone_contact}`)
+  doc.text(`telephone contact  : ${req.body.ville_arrive.telephone}`)
     .moveDown(0);
-  doc.text(`mail contact de destination : ${req.body.adresseChargement.mail_contact}`)
+  doc.text(`mail contact de destination : ${req.body.ville_arrive.email}`)
     .moveDown(0);
-  doc.text(`commentaire contact  : ${req.body.adresseChargement.commentaire_contact}`)
+  doc.text(`commentaire contact  : ${req.body.ville_arrive.contact}`)
     .moveDown(5);
-  doc.text(`mail contact de destination : ${req.body.valueCategorie}`)
+  doc.text(`mail contact de destination : ${req.body.ville_arrive.email}`)
     .moveDown(0);
   doc.text('fin');
 

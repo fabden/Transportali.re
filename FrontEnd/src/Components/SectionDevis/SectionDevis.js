@@ -44,7 +44,7 @@ function SectionDevis() {
 
 //state devis meuble/electro
 const [devisElectroDepart,setDevisElectroDepart]=React.useState({
-    ville:"",
+    ville:"Le Port",
     adresse:"",
     contact:"",
     email:"",
@@ -53,7 +53,7 @@ const [devisElectroDepart,setDevisElectroDepart]=React.useState({
     },);
 
 const [devisElectroArrive,setDevisElectroArrive]=React.useState({
-    ville:"",
+    ville:"Le Port",
     adresse:"",
     contact:"",
     email:"",
@@ -70,11 +70,16 @@ const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
     prix:0,
 });
 
+const [datedeviselecro, setDateDevisElectro] = React.useState("2021-05-14T10:00");
 const [coutDevis, setCoutDevis]=React.useState ({prix:0, distance_livraison:0});
 const [metreCarre, setMetreCarre]= React.useState(0);
 const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false);
 
 console.log(coutDevis);
+
+const handleChangeDate = (event) => {
+    setDateDevisElectro(event.target.value);
+  };
 
 const changevaleurinputElectroDepart =(e)=>{
     console.log(e.target);
@@ -88,24 +93,22 @@ const changevaleurinputparamMeubleElectro =(e)=>{
     console.log(e.target);
     setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
 };
-
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
   };
-
 const handleChangeValeurmetrecarre =  (event, newValue) => {
     setMetreCarre(newValue);
 };
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://127.0.0.1:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro })
+    axios.post('http://127.0.0.1:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro })
         .then((res) => setCoutDevis(res.data))
         .catch((e) => console.log(e))
 };
 
 
 // useeffect pour le calcule autmatique 
-React.useEffect(recuperer_devis_rapide,[devisElectroDepart, devisElectroArrive, paramMeubleElectro ]);
+React.useEffect(recuperer_devis_rapide,[devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro ]);
 
 
 //style de la pages
@@ -232,7 +235,7 @@ React.useEffect(recuperer_devis_rapide,[devisElectroDepart, devisElectroArrive, 
             </Grid>
         </Container>
         <Collapse in={affichageDevisElectro} timeout='auto' id='#deviselectro'>
-            <DevisElectro ville_depart={devisElectroDepart} ville_arrive={devisElectroArrive} coutDevis={coutDevis} changeInputdepart={changevaleurinputElectroDepart} changeInputarrive={changevaleurinputElectroArrive} paramMeubleElectro={paramMeubleElectro}></DevisElectro>
+            <DevisElectro datedeviselecro={datedeviselecro} handleChangeDate={handleChangeDate} ville_depart={devisElectroDepart} ville_arrive={devisElectroArrive} coutDevis={coutDevis} changeInputdepart={changevaleurinputElectroDepart} changeInputarrive={changevaleurinputElectroArrive} paramMeubleElectro={paramMeubleElectro}></DevisElectro>
         </Collapse>
      </>
     )

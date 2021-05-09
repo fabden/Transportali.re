@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 
 });
 
-function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInputarrive, paramMeubleElectro, coutDevis}) {
+function DevisElectro({ handleChangeDate, ville_depart, ville_arrive, changeInputdepart,changeInputarrive, paramMeubleElectro, coutDevis, datedeviselecro}) {
 
     const classes = useStyles();
 
@@ -51,9 +51,9 @@ function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInput
     const generateur_pdf_devis = ()=>{
     axios({
         method:'post',
-        url:'http://82.165.56.203/api/devis-colis/pdf',
+        url:'http://127.0.0.1:8080/api/devis-colis/pdf',
         responseType:'arraybuffer',
-        data: {ville_depart, ville_arrive}
+        data: {ville_depart, ville_arrive, datedeviselecro}
       })
       .then(function(response) {
           let blob = new Blob([response.data], { type:'application/pdf' } );
@@ -64,15 +64,6 @@ function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInput
       });
     }
   
-    ///
-
-    ///gestion Date livraison
-    const [dateLivraison, setDateLivraison] = React.useState("2017-05-24T10:30");
-
-    const handleChangeDate = (event) => {
-        setDateLivraison(event.target.value);
-      };
-    
     ///
 
     return (
@@ -87,7 +78,7 @@ function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInput
                    </Grid> 
                     <Grid item xs={12} sm={3}>
                        <form noValidate>
-                            <TextField  label="Date previsionnel" type="datetime-local" value={dateLivraison} onChange={handleChangeDate}/>
+                            <TextField  label="Date previsionnel" type="datetime-local" value={datedeviselecro} onChange={(e)=>handleChangeDate(e)}/>
                         </form>
                     </Grid>
                 </Grid>
