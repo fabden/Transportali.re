@@ -122,7 +122,6 @@ exports.enregistrementsDataBase = (req, res, next) => {
 ///
 
 exports.calculateurDistancePrix = (req, res) => {
-  
   // recuperation coordonne gpe ville
   const coordonneeGpsDepart = dataVille.filter(
     (e) => e.nom_ville === req.body.devisElectroDepart.ville,
@@ -138,7 +137,7 @@ exports.calculateurDistancePrix = (req, res) => {
 
   axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordonneeGpsDepart.lat},${coordonneeGpsDepart.long};${coordonneeGpsArrive.lat},${coordonneeGpsArrive.long}?access_token=${process.env.KEY_BOX_MAP}`)
     .then((e) => {
-      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + (volume * 2/20000);
+      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + (volume * 3 / 30000);
       const distanceLivraison = e.data.routes[0].distance / 1000;
       res.status(200).json({
         prix: estimationPrix,

@@ -49,13 +49,11 @@ function DevisElectro({ville_depart, ville_arrive, changeInputdepart,changeInput
    
     ///Generateur de pdf (devis)
     const generateur_pdf_devis = ()=>{
-
-
     axios({
         method:'post',
         url:'http://82.165.56.203/api/devis-colis/pdf',
         responseType:'arraybuffer',
-        data: { }
+        data: {ville_depart, ville_arrive}
       })
       .then(function(response) {
           let blob = new Blob([response.data], { type:'application/pdf' } );
