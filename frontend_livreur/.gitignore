@@ -10,8 +10,7 @@
 
 # production
 /build
-/frontend_magazin
-/frontend_livreur
+
 
 # misc
 .DS_Store
