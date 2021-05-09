@@ -74,7 +74,6 @@ const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
 });
 const [datedeviselecro, setDateDevisElectro] = React.useState("2021-05-14T10:00");
 const [coutDevis, setCoutDevis]=React.useState ({prix:0, distance_livraison:0});
-const [metreCarre, setMetreCarre]= React.useState(0);
 const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false);
 
 //state devis demanagement 
