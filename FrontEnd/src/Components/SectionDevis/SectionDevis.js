@@ -2,7 +2,7 @@ import React from 'react';
 import data from '../../datas';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import {Checkbox,Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,FormLabel,Divider,FormControlLabel,TextField, Collapse} from '@material-ui/core';
+import {Slider,Typography,Button,Container,Grid,Card, CardHeader,FormControl,Select,MenuItem,InputLabel,Divider,TextField, Collapse} from '@material-ui/core';
 import DevisElectro from './DevisElectro';
 
 //style materila ui
@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     },
     margin_10:{
         margin:'10px',
+    },
+    margin_10top:{
+        margin:'10px 0 0 0', 
     },
     Boutton_partenaire:{
         height:"150px",
@@ -42,7 +45,7 @@ const useStyles = makeStyles({
 
 function SectionDevis() {
 
-//state devis meuble/electro
+///state devis meuble/electro
 const [devisElectroDepart,setDevisElectroDepart]=React.useState({
     ville:"Le Port",
     adresse:"",
@@ -66,16 +69,26 @@ const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
     largeur:0,
     hauteur:0,
     poids:0,
-    distance:"",
+    distance:0,
     prix:0,
 });
-
 const [datedeviselecro, setDateDevisElectro] = React.useState("2021-05-14T10:00");
 const [coutDevis, setCoutDevis]=React.useState ({prix:0, distance_livraison:0});
 const [metreCarre, setMetreCarre]= React.useState(0);
 const [affichageDevisElectro , setAffichageDevisElectro]=React.useState(false);
 
-console.log(coutDevis);
+//state devis demanagement 
+
+const [devisDemenagemnt, setDevisDemenagement] = React.useState({
+    contact:"",
+    email:"",
+    telephone:"",
+    villeDepart:"",
+    VilleArriver:"",
+    metreCarre:10,
+});
+
+////fonction pour devis meuble electro
 
 const handleChangeDate = (event) => {
     setDateDevisElectro(event.target.value);
@@ -96,9 +109,7 @@ const changevaleurinputparamMeubleElectro =(e)=>{
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
   };
-const handleChangeValeurmetrecarre =  (event, newValue) => {
-    setMetreCarre(newValue);
-};
+
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
     axios.post('http://127.0.0.1:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro })
@@ -109,7 +120,19 @@ const recuperer_devis_rapide = ()=>{
 
 // useeffect pour le calcule autmatique 
 React.useEffect(recuperer_devis_rapide,[devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro ]);
+//////
 
+////fonction pour devis demanagement 
+
+const changevaleurinputdemanagement =(e)=>{
+    console.log(e.target);
+    setDevisDemenagement({...devisDemenagemnt,[e.target.name]: e.target.value})
+};
+
+const handleChangeValeurmetrecarre =  (e, nv) => {   
+    setDevisDemenagement({...devisDemenagemnt,metreCarre: nv})
+};
+////
 
 //style de la pages
   const classes = useStyles();
@@ -193,31 +216,38 @@ React.useEffect(recuperer_devis_rapide,[devisElectroDepart, devisElectroArrive, 
                             <CardHeader title="Demenagement" className={classes.couleurBack}/>
                             <FormControl margin="normal" className={classes.padding_10}>
                                 <InputLabel className={classes.padding_10} >Ville Depart</InputLabel>
-                                <Select >
+                                <Select name='villeDepart' value={devisDemenagemnt.villeDepart} onChange={changevaleurinputdemanagement}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
                             <FormControl margin="normal" className={classes.padding_10}>
                                 <InputLabel className={classes.padding_10}>Ville Arrivé</InputLabel>
-                                <Select value="{villeArrive}" onChange={()=>{}}>
+                                <Select name='VilleArriver' value={devisDemenagemnt.VilleArriver} onChange={changevaleurinputdemanagement}>
                                     {data.map((e) => (<MenuItem value={e.nom_ville}>{e.nom_ville}</MenuItem>))}    
                                 </Select>
                             </FormControl>
                             <Typography className={classes.padding_10} >
-                              Mon appartment /maison fait environ : {metreCarre}M²
+                              Mon appartment /maison fait environ : {devisDemenagemnt.metreCarre}M²
                             </Typography>
                             <Grid container justify="space-around" className={classes.margin_50}>
                                 <Grid item xs={11} >
-                                    <Slider onChange={handleChangeValeurmetrecarre} min={0} max={200} aria-labelledby="continuous-slider" valueLabelDisplay="on" value={metreCarre} />
+                                    <Slider onChange={handleChangeValeurmetrecarre} name="metreCarre" min={0} max={200} aria-labelledby="continuous-slider" valueLabelDisplay="on" value={devisDemenagemnt.metreCarre} />
                                 </Grid>
-                            </Grid>                         
-                                <FormControl  className={classes.padding_10} margin="normal" component="fieldset">
-                                    <FormLabel component="legend">Autre elements </FormLabel>
-                                    <FormControlLabel value="Escalier" control={<Checkbox color="primary" />} label="Escalier" labelPlacement="end" />
-                                    <FormControlLabel value="Ascenseur" control={<Checkbox color="primary" />} label="Ascenseur" labelPlacement="end" />
-                                    <FormControlLabel value="Parking" control={<Checkbox color="primary" />} label="Parking" labelPlacement="end" />
-                                </FormControl>
-                            <Button variant="contained" className={classes.couleurBoutton}>je choisi ma formule</Button>
+                            </Grid>  
+
+                            {/* zone formulaire email / telephone */}  
+                            <Grid container justify="center"  alignItems="center" spacing={2}>
+                                <Grid item xs={10} >
+                                    <TextField fullWidth label="Nom prenom" variant="outlined" name='contact' value={devisDemenagemnt.contact} onChange={changevaleurinputdemanagement}/>
+                                </Grid>
+                                <Grid item xs={10}  >
+                                    <TextField fullWidth label="email" variant="outlined" name='email' value={devisDemenagemnt.email} onChange={changevaleurinputdemanagement}/>
+                                </Grid>
+                                <Grid item xs={10}  >
+                                    <TextField fullWidth label="Telephone" variant="outlined" name='telephone' value={devisDemenagemnt.telephone} onChange={changevaleurinputdemanagement} />
+                                </Grid>
+                            </Grid>
+                            <Button variant="contained" className={`${classes.couleurBoutton} ${classes.margin_10top}`}>Demander un devis</Button>
                         </Grid >
                     </Card>
                 </Grid >

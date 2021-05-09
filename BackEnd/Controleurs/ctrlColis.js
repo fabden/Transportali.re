@@ -132,17 +132,21 @@ exports.calculateurDistancePrix = (req, res) => {
     (e) => e.nom_ville === req.body.devisElectroArrive.ville,
   )[0].coordonnee;
 
-  // recuperation categorie
+  // recupe poids
+  console.log(req.body);
+  const { poids } = req.body.paramMeubleElectro;
+  // calcule volume
 
   const volume = req.body.paramMeubleElectro.longeur * req.body.paramMeubleElectro.largeur * req.body.paramMeubleElectro.hauteur;
 
   axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordonneeGpsDepart.lat},${coordonneeGpsDepart.long};${coordonneeGpsArrive.lat},${coordonneeGpsArrive.long}?access_token=${process.env.KEY_BOX_MAP}`)
     .then((e) => {
-      const estimationPrix = (e.data.routes[0].distance * 0.20) / 1000 + (volume * 3 / 30000);
+      const estimationPrix = ((e.data.routes[0].distance * 0.20) / 1000) + (volume * 3 / 30000) + (poids * 0.20);
       const distanceLivraison = e.data.routes[0].distance / 1000;
       res.status(200).json({
         prix: estimationPrix,
         distance_livraison: distanceLivraison,
+        volume,
       });
     })
     .catch();
