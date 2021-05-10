@@ -111,7 +111,7 @@ const handleChangeElecro = () => {
 
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://127.0.0.1:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro })
+    axios.post('http://82.165.56.203/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro })
         .then((res) => setCoutDevis(res.data))
         .catch((e) => console.log(e))
 };
