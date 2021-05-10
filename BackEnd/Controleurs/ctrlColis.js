@@ -149,5 +149,5 @@ exports.calculateurDistancePrix = (req, res) => {
         volume,
       });
     })
-    .catch((e) => { res.satus(502).json(e); });
+    .catch((e) => { res.status(502).json(e); });
 };
