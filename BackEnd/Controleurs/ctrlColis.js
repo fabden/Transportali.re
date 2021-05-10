@@ -133,7 +133,7 @@ exports.calculateurDistancePrix = (req, res) => {
   )[0].coordonnee;
 
   // recupe poids
-  console.log(req.body);
+
   const { poids } = req.body.paramMeubleElectro;
   // calcule volume
 
