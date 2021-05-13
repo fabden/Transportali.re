@@ -86,7 +86,7 @@ const rows = [
         <Container maxWidth={false} disableGutters>
             <Grid container>
                  {/*parti infomation gauche */ }
-                <Grid xs item container justify="center" alignItems="center" direction="column" className={`${classes.couleurFond} ${classes.border_raduis} ${classes.height_100} `}>
+                <Grid xs={3} item container justify="center" alignItems="center" direction="column" className={`${classes.couleurFond} ${classes.border_raduis} ${classes.height_100} `}>
                     
                     <Grid className={`${classes.logo} ${classes.margin_10px}`}>
                         logo DMST
@@ -124,7 +124,7 @@ const rows = [
                     <Typography>
                         Tel: 0102030405
                     </Typography>
-                    <Grid item className={`${classes.maps} ${classes.border_raduis}`}>
+                    <Grid item xs className={`${classes.maps} ${classes.border_raduis}`}>
                         carte maps 
                     </Grid>
                 
@@ -162,7 +162,7 @@ const rows = [
                 </TableContainer>
                 </Grid>
                 {/*parti commande droit */ }
-                <Grid item xs container  justify="flex-start" alignItems="center"  direction="column" className={`${classes.couleurfondjaune} ${classes.border_raduis} `}>
+                <Grid item xs={3} container  justify="flex-start" alignItems="center"  direction="column" className={`${classes.couleurfondjaune} ${classes.border_raduis} `}>
                     <Grid className={`${classes.logo} ${classes.margin_10px}`}>
                         logo
                     </Grid>
