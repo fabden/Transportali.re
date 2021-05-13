@@ -255,7 +255,7 @@ const handleChangeValeurmetrecarre =  (e, nv) => {
                         <Grid container direction="column" alignItems="stretch">
                         <CardHeader title="Connexion Partenaires" className={classes.couleurBack} />
                             <Grid item container direction="column" justify="space-around" alignItems="center" className={`${classes.Boutton_partenaire}`}>
-                                <Button className={`${classes.couleurBoutton} ${classes.bouton_wight}`}>Magazin</Button>
+                                <Button className={`${classes.couleurBoutton} ${classes.bouton_wight}`} href="http://82.165.56.203/magazin/">Magazin</Button>
                                 <Button className={`${classes.couleurBoutton} ${classes.bouton_wight}`}>Chaufeur</Button>
                            </Grid>                            
                         </Grid>

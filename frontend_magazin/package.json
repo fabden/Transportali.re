@@ -14,12 +14,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "set PORT=3001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://http://82.165.56.203/magazin/",
+ 
   "eslintConfig": {
     "extends": [
       "react-app",
