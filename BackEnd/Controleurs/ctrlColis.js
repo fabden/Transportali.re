@@ -133,7 +133,7 @@ exports.calculateurDistancePrix = (req, res) => {
   )[0].coordonnee;
 
   // recupe poids
-
+  console.log(req.body);
   const { poids } = req.body.paramMeubleElectro;
   // calcule volume
 
@@ -141,6 +141,7 @@ exports.calculateurDistancePrix = (req, res) => {
 
   axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordonneeGpsDepart.lat},${coordonneeGpsDepart.long};${coordonneeGpsArrive.lat},${coordonneeGpsArrive.long}?access_token=${process.env.KEY_BOX_MAP}`)
     .then((e) => {
+      console.log(e.data);
       const estimationPrix = ((e.data.routes[0].distance * 0.20) / 1000) + (volume * 3 / 30000) + (poids * 0.20);
       const distanceLivraison = e.data.routes[0].distance / 1000;
       res.status(200).json({
