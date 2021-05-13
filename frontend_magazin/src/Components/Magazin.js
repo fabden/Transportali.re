@@ -1,9 +1,10 @@
 import React from 'react'
-import {Container,Grid,Stepper,Step,StepLabel,Typography,Button,TableContainer,Table, TableHead,TableRow,TableCell,TableBody,Paper, Modal, Fade,Backdrop} from '@material-ui/core';
+import {Container,Grid,Stepper,Step,StepLabel,Typography,Button,TableContainer,Table, TableHead,TableRow,TableCell,TableBody, Modal, Fade,Backdrop} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import DevisMagazin from './DevisMagazin';
 
 function Magazin() {
+// eslint-disable-next-line no-unused-vars
 const [activeStep, setActiveStep] = React.useState(0);
 
 ////style 
@@ -109,7 +110,7 @@ const rows = [
                             <StepLabel>En attente</StepLabel>
                         </Step>
                         <Step key={2}>
-                            <StepLabel>En courde livraison</StepLabel>
+                            <StepLabel>En cour de livraison</StepLabel>
                         </Step>
                         <Step key={3}>
                             <StepLabel>livraison terminee</StepLabel>
@@ -124,7 +125,7 @@ const rows = [
                     <Typography>
                         Tel: 0102030405
                     </Typography>
-                    <Grid item xs className={`${classes.maps} ${classes.border_raduis}`}>
+                    <Grid item xs className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
                         carte maps 
                     </Grid>
                 
@@ -178,7 +179,11 @@ const rows = [
                         </Typography>
                     </Grid>
                     <Button variant="contained" onClick={handleOpen}>nouvelle demande</Button>
+                    <Grid className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
+                    liste colis client 
+                    </Grid>
                 </Grid>
+
             </Grid>
             <Modal
                 aria-labelledby="spring-modal-title"
@@ -193,10 +198,7 @@ const rows = [
                 }}
             >
                 <Fade in={open}>
-                <div className={classes.paper}>
-                    <h2 id="spring-modal-title">Spring modal</h2>
-                    <p id="spring-modal-description">react-spring animates me.</p>
-                </div>
+             <DevisMagazin></DevisMagazin>
                 </Fade>
             </Modal>
         </Container>
