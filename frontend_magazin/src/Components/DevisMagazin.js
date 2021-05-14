@@ -54,8 +54,9 @@ function DevisMagazin() {
                                 </Typography> 
                             </Grid> 
                             <Grid item container xs={4} justify="center" alignItems="space-around" direction="row">
-                                <Button >Valider</Button>
-                                <Button>Annuler</Button>
+                               <Button>Annuler</Button>
+                               <Button >Valider</Button>
+                                
                             </Grid>                      
                         </Grid>
                     </Grid>
