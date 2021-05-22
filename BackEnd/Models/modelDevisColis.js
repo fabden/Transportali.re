@@ -32,6 +32,7 @@ const modelDevisColisSchema = mongoose.Schema({
       payement: { type: String, require: true },
     },
     types: { type: String, require: true },
+    commentaire: { type: String },
   },
 
 });
