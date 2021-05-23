@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Fade, Grid, Modal, TextField } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
+import axios from 'axios';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -27,15 +28,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
- 
-];
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -61,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Produits() {
 
+///gestion modal
    const classes = useStyles();    
    const [open, setOpen] = React.useState(false);
 
@@ -71,6 +64,45 @@ function Produits() {
   const handleClose = () => {
     setOpen(false);
   };   
+
+
+///recupere donnee en base
+
+const [dataproduits, setdataproduits] = React.useState([{
+  nom_produits: "pp333333pp22rod4444uits",
+  longeur_produits: 1325444,
+  largeur_produits: 231444,
+  hauteur_produits:45,
+  poids_produits: 2315444
+  }]);
+
+const recupDataProduits = () => {
+  const url = 'http://localhost:8080/api/produits';
+  axios.get(url)
+    .then((resp) => {    
+      console.log(resp.data);
+      setdataproduits(resp.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+React.useEffect(recupDataProduits,[]);
+
+//supprime produits en base de donneé
+
+const supDataProduits = (id) => {
+  const url = 'http://localhost:8080/api/produits';
+  console.log(id);
+  axios.delete(url,{params: {id: id}})
+    .then((resp) => {    
+      console.log(resp.data);
+      recupDataProduits();      
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
     return (
         <Grid container justify="space-around">
@@ -88,16 +120,14 @@ function Produits() {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="center"><Button variant="contained" >Modifier</Button><Button variant="contained" color="secondary">Supprimer</Button></StyledTableCell>
+                        {dataproduits.map((row) => (
+                            <StyledTableRow >
+                            <StyledTableCell component="th" scope="row">{row.nom_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.longeur_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.largeur_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.hauteur_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.poids_produits}</StyledTableCell>
+                            <StyledTableCell align="center"><Button variant="contained" >Modifier</Button><Button variant="contained" color="secondary" onClick={()=>{supDataProduits(row._id)}} >Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -132,6 +162,9 @@ function Produits() {
                             <TextField  label="Poids" variant="outlined" />  
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
+                        <Button color="primary" variant="contained" onClick={()=>{}}>
+                            Annulé
+                        </Button>
                         <Button color="primary" variant="contained" onClick={()=>{}}>
                             Valider
                         </Button>

@@ -7,6 +7,7 @@ const modelProduits = mongoose.Schema({
   nom_produits: { type: String },
   longeur_produits: { type: Number },
   largeur_produits: { type: Number },
+  hauteur_produits: { type: Number },
   poids_produits: { type: Number },
 
 });
