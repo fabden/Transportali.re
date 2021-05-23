@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, Fade, Grid, Modal } from '@material-ui/core';
+import { Button, Fade, Grid, Modal, TextField } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -34,20 +34,22 @@ function createData(name, calories, fat, carbs, protein) {
 
 const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+ 
 ];
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: '65vw',    
+      width:'65vw',
+       
   },
   modal: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center', 
     justifyContent: 'center',
+  },
+  padding_20px:{
+      padding:'20px 0 20px 0 ',
+
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -71,9 +73,9 @@ function Produits() {
   };   
 
     return (
-        <Grid container>
-            <Grid item xs>
-                <TableContainer component={Paper}>
+        <Grid container justify="space-around">
+            <Grid item >
+                <TableContainer component={Paper}xs={10}>
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                         <TableRow>
@@ -102,7 +104,7 @@ function Produits() {
                     </Table>
                 </TableContainer>
             </Grid>
-            <Grid  xs alignItems="center">
+            <Grid item xs alignItems="center">
                 <Button color="primary" variant="contained" onClick={handleOpen}>Nouveaux</Button>
             </Grid>
             <Modal
@@ -114,14 +116,28 @@ function Produits() {
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
-                timeout: 500,
+                timeout: 50,
                 }}
             >
                 <Fade in={open}>
-                <div className={classes.paper}>
-                    <h2 id="transition-modal-title">Transition modal</h2>
-                    <p id="transition-modal-description">react-transition-group animates me.</p>
-                </div>
+                <Grid container xs={6} justify="center" className={classes.paper}>
+                    <form className={classes.root} noValidate autoComplete="off">
+                        <Grid item className={classes.padding_20px}>
+                          <TextField  label="Nom Produit" variant="outlined" fullWidth  />  
+                        </Grid>
+                        <Grid item container>
+                            <TextField  label="Longeur" variant="outlined" />  
+                            <TextField  label="Largeur" variant="outlined" />  
+                            <TextField  label="Hauteur" variant="outlined" />  
+                            <TextField  label="Poids" variant="outlined" />  
+                        </Grid>
+                        <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
+                        <Button color="primary" variant="contained" onClick={()=>{}}>
+                            Valider
+                        </Button>
+                        </Grid>
+                    </form>
+                </Grid>
                 </Fade>
             </Modal>
         </Grid>
