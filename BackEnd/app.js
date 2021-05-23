@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const routeDevisColis = require('./routes/devisColis');
 const routeDevisDemenagemnt = require('./routes/devisDemenagements');
 const routePartenaires = require('./routes/Partenaires');
+const routeProduits = require('./routes/Produits');
 
 // import midelware
 
@@ -16,7 +17,7 @@ const app = express();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect('mongodb://127.0.0.1:27017/transportali', { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connexion à MongoDB réussie !');
   } catch (err) {
     console.log('Connexion à MongoDB échouée !', err);
@@ -42,6 +43,7 @@ app.use(express.json());
 app.use('/api/devis-colis', routeDevisColis);
 app.use('/api/devis-demenagement', routeDevisDemenagemnt);
 app.use('/api/devis-partenaire', routePartenaires);
+app.use('/api/produits', routeProduits);
 
 // export
 module.exports = app;
