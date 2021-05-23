@@ -11,7 +11,8 @@ const ctrlProduits = require('../Controleurs/ctrlProduits');
 Produits.route('/')
   .get(ctrlProduits.consustationTousProduits)
   .post(ctrlProduits.CreationProduits)
-  .delete(ctrlProduits.suppresionProduits);
+  .delete(ctrlProduits.suppresionProduits)
+  .put(ctrlProduits.modificationProduits);
 
 // Export
 module.exports = Produits;

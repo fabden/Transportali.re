@@ -117,8 +117,8 @@ function Produits() {
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                 timeout: 50,
-                }}
-            >
+                }}>
+                  
                 <Fade in={open}>
                 <Grid container xs={6} justify="center" className={classes.paper}>
                     <form className={classes.root} noValidate autoComplete="off">

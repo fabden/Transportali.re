@@ -25,13 +25,26 @@ exports.CreationProduits = (req, res, next) => {
 
 // modifiction produits
 exports.modificationProduits = (req, res, next) => {
+  const { _id } = req.body;
 
+  Produits.updateOne({ _id },
+    {
+      nom_produits: req.body.nom_produits,
+      longeur_produits: req.body.longeur_produits,
+      largeur_produits: req.body.largeur_produits,
+      poids_produits: req.body.poids_produits,
+    })
+    .then((e) => {
+      res.status(200).json({
+        message: 'Élément modifié',
+      });
+    })
+    .catch((e) => { console.log(e); });
 };
 // suppression produits
 exports.suppresionProduits = (req, res, next) => {
   const { id } = req.body;
   Produits.deleteOne({ _id: id })
-    .exec()
     .then(() => {
       res.status(200).json({
         message: 'Élément supprimé',
