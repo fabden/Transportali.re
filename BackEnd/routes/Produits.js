@@ -10,7 +10,8 @@ const ctrlProduits = require('../Controleurs/ctrlProduits');
 // enregistrement un produits en base de donnees
 Produits.route('/')
   .get(ctrlProduits.consustationTousProduits)
-  .post(ctrlProduits.CreationProduits);
+  .post(ctrlProduits.CreationProduits)
+  .delete(ctrlProduits.suppresionProduits);
 
 // Export
 module.exports = Produits;

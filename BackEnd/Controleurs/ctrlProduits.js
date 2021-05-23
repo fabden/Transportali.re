@@ -29,5 +29,17 @@ exports.modificationProduits = (req, res, next) => {
 };
 // suppression produits
 exports.suppresionProduits = (req, res, next) => {
-
+  const id = "60aa18ebda31be31488f15b0";
+  Produits.deleteOne({ _id: id })
+    .exec()
+    .then(() => {
+      res.status(200).json({
+        message: 'Élément supprimé',
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err.message,
+      });
+    });
 };
