@@ -77,7 +77,7 @@ export default function TableauBord() {
         <Tab label="Meubles" {...a11yProps(0)} />
         <Tab label="Partenaires" {...a11yProps(1)} />
         <Tab label="Livreurs" {...a11yProps(2)} />
-        <Tab label="Livgraisons" {...a11yProps(3)} />
+        <Tab label="Livraisons" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Produits></Produits>
