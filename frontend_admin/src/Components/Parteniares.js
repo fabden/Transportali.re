@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Fade, Grid, Modal, TextField } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
+import axios from 'axios';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -27,15 +28,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen fabrice', 159, 6.0, 24, 4.0),
- 
-];
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -74,6 +66,112 @@ function Parteniares() {
     setOpen(false);
   };   
 
+  //recupere donnee en base
+
+  const [datapartenaires, setdatapartenaires] = React.useState([{
+    nom_partenaire: "fabrice 2",
+    contact_partenaire: "test partenaire2",
+    adresse_partenaire: "25, deux rive2",
+    code_postale_partenaire: "820002",
+    email_partenaire: "faben@gmail.com",
+    telephone_partenaire: 252541224422
+}]);
+
+const recupDataPartenaires = () => {
+  const url = 'http://localhost:8080/api/partenaires';
+  axios.get(url)
+    .then((resp) => {    
+      console.log(resp.data);
+      setdatapartenaires(resp.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+React.useEffect(recupDataPartenaires,[]);
+
+// creation partenaire en base de donnee
+
+const [formpartenaire, setformpartenaire] = React.useState({
+  nom_partenaire: "",
+  contact_partenaire: "",
+  adresse_partenaire: "",
+  code_postale_partenaire: "",
+  email_partenaire: "",
+  telephone_partenaire: null
+});
+
+const changevaleurinputpartenaire =(e)=>{
+  console.log(e.target);
+  setformpartenaire({...formpartenaire,[e.target.name]: e.target.value})
+};
+
+const creaDataPartenaires = (e) => {
+  console.log(e._id);
+const url = 'http://localhost:8080/api/partenaires';
+  if (e._id !==undefined){      
+   axios.put(url,e)
+    .then((resp) => {    
+      console.log(resp.data);
+      handleClose();
+      recupDataPartenaires();   
+      setformpartenaire({
+        nom_partenaire: "",
+        contact_partenaire: "",
+        adresse_partenaire: "",
+        code_postale_partenaire: "",
+        email_partenaire: "",
+        telephone_partenaire: null
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  } else {
+  axios.post(url,e)
+    .then((resp) => {    
+      console.log(resp.data);
+      handleClose();
+      recupDataPartenaires();   
+      setformpartenaire({
+        nom_partenaire: "",
+        contact_partenaire: "",
+        adresse_partenaire: "",
+        code_postale_partenaire: "",
+        email_partenaire: "",
+        telephone_partenaire: null
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });}
+};
+
+//supprime produits en base de donneé
+
+const supDataPartenaire = (id) => {
+  const url = 'http://localhost:8080/api/partenaires';
+  console.log(id);
+  axios.delete(url,{params: {id: id}})
+    .then((resp) => {    
+      console.log(resp.data);
+      recupDataPartenaires();   
+      setformpartenaire({
+        nom_partenaire: "",
+        contact_partenaire: "",
+        adresse_partenaire: "",
+        code_postale_partenaire: "",
+        email_partenaire: "",
+        telephone_partenaire: null
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+
+
     return (
         <Grid container justify="space-around">
             <Grid item >
@@ -86,20 +184,22 @@ function Parteniares() {
                             <StyledTableCell align="right">Code postale</StyledTableCell>
                             <StyledTableCell align="right">Tel</StyledTableCell>
                             <StyledTableCell align="right">Email</StyledTableCell>
+                            <StyledTableCell align="right">Telephone</StyledTableCell>
                             <StyledTableCell align="center">Action</StyledTableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
+                        {datapartenaires.map((row) => (
                             <StyledTableRow key={row.name}>
                             <StyledTableCell component="th" scope="row">
-                                {row.name}
+                                {row.nom_partenaire}
                             </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary">Supprimer</Button></StyledTableCell>
+                            <StyledTableCell align="right">{row.contact_partenaire}</StyledTableCell>
+                            <StyledTableCell align="right">{row.adresse_partenaire}</StyledTableCell>
+                            <StyledTableCell align="right">{row.code_postale_partenaire}</StyledTableCell>
+                            <StyledTableCell align="right">{row.email_partenaire}</StyledTableCell>
+                            <StyledTableCell align="right">{row.telephone_partenaire}</StyledTableCell>
+                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary" onClick={()=>{supDataPartenaire(row._id)}}  >Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -126,33 +226,33 @@ function Parteniares() {
                     <form className={classes.root} noValidate autoComplete="off">
                         <Grid container className={classes.padding_20px}>
                           <Grid xs>
-                            <TextField  label="Nom entreprise" variant="outlined" fullWidth  />
+                            <TextField  label="Nom entreprise" name="nom_partenaire" variant="outlined" fullWidth value={formpartenaire.nom_partenaire} onChange={changevaleurinputpartenaire} />
                           </Grid>
                           <Grid xs>
-                          <TextField  label="Contact" variant="outlined" fullWidth  />
+                          <TextField  label="Contact" name="contact_partenaire" variant="outlined" fullWidth value={formpartenaire.contact_partenaire} onChange={changevaleurinputpartenaire} />
                           </Grid>
                         </Grid>
                         <Grid container className={classes.padding_20px}>
                           <Grid xs>
-                              <TextField  label="Adresse" variant="outlined" fullWidth />
+                              <TextField  label="Adresse" name="adresse_partenaire" variant="outlined" fullWidth value={formpartenaire.adresse_partenaire} onChange={changevaleurinputpartenaire}/>
                           </Grid>
                           <Grid xs >
-                              <TextField  label="Code Postal" variant="outlined" fullWidth  />  
+                              <TextField  label="Code Postal" name="code_postale_partenaire" variant="outlined" fullWidth value={formpartenaire.code_postale_partenaire} onChange={changevaleurinputpartenaire} />  
                           </Grid>
                         </Grid>
                         <Grid container className={classes.padding_20px}>
                           <Grid xs>
-                            <TextField  label="Telephone" variant="outlined" fullWidth  /> 
+                            <TextField  label="Telephone" name="telephone_partenaire" variant="outlined" fullWidth value={formpartenaire.telephone_partenaire} onChange={changevaleurinputpartenaire} /> 
                           </Grid>
                           <Grid xs>
-                            <TextField  label="Email" variant="outlined" fullWidth  /> 
+                            <TextField  label="Email" name="email_partenaire" variant="outlined" fullWidth value={formpartenaire.email_partenaire} onChange={changevaleurinputpartenaire} /> 
                           </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
                         <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
                               Annulé
                           </Button>
-                          <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
+                          <Button color="primary" variant="contained" onClick={()=>{creaDataPartenaires(formpartenaire)}} className={classes.margin_10px}>
                               Valider
                           </Button>
                         </Grid>
