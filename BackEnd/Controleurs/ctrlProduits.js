@@ -24,7 +24,7 @@ exports.CreationProduits = (req, res, next) => {
     .catch((e) => { console.log(e); });
 };
 
-// modifiction produits
+// modification produits
 exports.modificationProduits = (req, res, next) => {
   const { _id } = req.body;
   console.log(req.body._id);

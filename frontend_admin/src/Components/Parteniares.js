@@ -40,7 +40,6 @@ const rows = [
 const useStyles = makeStyles((theme) => ({
   table: {
       width:'65vw',
-       
   },
   modal: {
     display: 'flex',
@@ -56,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  margin_10px:{
+    margin:'10px',
   },
 }));
 
@@ -97,7 +99,7 @@ function Parteniares() {
                             <StyledTableCell align="right">{row.fat}</StyledTableCell>
                             <StyledTableCell align="right">{row.carbs}</StyledTableCell>
                             <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="center"><Button variant="contained" >Modifier</Button><Button variant="contained" color="secondary">Supprimer</Button></StyledTableCell>
+                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary">Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -105,7 +107,7 @@ function Parteniares() {
                 </TableContainer>
             </Grid>
             <Grid item xs alignItems="center">
-                <Button color="primary" variant="contained" onClick={handleOpen}>Nouveaux</Button>
+                <Button color="primary" variant="contained" onClick={handleOpen} className={classes.margin_10px}>Nouveaux</Button>
             </Grid>
             <Modal
                 aria-labelledby="transition-modal-title"
