@@ -120,23 +120,39 @@ function Parteniares() {
                 }}
             >
                 <Fade in={open}>
-                <Grid container xs={6} justify="center" className={classes.paper}>
+                <Grid xs={8} justify="center" className={classes.paper}>
                     <form className={classes.root} noValidate autoComplete="off">
-                        <Grid item xs className={classes.padding_20px}>
-                          <TextField  label="Nom Produit" variant="outlined" fullWidth  />  
+                        <Grid container className={classes.padding_20px}>
+                          <Grid xs>
+                            <TextField  label="Nom entreprise" variant="outlined" fullWidth  />
+                          </Grid>
+                          <Grid xs>
+                          <TextField  label="Contact" variant="outlined" fullWidth  />
+                          </Grid>
                         </Grid>
-                        <Grid item container>
-                            <TextField  label="Hauteur" variant="outlined" />  
-                            <TextField  label="Poids" variant="outlined" />  
+                        <Grid container className={classes.padding_20px}>
+                          <Grid xs>
+                              <TextField  label="Adresse" variant="outlined" fullWidth />
+                          </Grid>
+                          <Grid xs >
+                              <TextField  label="Code Postal" variant="outlined" fullWidth  />  
+                          </Grid>
                         </Grid>
-                        <Grid item container>
-                            <TextField  label="Longeur" variant="outlined" />  
-                            <TextField  label="Largeur" variant="outlined" /> 
+                        <Grid container className={classes.padding_20px}>
+                          <Grid xs>
+                            <TextField  label="Telephone" variant="outlined" fullWidth  /> 
+                          </Grid>
+                          <Grid xs>
+                            <TextField  label="Email" variant="outlined" fullWidth  /> 
+                          </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
                         <Button color="primary" variant="contained" onClick={()=>{}}>
-                            Valider
-                        </Button>
+                              Annulé
+                          </Button>
+                          <Button color="primary" variant="contained" onClick={()=>{}}>
+                              Valider
+                          </Button>
                         </Grid>
                     </form>
                 </Grid>

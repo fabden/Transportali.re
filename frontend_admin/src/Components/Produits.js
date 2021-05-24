@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
   padding_20px:{
       padding:'20px 0 20px 0 ',
   },
+  margin_10px:{
+    margin:'10px',
+  },
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
@@ -96,7 +99,14 @@ const supDataProduits = (id) => {
   axios.delete(url,{params: {id: id}})
     .then((resp) => {    
       console.log(resp.data);
-      recupDataProduits();      
+      recupDataProduits();  
+      setformproduits({
+        nom_produits: "",
+        longeur_produits: "",
+        largeur_produits: "",
+        hauteur_produits: "",
+        poids_produits: "",
+      });    
     })
     .catch((error) => {
       console.log(error);
@@ -190,7 +200,7 @@ const modifproduits =(e)=>{
                             <StyledTableCell align="right">{row.largeur_produits}</StyledTableCell>
                             <StyledTableCell align="right">{row.hauteur_produits}</StyledTableCell>
                             <StyledTableCell align="right">{row.poids_produits}</StyledTableCell>
-                            <StyledTableCell align="center"><Button variant="contained" onClick={()=>{modifproduits(row)}} >Modifier</Button><Button variant="contained" color="secondary" onClick={()=>{supDataProduits(row._id)}} >Supprimer</Button></StyledTableCell>
+                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" onClick={()=>{modifproduits(row)}} >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary" onClick={()=>{supDataProduits(row._id)}} >Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -198,7 +208,7 @@ const modifproduits =(e)=>{
                 </TableContainer>
             </Grid>
             <Grid item xs alignItems="center">
-                <Button color="primary" variant="contained" onClick={handleOpen}>Nouveaux</Button>
+                <Button color="primary" variant="contained" className={classes.margin_10px} onClick={handleOpen}>Nouveaux</Button>
             </Grid>
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -225,10 +235,16 @@ const modifproduits =(e)=>{
                             <TextField  label="Poids" variant="outlined" name="poids_produits" value={formproduits.poids_produits}  onChange={changevaleurinputproduits}/>  
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
-                        <Button color="primary" variant="contained" onClick={handleClose}>
-                            Annulé
+                        <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformproduits({
+                                                                                nom_produits: "",
+                                                                                longeur_produits: "",
+                                                                                largeur_produits: "",
+                                                                                hauteur_produits: "",
+                                                                                poids_produits: "",
+                                                                              });}} className={classes.margin_10px}>
+                            Annuler
                         </Button>
-                        <Button color="primary" variant="contained" onClick={()=>{creaDataProduits(formproduits)}}>
+                        <Button color="primary" variant="contained" onClick={()=>{creaDataProduits(formproduits)}} className={classes.margin_10px}>
                             Valider
                         </Button>
                         </Grid>
