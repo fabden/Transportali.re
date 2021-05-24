@@ -15,7 +15,7 @@ exports.generateurPDFPartenaires = (req, res) => {
 };
 
 // consultation tout partenaires
-exports.consustationTouspartenaires = (req, res, next) => {
+exports.consultationTouspartenaires = (req, res, next) => {
   Partenaires.find()
     .then((doc) => { res.status(200).json(doc); })
     .catch((err) => { res.status(500).json({ error: err }); });
@@ -24,11 +24,12 @@ exports.consustationTouspartenaires = (req, res, next) => {
 // creation partenaires
 exports.Creationpartenaires = (req, res, next) => {
   const nouveauproduit = new Partenaires({
-    nom_produits: req.body.nom_produits,
-    longeur_produits: req.body.longeur_produits,
-    largeur_produits: req.body.largeur_produits,
-    hauteur_produits: req.body.hauteur_produits,
-    poids_produits: req.body.poids_produits,
+    nom_partenaire: req.body.nom_partenaire,
+    contact_partenaire: req.body.contact_partenaire,
+    adresse_partenaire: req.body.adresse_partenaire,
+    code_postale_partenaire: req.body.code_postale_partenaire,
+    email_partenaire: req.body.email_partenaire,
+    telephone_partenaire: req.body.telephone_partenaire,
   });
 
   nouveauproduit.save()
@@ -44,11 +45,12 @@ exports.modificationpartenaires = (req, res, next) => {
   console.log(req.body._id);
   Partenaires.updateOne({ _id },
     {
-      nom_produits: req.body.nom_produits,
-      longeur_produits: req.body.longeur_produits,
-      largeur_produits: req.body.largeur_produits,
-      hauteur_produits: req.body.hauteur_produits,
-      poids_produits: req.body.poids_produits,
+      nom_partenaire: req.body.nom_partenaire,
+      contact_partenaire: req.body.contact_partenaire,
+      adresse_partenaire: req.body.adresse_partenaire,
+      code_postale_partenaire: req.body.code_postale_partenaire,
+      email_partenaire: req.body.email_partenaire,
+      telephone_partenaire: req.body.telephone_partenaire,
     })
     .then((e) => {
       console.log('parteniares modifier sur sevreur ');

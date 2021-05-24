@@ -149,10 +149,10 @@ function Parteniares() {
                           </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
-                        <Button color="primary" variant="contained" onClick={()=>{}}>
+                        <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
                               Annulé
                           </Button>
-                          <Button color="primary" variant="contained" onClick={()=>{}}>
+                          <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
                               Valider
                           </Button>
                         </Grid>

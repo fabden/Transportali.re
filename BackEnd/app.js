@@ -42,7 +42,7 @@ app.use(express.json());
 
 app.use('/api/devis-colis', routeDevisColis);
 app.use('/api/devis-demenagement', routeDevisDemenagemnt);
-app.use('/api/devis-partenaire', routePartenaires);
+app.use('/api/partenaires', routePartenaires);
 app.use('/api/produits', routeProduits);
 
 // export
