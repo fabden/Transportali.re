@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Fade, Grid, Modal, TextField } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
+import axios from 'axios';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -27,15 +28,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen fabrice', 159, 6.0, 24, 4.0),
- 
-];
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -57,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  margin_10px:{
+    margin:'10px',
+  },
 }));
 
 function Livreurs() {
@@ -71,6 +66,87 @@ function Livreurs() {
   const handleClose = () => {
     setOpen(false);
   };   
+
+  // creation livreur en base de donnee
+
+const [formlivreur, setformlivreur] = React.useState({
+  nom_partenaire: "",
+  contact_partenaire: "",
+  adresse_partenaire: "",
+  code_postale_partenaire: "",
+  email_partenaire: "",
+  telephone_partenaire: null
+});
+
+const changevaleurinputlivreur =(e)=>{
+  console.log(e.target);
+  setformlivreur({...formlivreur,[e.target.name]: e.target.value})
+};
+
+const creaDataLivreur = (e) => {
+  console.log(e._id);
+const url = 'http://localhost:8080/api/Livreurs';
+  if (e._id !==undefined){      
+   axios.put(url,e)
+    .then((resp) => {    
+      console.log(resp.data);
+      handleClose();
+      setformlivreur({
+        nom_partenaire: "",
+        contact_partenaire: "",
+        adresse_partenaire: "",
+        code_postale_partenaire: "",
+        email_partenaire: "",
+        telephone_partenaire: null
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  } else {
+  axios.post(url,e)
+    .then((resp) => {    
+      console.log(resp.data);
+      handleClose();
+      
+      setformlivreur({
+        nom_partenaire: "",
+        contact_partenaire: "",
+        adresse_partenaire: "",
+        code_postale_partenaire: "",
+        email_partenaire: "",
+        telephone_partenaire: null
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });}
+};
+
+  //recupere donnee en base
+
+  const [datalivreurs, setdatalivreurs] = React.useState([{
+    nom_partenaire: "fabrice 2",
+    contact_partenaire: "test partenaire2",
+    adresse_partenaire: "25, deux rive2",
+    code_postale_partenaire: "820002",
+    email_partenaire: "faben@gmail.com",
+    telephone_partenaire: 252541224422
+}]);
+
+const recupDatalivreurs = () => {
+  const url = 'http://localhost:8080/api/livreurs';
+  axios.get(url)
+    .then((resp) => {    
+      console.log(resp.data);
+      setdatalivreurs(resp.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+React.useEffect(recupDatalivreurs,[]);
+
 
     return (
         <Grid container justify="space-around">
@@ -88,7 +164,7 @@ function Livreurs() {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
+                        {datalivreurs.map((row) => (
                             <StyledTableRow key={row.name}>
                             <StyledTableCell component="th" scope="row">
                                 {row.name}
@@ -97,7 +173,7 @@ function Livreurs() {
                             <StyledTableCell align="right">{row.fat}</StyledTableCell>
                             <StyledTableCell align="right">{row.carbs}</StyledTableCell>
                             <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="center"><Button variant="contained" >Modifier</Button><Button variant="contained" color="secondary">Supprimer</Button></StyledTableCell>
+                            <StyledTableCell align="center"><Button variant="contained" className={classes.margin_10px} >Modifier</Button><Button variant="contained" color="secondary" className={classes.margin_10px}>Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -105,7 +181,7 @@ function Livreurs() {
                 </TableContainer>
             </Grid>
             <Grid item xs alignItems="center">
-                <Button color="primary" variant="contained" onClick={handleOpen}>Nouveaux</Button>
+                <Button color="primary" variant="contained" onClick={handleOpen}className={classes.margin_10px} >Nouveaux</Button>
             </Grid>
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -113,6 +189,7 @@ function Livreurs() {
                 className={classes.modal}
                 open={open}
                 onClose={handleClose}
+
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -120,23 +197,46 @@ function Livreurs() {
                 }}
             >
                 <Fade in={open}>
-                <Grid container xs={6} justify="center" className={classes.paper}>
-                    <form className={classes.root} noValidate autoComplete="off">
-                        <Grid item xs className={classes.padding_20px}>
-                          <TextField  label="Nom Produit" variant="outlined" fullWidth  />  
+                <Grid  xs={6} justify="center" className={classes.paper}>
+                <form className={classes.root} noValidate autoComplete="off">
+                        <Grid container className={classes.padding_20px}>
+                          <Grid xs>
+                            <TextField  label="Nom entreprise" name="nom_partenaire" variant="outlined" fullWidth value={formlivreur.nom_partenaire} onChange={changevaleurinputlivreur} />
+                          </Grid>
+                          <Grid xs>
+                          <TextField  label="Contact" name="contact_partenaire" variant="outlined" fullWidth value={formlivreur.contact_partenaire} onChange={changevaleurinputlivreur} />
+                          </Grid>
                         </Grid>
-                        <Grid item container>
-                            <TextField  label="Hauteur" variant="outlined" />  
-                            <TextField  label="Poids" variant="outlined" />  
+                        <Grid container className={classes.padding_20px}>
+                          <Grid xs>
+                              <TextField  label="Adresse" name="adresse_partenaire" variant="outlined" fullWidth value={formlivreur.adresse_partenaire} onChange={changevaleurinputlivreur}/>
+                          </Grid>
+                          <Grid xs >
+                              <TextField  label="Code Postal" name="code_postale_partenaire" variant="outlined" fullWidth value={formlivreur.code_postale_partenaire} onChange={changevaleurinputlivreur} />  
+                          </Grid>
                         </Grid>
-                        <Grid item container>
-                            <TextField  label="Longeur" variant="outlined" />  
-                            <TextField  label="Largeur" variant="outlined" /> 
+                        <Grid container className={classes.padding_20px}>
+                          <Grid xs>
+                            <TextField  label="Telephone" name="telephone_partenaire" variant="outlined" fullWidth value={formlivreur.telephone_partenaire} onChange={changevaleurinputlivreur} /> 
+                          </Grid>
+                          <Grid xs>
+                            <TextField  label="Email" name="email_partenaire" variant="outlined" fullWidth value={formlivreur.email_partenaire} onChange={changevaleurinputlivreur} /> 
+                          </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
-                        <Button color="primary" variant="contained" onClick={()=>{}}>
-                            Valider
-                        </Button>
+                        <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformlivreur({
+                                                                                  nom_partenaire: "",
+                                                                                  contact_partenaire: "",
+                                                                                  adresse_partenaire: "",
+                                                                                  code_postale_partenaire: "",
+                                                                                  email_partenaire: "",
+                                                                                  telephone_partenaire: null
+                                                                                }) ;}} className={classes.margin_10px}>
+                              Annulé
+                          </Button>
+                          <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
+                              Valider
+                          </Button>
                         </Grid>
                     </form>
                 </Grid>

@@ -171,7 +171,6 @@ const changevaleurinputproduits =(e)=>{
 //modification donnee en base de donnee
 
 const modifproduits =(e)=>{
-  console.log(dataproduits.indexOf(e));
   setformproduits(e);
   handleOpen();
 

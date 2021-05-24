@@ -170,7 +170,13 @@ const supDataPartenaire = (id) => {
     });
 };
 
+//modification donnee en base de donnee
 
+const modifpartenaires =(e)=>{
+  setformpartenaire(e);
+  handleOpen();
+
+};
 
     return (
         <Grid container justify="space-around">
@@ -180,9 +186,9 @@ const supDataPartenaire = (id) => {
                         <TableHead>
                         <TableRow>
                             <StyledTableCell>Nom Entreprise</StyledTableCell>
+                            <StyledTableCell align="right">Contact</StyledTableCell>
                             <StyledTableCell align="right">Adresse</StyledTableCell>
                             <StyledTableCell align="right">Code postale</StyledTableCell>
-                            <StyledTableCell align="right">Tel</StyledTableCell>
                             <StyledTableCell align="right">Email</StyledTableCell>
                             <StyledTableCell align="right">Telephone</StyledTableCell>
                             <StyledTableCell align="center">Action</StyledTableCell>
@@ -199,7 +205,7 @@ const supDataPartenaire = (id) => {
                             <StyledTableCell align="right">{row.code_postale_partenaire}</StyledTableCell>
                             <StyledTableCell align="right">{row.email_partenaire}</StyledTableCell>
                             <StyledTableCell align="right">{row.telephone_partenaire}</StyledTableCell>
-                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary" onClick={()=>{supDataPartenaire(row._id)}}  >Supprimer</Button></StyledTableCell>
+                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" onClick={()=>{modifpartenaires(row)} } >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary" onClick={()=>{supDataPartenaire(row._id)}}  >Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -249,7 +255,14 @@ const supDataPartenaire = (id) => {
                           </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
-                        <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
+                        <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformpartenaire({
+                                                                                  nom_partenaire: "",
+                                                                                  contact_partenaire: "",
+                                                                                  adresse_partenaire: "",
+                                                                                  code_postale_partenaire: "",
+                                                                                  email_partenaire: "",
+                                                                                  telephone_partenaire: null
+                                                                                }) ;}} className={classes.margin_10px}>
                               Annulé
                           </Button>
                           <Button color="primary" variant="contained" onClick={()=>{creaDataPartenaires(formpartenaire)}} className={classes.margin_10px}>
