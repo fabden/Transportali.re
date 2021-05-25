@@ -14,5 +14,8 @@ LivreurRouteur.route('/')
   .delete(ctrlLivreur.suppresionLivreurs)
   .put(ctrlLivreur.modificationLivreurs);
 
+LivreurRouteur.route('/connexions')
+  .get(() => { console.log('connexion livreur'); });
+
 // Export
 module.exports = LivreurRouteur;

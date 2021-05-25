@@ -45,7 +45,7 @@ app.use('/api/devis-colis', routeDevisColis);
 app.use('/api/devis-demenagement', routeDevisDemenagemnt);
 app.use('/api/partenaires', routePartenaires);
 app.use('/api/produits', routeProduits);
-app.use('/api/livreurs',routeLivreurs)
+app.use('/api/livreurs', routeLivreurs);
 
 // export
 module.exports = app;
