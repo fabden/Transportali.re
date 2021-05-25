@@ -100,10 +100,10 @@ exports.enregistrementsDataBase = (req, res, next) => {
       date_enregistrement: Date.now(),
       date_livraisons: req.body.datedeviselecro,
       etat: {
-        livraison: 'req.body.reference_colis.etat.livraison',
+        livraison: 'En cours',
         payement: 'req.body.reference_colis.etat.payement',
       },
-      types: ' req.body.reference_colis.types',
+      types: req.body.ville_depart.type,
     },
   });
   nouveauDevisColis.save()

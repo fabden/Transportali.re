@@ -53,6 +53,7 @@ const [devisElectroDepart,setDevisElectroDepart]=React.useState({
     email:"",
     telephone:"",
     commentaire:"",
+    type:"particulier",
     },);
 
 const [devisElectroArrive,setDevisElectroArrive]=React.useState({
@@ -83,6 +84,7 @@ const [devisDemenagemnt, setDevisDemenagement] = React.useState({
     villeDepart:"",
     VilleArriver:"",
     metreCarre:10,
+    type:"particulier",
 });
 
 ////fonction pour devis meuble electro
@@ -115,7 +117,7 @@ const handleChangeElecro = () => {
 
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://localhost:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro })
+    axios.post('http://localhost:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro})
         .then((res) => setCoutDevis(res.data))
         .catch((e) => console.log(e))
 };
