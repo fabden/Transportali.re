@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Produits from './Produits';
 import Parteniares from './Parteniares';
 import Livreurs from './Livreurs';
-import Livraisons from './Livraisons';
+import Missions from './Missions';
 
 
 function TabPanel(props) {
@@ -77,7 +77,7 @@ export default function TableauBord() {
         <Tab label="Meubles" {...a11yProps(0)} />
         <Tab label="Partenaires" {...a11yProps(1)} />
         <Tab label="Livreurs" {...a11yProps(2)} />
-        <Tab label="Livraisons" {...a11yProps(3)} />
+        <Tab label="Missions" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Produits></Produits>
@@ -89,7 +89,7 @@ export default function TableauBord() {
         <Livreurs></Livreurs>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Livraisons></Livraisons>
+        <Missions></Missions>
       </TabPanel>
     </div>
   );

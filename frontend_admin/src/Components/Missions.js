@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Livraisons() {
+function Missions() {
     return (
         <div>
             liste livraison
@@ -8,4 +8,4 @@ function Livraisons() {
     )
 }
 
-export default Livraisons
+export default Missions
