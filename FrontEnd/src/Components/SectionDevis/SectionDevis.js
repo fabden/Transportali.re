@@ -137,6 +137,12 @@ const changevaleurinputdemanagement =(e)=>{
 const handleChangeValeurmetrecarre =  (e, nv) => {   
     setDevisDemenagement({...devisDemenagemnt,metreCarre: nv})
 };
+
+const envoiDevisDemenagement =()=>{
+    axios.post('http://localhost:8080/api/devis-demenagement', devisDemenagemnt)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e))
+}
 ////
 
 ///recuperation liste electromenager 
@@ -260,7 +266,7 @@ React.useEffect(recupListeElectro,[]);
                                     <TextField fullWidth label="Telephone" variant="outlined" name='telephone' value={devisDemenagemnt.telephone} onChange={changevaleurinputdemanagement} />
                                 </Grid>
                             </Grid>
-                            <Button variant="contained" className={`${classes.couleurBoutton} ${classes.margin_10top}`}>Demander un devis</Button>
+                            <Button variant="contained" className={`${classes.couleurBoutton} ${classes.margin_10top}`} onClick={envoiDevisDemenagement}>Demander un devis</Button>
                         </Grid >
                     </Card>
                 </Grid >

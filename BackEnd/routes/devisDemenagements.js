@@ -9,7 +9,8 @@ const ctrlDemenagements = require('../Controleurs/ctrlDemenagements');
 
 // enregistrement un devis demaenagement en base de donnees
 devisDemenagemntRouteur.route('/')
-  .get(ctrlDemenagements.generateurPDFDemenagements);
+  .get(ctrlDemenagements.generateurPDFDemenagements)
+  .post(ctrlDemenagements.envoisDevisMail);
 
 // Export
 module.exports = devisDemenagemntRouteur;
