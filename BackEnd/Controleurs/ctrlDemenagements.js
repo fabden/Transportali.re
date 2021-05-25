@@ -36,11 +36,7 @@ exports.envoisDevisMail = (req, res) => {
     sont email est : ${req.body.email}`,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(`Email sent: ${info.response}`);
-    }
-  });
+  transporter.sendMail(mailOptions)
+    .then((info) => console.log(`Email sent: ${info.response}`))
+    .catch((error) => console.log(error));
 };
