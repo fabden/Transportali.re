@@ -54,7 +54,7 @@ exports.generateurPDFColis = (req, res) => {
     .moveDown(0);
   doc.text(`mail contact de destination : ${req.body.ville_arrive.email}`)
     .moveDown(0);
-  doc.text(`commentaire contact  : ${req.body.ville_arrive.contact}`)
+  doc.text(`commentaire contact  : ${req.body.ville_arrive.commentaire}`)
     .moveDown(5);
   doc.text(`mail contact de destination : ${req.body.ville_arrive.email}`)
     .moveDown(0);

@@ -51,7 +51,7 @@ function DevisElectro({ handleChangeDate, ville_depart, ville_arrive, changeInpu
     const generateur_pdf_devis = ()=>{
     axios({
         method:'post',
-        url:'http://82.165.56.203/api/devis-colis/pdf',
+        url:'http://localhost:8080/api/devis-colis/pdf',
         responseType:'arraybuffer',
         data: {ville_depart, ville_arrive, datedeviselecro}
       })

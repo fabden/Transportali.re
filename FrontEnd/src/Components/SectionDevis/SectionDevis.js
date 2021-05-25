@@ -64,7 +64,7 @@ const [devisElectroArrive,setDevisElectroArrive]=React.useState({
     commentaire:"",
     });
 const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
-    nom_produits:"",
+    nom_produits:" ",
     longeur_produits:0,
     largeur_produits:0,
     hauteur_produits:0,
@@ -102,11 +102,9 @@ const changevaleurinputElectroArrive =(e)=>{
 const changevaleurinputparamMeubleElectro =(e)=>{
     
     const filterelementelectro = listeleElectro.filter((el)=>el.nom_produits === e.target.value);
-
-    if (e.target.name === "nom_produits"){
+console.log(e.target.value)
+    if (e.target.name === "nom_produits" & e.target.value !== ""){
         setParamMeubleElectro(filterelementelectro[0]);
-        console.log("voila")
-
     }else{
         setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
     } 
