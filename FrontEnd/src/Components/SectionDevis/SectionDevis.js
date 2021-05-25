@@ -65,10 +65,10 @@ const [devisElectroArrive,setDevisElectroArrive]=React.useState({
     });
 const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
     nom_produits:"",
-    longeur_produits:2,
-    largeur_produits:2,
-    hauteur_produits:2,
-    poids_produits:2,
+    longeur_produits:0,
+    largeur_produits:0,
+    hauteur_produits:0,
+    poids_produits:0,
 });
 const [datedeviselecro, setDateDevisElectro] = React.useState("2021-05-14T10:00");
 const [coutDevis, setCoutDevis]=React.useState ({prix:0, distance_livraison:0});
@@ -100,8 +100,16 @@ const changevaleurinputElectroArrive =(e)=>{
     setDevisElectroArrive({...devisElectroArrive,[e.target.name]: e.target.value})
 };
 const changevaleurinputparamMeubleElectro =(e)=>{
-    console.log(e.target);
-    setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
+    
+    const filterelementelectro = listeleElectro.filter((el)=>el.nom_produits === e.target.value);
+
+    if (e.target.name === "nom_produits"){
+        setParamMeubleElectro(filterelementelectro[0]);
+        console.log("voila")
+
+    }else{
+        setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
+    } 
 };
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
@@ -178,7 +186,7 @@ React.useEffect(recupListeElectro,[]);
                                     <InputLabel>Selectionnner </InputLabel>
                                     <Select id='choix_meuble_electro'name='nom_produits'onChange={changevaleurinputparamMeubleElectro} native  value={paramMeubleElectro.nom_produits}>  
                                     <option aria-label="Selectionnner votre meuble/electromenager" />
-                                    {listeleElectro.map((e) => <option value={e.nom_produits}>{e.nom_produits}</option>)}
+                                    {listeleElectro.map((e) => <option value={e.nom_produits} >{e.nom_produits}</option>)}
                                     </Select>
                                 </FormControl>
                                 <Divider className={classes.margin_10} />
@@ -192,18 +200,18 @@ React.useEffect(recupListeElectro,[]);
                                 <form autoComplete="off">
                                     <Grid container>
                                         <Grid xs item>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur_produits'value={paramMeubleElectro.longeur} onChange={changevaleurinputparamMeubleElectro}/>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur_produits'value={paramMeubleElectro.longeur_produits} onChange={changevaleurinputparamMeubleElectro}/>
                                         </Grid>
                                         <Grid xs item >
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur_produits'value={paramMeubleElectro.largeur} onChange={changevaleurinputparamMeubleElectro} />
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur_produits'value={paramMeubleElectro.largeur_produits} onChange={changevaleurinputparamMeubleElectro} />
                                         </Grid>
                                     </Grid>
                                     <Grid container>
                                         <Grid xs  item>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur_produits'value={paramMeubleElectro.hauteur} onChange={changevaleurinputparamMeubleElectro}/>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur_produits'value={paramMeubleElectro.hauteur_produits} onChange={changevaleurinputparamMeubleElectro}/>
                                         </Grid>
                                         <Grid item xs>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids_produits'value={paramMeubleElectro.poids} onChange={changevaleurinputparamMeubleElectro} />
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids_produits'value={paramMeubleElectro.poids_produits} onChange={changevaleurinputparamMeubleElectro} />
                                         </Grid> 
                                    </Grid>
                                     </form>
