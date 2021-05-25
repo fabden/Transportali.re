@@ -4,10 +4,7 @@ const mongoose = require('mongoose');
 // Schema pour Partenaires
 const modelLivreurs = mongoose.Schema({
   nom_livreur: { type: String, required: true },
-  contact_livreur: { type: String, require: true },
-  adresse_livreur: { type: String, require: true },
-  code_postale_livreur: { type: String, require: true },
-  email_livreur: { type: String, required: true },
+  email_livreur: { type: String},
   telephone_livreur: { type: Number, required: true },
 });
 

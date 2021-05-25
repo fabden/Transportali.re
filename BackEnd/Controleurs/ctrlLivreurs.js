@@ -10,12 +10,9 @@ exports.consustationTousLivreurs = (req, res, next) => {
 // creation produits
 exports.CreationLivreurs = (req, res, next) => {
   const nouveauproduit = new Livreurs({
-    nom_livreur: "{ type: String, required: true }",
-    contact_livreur: "{ type: String, require: true }",
-    adresse_livreur: "{ type: String, require: true }",
-    code_postale_livreur: "{ type: String, require: true }",
-    email_livreur: "{ type: String, required: true }",
-    telephone_livreur: 4544,
+    nom_livreur: req.body.nom_livreur,
+    email_livreur: req.body.email_livreur,
+    telephone_livreur: req.body.telephone_livreur,
   });
 
   nouveauproduit.save()
@@ -31,11 +28,9 @@ exports.modificationLivreurs = (req, res, next) => {
   console.log(req.body._id);
   Livreurs.updateOne({ _id },
     {
-      nom_produits: req.body.nom_produits,
-      longeur_produits: req.body.longeur_produits,
-      largeur_produits: req.body.largeur_produits,
-      hauteur_produits: req.body.hauteur_produits,
-      poids_produits: req.body.poids_produits,
+      nom_livreur: req.body.nom_livreur,
+      email_livreur: req.body.email_livreur,
+      telephone_livreur: req.body.telephone_livreur,
     })
     .then((e) => {
       console.log('produit modifier sur sevreur ');

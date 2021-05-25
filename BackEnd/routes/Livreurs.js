@@ -1,18 +1,18 @@
 // Imports
 const express = require('express');
 
-const PartenairesLivreur= express.Router();
+const LivreurRouteur = express.Router();
 
 // import controleur
 
 const ctrlLivreur = require('../Controleurs/ctrlLivreurs');
 
 // enregistrement un colis en base de donnees
-PartenairesLivreur.route('/')
-  .get(ctrlLivreur.consultationTouspartenaires)
-  .post(ctrlLivreur.Creationpartenaires)
-  .delete(ctrlLivreur.suppresionpartenaires)
-  .put(ctrlLivreur.modificationpartenaires);
+LivreurRouteur.route('/')
+  .get(ctrlLivreur.consustationTousLivreurs)
+  .post(ctrlLivreur.CreationLivreurs)
+  .delete(ctrlLivreur.suppresionLivreurs)
+  .put(ctrlLivreur.modificationLivreurs);
 
 // Export
-module.exports = PartenairesLivreur;
+module.exports = LivreurRouteur;

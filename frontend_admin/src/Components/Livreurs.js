@@ -70,12 +70,9 @@ function Livreurs() {
   // creation livreur en base de donnee
 
 const [formlivreur, setformlivreur] = React.useState({
-  nom_partenaire: "",
-  contact_partenaire: "",
-  adresse_partenaire: "",
-  code_postale_partenaire: "",
-  email_partenaire: "",
-  telephone_partenaire: null
+  nom_livreur: "",
+  email_livreur: "",
+  telephone_livreur: null
 });
 
 const changevaleurinputlivreur =(e)=>{
@@ -85,19 +82,17 @@ const changevaleurinputlivreur =(e)=>{
 
 const creaDataLivreur = (e) => {
   console.log(e._id);
-const url = 'http://localhost:8080/api/Livreurs';
+const url = 'http://localhost:8080/api/livreurs';
   if (e._id !==undefined){      
    axios.put(url,e)
     .then((resp) => {    
       console.log(resp.data);
       handleClose();
+      recupDatalivreurs();
       setformlivreur({
-        nom_partenaire: "",
-        contact_partenaire: "",
-        adresse_partenaire: "",
-        code_postale_partenaire: "",
-        email_partenaire: "",
-        telephone_partenaire: null
+        nom_livreur: "",
+        email_livreur: "",
+        telephone_livreur: null
       })   
     })
     .catch((error) => {
@@ -108,14 +103,11 @@ const url = 'http://localhost:8080/api/Livreurs';
     .then((resp) => {    
       console.log(resp.data);
       handleClose();
-      
+      recupDatalivreurs();
       setformlivreur({
-        nom_partenaire: "",
-        contact_partenaire: "",
-        adresse_partenaire: "",
-        code_postale_partenaire: "",
-        email_partenaire: "",
-        telephone_partenaire: null
+        nom_livreur: "",
+        email_livreur: "",
+        telephone_livreur: null
       })   
     })
     .catch((error) => {
@@ -126,19 +118,15 @@ const url = 'http://localhost:8080/api/Livreurs';
   //recupere donnee en base
 
   const [datalivreurs, setdatalivreurs] = React.useState([{
-    nom_partenaire: "fabrice 2",
-    contact_partenaire: "test partenaire2",
-    adresse_partenaire: "25, deux rive2",
-    code_postale_partenaire: "820002",
-    email_partenaire: "faben@gmail.com",
-    telephone_partenaire: 252541224422
+    nom_livreur: "",
+    email_livreur: "",
+    telephone_livreur: null
 }]);
 
 const recupDatalivreurs = () => {
   const url = 'http://localhost:8080/api/livreurs';
   axios.get(url)
     .then((resp) => {    
-      console.log(resp.data);
       setdatalivreurs(resp.data)
     })
     .catch((error) => {
@@ -146,6 +134,33 @@ const recupDatalivreurs = () => {
     });
 };
 React.useEffect(recupDatalivreurs,[]);
+
+//supprime Livreurs en base de donneé
+
+const supDataLivreurs = (id) => {
+  const url = 'http://localhost:8080/api/livreurs';
+  console.log(id);
+  axios.delete(url,{params: {id: id}})
+    .then((resp) => {    
+      console.log(resp.data);
+      recupDatalivreurs();   
+      setformlivreur({
+        nom_livreur: "",
+        email_livreur: "",
+        telephone_livreur: null
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//modification donnee en base de donnee
+
+const modifLivreurs =(e)=>{
+  setformlivreur(e);
+  handleOpen();
+}
 
 
     return (
@@ -155,25 +170,20 @@ React.useEffect(recupDatalivreurs,[]);
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                         <TableRow>
-                            <StyledTableCell>Nom Entreprise</StyledTableCell>
-                            <StyledTableCell align="right">Adresse</StyledTableCell>
-                            <StyledTableCell align="right">Code postale</StyledTableCell>
+                            <StyledTableCell>Nom livreur</StyledTableCell>
                             <StyledTableCell align="right">Tel</StyledTableCell>
                             <StyledTableCell align="right">Email</StyledTableCell>
                             <StyledTableCell align="center">Action</StyledTableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
+                          {console.log(datalivreurs)}
                         {datalivreurs.map((row) => (
-                            <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="center"><Button variant="contained" className={classes.margin_10px} >Modifier</Button><Button variant="contained" color="secondary" className={classes.margin_10px}>Supprimer</Button></StyledTableCell>
+                            <StyledTableRow>
+                              <StyledTableCell component="th" scope="row">{row.nom_livreur}</StyledTableCell>
+                              <StyledTableCell align="right">{row.telephone_livreur}</StyledTableCell>
+                              <StyledTableCell align="right">{row.email_livreur}</StyledTableCell>
+                              <StyledTableCell align="center"><Button variant="contained" className={classes.margin_10px} onClick={()=>{modifLivreurs(row)} } >Modifier</Button><Button variant="contained" color="secondary" className={classes.margin_10px} onClick={()=>{supDataLivreurs(row._id)}}>Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -201,40 +211,26 @@ React.useEffect(recupDatalivreurs,[]);
                 <form className={classes.root} noValidate autoComplete="off">
                         <Grid container className={classes.padding_20px}>
                           <Grid xs>
-                            <TextField  label="Nom entreprise" name="nom_partenaire" variant="outlined" fullWidth value={formlivreur.nom_partenaire} onChange={changevaleurinputlivreur} />
-                          </Grid>
-                          <Grid xs>
-                          <TextField  label="Contact" name="contact_partenaire" variant="outlined" fullWidth value={formlivreur.contact_partenaire} onChange={changevaleurinputlivreur} />
+                            <TextField  label="Nom entreprise" name="nom_livreur" variant="outlined" fullWidth value={formlivreur.nom_livreur} onChange={changevaleurinputlivreur} />
                           </Grid>
                         </Grid>
                         <Grid container className={classes.padding_20px}>
                           <Grid xs>
-                              <TextField  label="Adresse" name="adresse_partenaire" variant="outlined" fullWidth value={formlivreur.adresse_partenaire} onChange={changevaleurinputlivreur}/>
-                          </Grid>
-                          <Grid xs >
-                              <TextField  label="Code Postal" name="code_postale_partenaire" variant="outlined" fullWidth value={formlivreur.code_postale_partenaire} onChange={changevaleurinputlivreur} />  
-                          </Grid>
-                        </Grid>
-                        <Grid container className={classes.padding_20px}>
-                          <Grid xs>
-                            <TextField  label="Telephone" name="telephone_partenaire" variant="outlined" fullWidth value={formlivreur.telephone_partenaire} onChange={changevaleurinputlivreur} /> 
+                            <TextField  label="Telephone" name="telephone_livreur" variant="outlined" fullWidth value={formlivreur.telephone_livreur} onChange={changevaleurinputlivreur} /> 
                           </Grid>
                           <Grid xs>
-                            <TextField  label="Email" name="email_partenaire" variant="outlined" fullWidth value={formlivreur.email_partenaire} onChange={changevaleurinputlivreur} /> 
+                            <TextField  label="Email" name="email_livreur" variant="outlined" fullWidth value={formlivreur.email_livreur} onChange={changevaleurinputlivreur} /> 
                           </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
                         <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformlivreur({
-                                                                                  nom_partenaire: "",
-                                                                                  contact_partenaire: "",
-                                                                                  adresse_partenaire: "",
-                                                                                  code_postale_partenaire: "",
-                                                                                  email_partenaire: "",
-                                                                                  telephone_partenaire: null
+                                                                                  nom_livreur: "",
+                                                                                  email_livreur: "",
+                                                                                  telephone_livreur: null
                                                                                 }) ;}} className={classes.margin_10px}>
                               Annulé
                           </Button>
-                          <Button color="primary" variant="contained" onClick={()=>{}} className={classes.margin_10px}>
+                          <Button color="primary" variant="contained" onClick={()=>{creaDataLivreur(formlivreur)}} className={classes.margin_10px}>
                               Valider
                           </Button>
                         </Grid>
