@@ -4,7 +4,6 @@ const SVGtoPDF = require('svg-to-pdfkit');
 const axios = require('axios');
 const ShemaDeviscolis = require('../Models/modelDevisColis');
 const dataVille = require('../datasVille');
-const dataCategory = require('../datasCategorie');
 
 ///
 // consultation tous les colis  en base de donnees
@@ -21,7 +20,6 @@ exports.tousDeviscolis = (req, res) => {
 ///
 exports.generateurPDFColis = (req, res) => {
   const doc = new PDFDocument();
-  console.log(req.body);
 
   // reiecriture entête d'envois pour telechergment direct
   res.setHeader('Content-Type', 'application/pdf');
@@ -82,31 +80,30 @@ exports.generateurPDFColis = (req, res) => {
 exports.enregistrementsDataBase = (req, res, next) => {
   const nouveauDevisColis = new ShemaDeviscolis({
     expediteur: {
-      nom: req.body.expediteur.nom,
-      prenom: req.body.expediteur.prenom,
-      adresse: req.body.expediteur.adresse,
-      code_postale: req.body.expediteur.code_postale,
-      email: req.body.expediteur.email,
-      telephone: req.body.expediteur.telephone,
-      commentaire: req.body.expediteur.commentaire,
+      contact: req.body.ville_depart.contact,
+      adresse: req.body.ville_depart.adresse,
+      code_postale: req.body.ville_depart.ville,
+      email: req.body.ville_depart.email,
+      telephone: req.body.ville_depart.telephone,
+      commentaire: req.body.ville_depart.commentaire,
     },
     destinataire: {
-      nom: req.body.destinataire.nom,
-      prenom: req.body.destinataire.prenom,
-      adresse: req.body.destinataire.adresse,
-      code_postale: req.body.destinataire.code_postale,
-      email: req.body.destinataire.email,
-      telephone: req.body.destinataire.telephone,
-      commentaire: req.body.destinataire.commentaire,
+      contact: req.body.ville_arrive.contact,
+      adresse: req.body.ville_arrive.adresse,
+      code_postale: req.body.ville_arrive.ville,
+      email: req.body.ville_arrive.email,
+      telephone: req.body.ville_arrive.telephone,
+      commentaire: req.body.ville_arrive.commentaire,
     },
     reference_colis: {
-      numero: req.body.reference_colis.numero,
-      date_enregistrement: req.body.reference_colis.date_enregistrement,
+      numero: 'req.body.reference_colis.numero',
+      date_enregistrement: Date.now(),
+      date_livraisons: req.body.datedeviselecro,
       etat: {
-        livraison: req.body.reference_colis.etat.livraison,
-        payement: req.body.reference_colis.etat.payement,
+        livraison: 'req.body.reference_colis.etat.livraison',
+        payement: 'req.body.reference_colis.etat.payement',
       },
-      types: req.body.reference_colis.types,
+      types: ' req.body.reference_colis.types',
     },
   });
   nouveauDevisColis.save()
@@ -136,7 +133,6 @@ exports.calculateurDistancePrix = (req, res) => {
 
   const { poids_produits } = req.body.paramMeubleElectro;
   // calcule volume
-  console.log(req.body.paramMeubleElectro);
   const volume = req.body.paramMeubleElectro.longeur_produits * req.body.paramMeubleElectro.largeur_produits * req.body.paramMeubleElectro.hauteur_produits;
 
   axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordonneeGpsDepart.lat},${coordonneeGpsDepart.long};${coordonneeGpsArrive.lat},${coordonneeGpsArrive.long}?access_token=${process.env.KEY_BOX_MAP}`)

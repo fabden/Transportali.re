@@ -9,7 +9,7 @@ const devisColisRouteur = express.Router();
 devisColisRouteur.route('/')
   .post(ctrlColis.calculateurDistancePrix);
 devisColisRouteur.route('/pdf')
-  .post(ctrlColis.generateurPDFColis);
+  .post(ctrlColis.enregistrementsDataBase, ctrlColis.generateurPDFColis);
 
 // Export
 
