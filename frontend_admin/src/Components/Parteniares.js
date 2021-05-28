@@ -98,7 +98,8 @@ const [formpartenaire, setformpartenaire] = React.useState({
   adresse_partenaire: "",
   code_postale_partenaire: "",
   email_partenaire: "",
-  telephone_partenaire: null
+  telephone_partenaire: null,
+  password_partenaire:null
 });
 
 const changevaleurinputpartenaire =(e)=>{
@@ -121,7 +122,8 @@ const url = 'http://localhost:8080/api/partenaires';
         adresse_partenaire: "",
         code_postale_partenaire: "",
         email_partenaire: "",
-        telephone_partenaire: null
+        telephone_partenaire: null,
+        password_partenaire:null
       })   
     })
     .catch((error) => {
@@ -139,7 +141,8 @@ const url = 'http://localhost:8080/api/partenaires';
         adresse_partenaire: "",
         code_postale_partenaire: "",
         email_partenaire: "",
-        telephone_partenaire: null
+        telephone_partenaire: null,
+        password_partenaire:null
       })   
     })
     .catch((error) => {
@@ -162,7 +165,8 @@ const supDataPartenaire = (id) => {
         adresse_partenaire: "",
         code_postale_partenaire: "",
         email_partenaire: "",
-        telephone_partenaire: null
+        telephone_partenaire: null,
+        password_partenaire:null
       })   
     })
     .catch((error) => {
@@ -251,17 +255,22 @@ const modifpartenaires =(e)=>{
                             <TextField  label="Telephone" name="telephone_partenaire" variant="outlined" fullWidth value={formpartenaire.telephone_partenaire} onChange={changevaleurinputpartenaire} /> 
                           </Grid>
                           <Grid xs>
-                            <TextField  label="Email" name="email_partenaire" variant="outlined" fullWidth value={formpartenaire.email_partenaire} onChange={changevaleurinputpartenaire} /> 
+                            <TextField required label="Email" name="email_partenaire" variant="outlined" fullWidth value={formpartenaire.email_partenaire} onChange={changevaleurinputpartenaire} /> 
                           </Grid>
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
+                        <Grid xs>
+                            <TextField required type="password" label="password" name="password_partenaire" variant="outlined" fullWidth value={formpartenaire.password_partenaire} onChange={changevaleurinputpartenaire} /> 
+                        </Grid>
+
                         <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformpartenaire({
                                                                                   nom_partenaire: "",
                                                                                   contact_partenaire: "",
                                                                                   adresse_partenaire: "",
                                                                                   code_postale_partenaire: "",
                                                                                   email_partenaire: "",
-                                                                                  telephone_partenaire: null
+                                                                                  telephone_partenaire: null,
+                                                                                  password_partenaire:null
                                                                                 }) ;}} className={classes.margin_10px}>
                               Annulé
                           </Button>
