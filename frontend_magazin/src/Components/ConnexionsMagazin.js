@@ -24,6 +24,8 @@ function ConnexionsMagazin({connexion}) {
         pass:""
 });
 
+
+
 const changevaleurinputConnexion =(e)=>{
     setParamform({...paramform,[e.target.name]: e.target.value})
 };

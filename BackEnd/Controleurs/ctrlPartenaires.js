@@ -94,10 +94,10 @@ exports.connexionPartenaire = (req, res, next) => {
       if (e === null) {
         return res.status(400).json({ message: e });
       }
-      const token = jwt.sign({ user: e }, 'shhhhh');
+      const token = jwt.sign({ user: e._id, droit: 'parteniare' }, process.env.PHRASE_PASS, { expiresIn: 60 * 60 });
 
-      if (e.password === req.body.pass) {
-        res.status(200).json({ message: `login mots de pas correct mon token est : ${token}` });
+      if (e.password_partenaire === req.body.pass) {
+        res.status(200).json({ token });
       } else {
         res.status(200).json({ message: 'login mots de pas inccorect' });
       }

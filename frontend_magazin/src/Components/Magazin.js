@@ -87,10 +87,10 @@ const rows = [
 ///fonction connexion axios 
 
 const connexion = (e)=>{
-    axios.post('http://localhost:8080/api/connexion',e)
-    .then()
-    .catch()
-}
+    axios.post('http://localhost:8080/api/partenaires/connexion',e)
+    .then((e)=>{console.log(e)})
+    .catch((e)=>{console.log(e)})
+};
 
     return (
 
