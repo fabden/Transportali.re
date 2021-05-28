@@ -30,6 +30,7 @@ exports.Creationpartenaires = (req, res, next) => {
     code_postale_partenaire: req.body.code_postale_partenaire,
     email_partenaire: req.body.email_partenaire,
     telephone_partenaire: req.body.telephone_partenaire,
+    password: 'toto',
   });
 
   nouveauproduit.save()

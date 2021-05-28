@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     connexionDiv:{
         height:'60vh',
         width:'60vw',
-        backgroundColor:'rgb(239, 164, 75)',
+        backgroundColor:'rgb(240, 177, 38)',
         borderRadius:'10px'
         
     },
@@ -16,10 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function ConnexionsMagazin() {
-
+function ConnexionsMagazin({connexion}) {
     const classes = useStyles();
-
 //state formaulaire
     const [paramform,setParamform] = React.useState({
         login:"",
@@ -47,7 +45,7 @@ const changevaleurinputConnexion =(e)=>{
                             <TextField id="outlined-basic" name="pass" label="Mots de passe" variant="outlined" className={classes.couleurtextBlanc} value={paramform.pass} onChange={changevaleurinputConnexion}/>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" >Connexion</Button>
+                            <Button variant="contained" onClick={()=>connexion(paramform)} >Connexion</Button>
                         </Grid>
                     </Grid>
                 </form>

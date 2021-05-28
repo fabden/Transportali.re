@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {Container,Grid,Stepper,Step,StepLabel,Typography,Button,TableContainer,Table, TableHead,TableRow,TableCell,TableBody, Modal, Fade,Backdrop} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DevisMagazin from './DevisMagazin';
 import ConnexionsMagazin from './ConnexionsMagazin';
+import axios from 'axios';
 
 function Magazin() {
 // eslint-disable-next-line no-unused-vars
@@ -79,12 +80,21 @@ const rows = [
     setOpen(false);
   };
 
-  ///
+  /// state connexion et verification 
+
+  const [connecter, setConnecter] = React.useState(false);
+
+///fonction connexion axios 
+
+const connexion = (e)=>{
+    axios.post()
+
+}
+
     return (
 
       <>
-        <ConnexionsMagazin></ConnexionsMagazin>
-        
+      {connecter ? 
         <Container maxWidth={false} disableGutters>
             <Grid container>
                  {/*parti infomation gauche */ }
@@ -202,7 +212,8 @@ const rows = [
              <DevisMagazin></DevisMagazin>
                 </Fade>
             </Modal>
-        </Container>
+        </Container> : 
+        <ConnexionsMagazin connexion={connexion}></ConnexionsMagazin>}
 
         </>
     )
