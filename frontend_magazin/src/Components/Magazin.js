@@ -2,6 +2,7 @@ import React from 'react'
 import {Container,Grid,Stepper,Step,StepLabel,Typography,Button,TableContainer,Table, TableHead,TableRow,TableCell,TableBody, Modal, Fade,Backdrop} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DevisMagazin from './DevisMagazin';
+import ConnexionsMagazin from './ConnexionsMagazin';
 
 function Magazin() {
 // eslint-disable-next-line no-unused-vars
@@ -81,8 +82,8 @@ const rows = [
   ///
     return (
 
-      
-
+      <>
+        <ConnexionsMagazin></ConnexionsMagazin>
         
         <Container maxWidth={false} disableGutters>
             <Grid container>
@@ -202,6 +203,8 @@ const rows = [
                 </Fade>
             </Modal>
         </Container>
+
+        </>
     )
 };
 
