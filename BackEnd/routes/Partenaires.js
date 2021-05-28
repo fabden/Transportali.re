@@ -14,8 +14,8 @@ PartenairesRouteur.route('/')
   .delete(ctrlPartenaires.suppresionpartenaires)
   .put(ctrlPartenaires.modificationpartenaires);
 
-PartenairesRouteur.route('/connexions')
-  .get(() => { console.log('connexion partenaire'); });
+PartenairesRouteur.route('/connexion')
+  .post(ctrlPartenaires.connexionPartenaire);
 
 // Export
 module.exports = PartenairesRouteur;

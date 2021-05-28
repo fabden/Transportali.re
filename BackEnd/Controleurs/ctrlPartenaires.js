@@ -77,3 +77,10 @@ exports.suppresionpartenaires = (req, res, next) => {
       });
     });
 };
+
+// connexions utilisateur
+exports.connexionPartenaire = (req, res, next) => {
+  Partenaires.findOne({ email_partenaire: req.body.login })
+    .then((e) => { console.log(e); })
+    .catch((e) => { console.log(e); });
+};

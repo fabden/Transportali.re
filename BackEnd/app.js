@@ -9,7 +9,7 @@ const routeDevisDemenagemnt = require('./routes/devisDemenagements');
 const routePartenaires = require('./routes/Partenaires');
 const routeProduits = require('./routes/Produits');
 const routeLivreurs = require('./routes/Livreurs');
-const routeConnexion = require('./routes/connexion');
+
 // import midelware
 
 const app = express();
@@ -46,7 +46,7 @@ app.use('/api/devis-demenagement', routeDevisDemenagemnt);
 app.use('/api/partenaires', routePartenaires);
 app.use('/api/produits', routeProduits);
 app.use('/api/livreurs', routeLivreurs);
-app.use('/api/connexion',routeConnexion);
+
 
 // export
 module.exports = app;
