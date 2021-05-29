@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ConnexionsMagazin({connexion}) {
     const classes = useStyles();
-//state formaulaire
+//state formulaire
     const [paramform,setParamform] = React.useState({
         login:"",
         pass:""

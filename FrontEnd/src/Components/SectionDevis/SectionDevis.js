@@ -54,7 +54,7 @@ const [devisElectroDepart,setDevisElectroDepart]=React.useState({
     telephone:"",
     commentaire:"",
     type:"particulier",
-    },);
+    });
 
 const [devisElectroArrive,setDevisElectroArrive]=React.useState({
     ville:"Le Port",
