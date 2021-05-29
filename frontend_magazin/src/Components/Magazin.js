@@ -86,11 +86,36 @@ const rows = [
 
 ///fonction connexion axios 
 
-const connexion = (e)=>{
-    axios.post('http://localhost:8080/api/partenaires/connexion',e)
-    .then((e)=>{console.log(e)})
+const connexion = (el)=>{
+    axios.post('http://localhost:8080/api/partenaires/connexion',el)
+    .then((e)=>{
+        localStorage.setItem('transportali', e.data.token)
+        setConnecter(true);
+    })
     .catch((e)=>{console.log(e)})
 };
+
+const checkconexion = () =>{
+   const  localtoken = localStorage.getItem('transportali')
+    if(localtoken === undefined){
+       return  setConnecter(false);        
+        }
+
+        axios.put('http://localhost:8080/api/partenaires/connexion',{token:localtoken})
+        .then((e)=>{
+            if (!e.data.etat){
+            localStorage.removeItem('transportali')
+            setConnecter(false);
+            console.log( e);
+        }else{
+            setConnecter(true);
+            console.log( e)
+        }})
+        .catch((e)=>{console.log(e)})
+
+    }
+
+    React.useEffect(checkconexion ,[]);
 
     return (
 
@@ -214,7 +239,7 @@ const connexion = (e)=>{
                 </Fade>
             </Modal>
         </Container> : 
-        <ConnexionsMagazin connexion={connexion}></ConnexionsMagazin>}
+        <ConnexionsMagazin connexion={connexion} message></ConnexionsMagazin>}
 
         </>
     )

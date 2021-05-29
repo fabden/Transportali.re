@@ -15,7 +15,8 @@ PartenairesRouteur.route('/')
   .put(ctrlPartenaires.modificationpartenaires);
 
 PartenairesRouteur.route('/connexion')
-  .post(ctrlPartenaires.connexionPartenaire);
+  .post(ctrlPartenaires.connexionPartenaire)
+  .put(ctrlPartenaires.checkconnexionPartenaire);
 
 // Export
 module.exports = PartenairesRouteur;

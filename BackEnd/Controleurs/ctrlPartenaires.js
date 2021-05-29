@@ -2,6 +2,7 @@ const PDFDocument = require('pdfkit');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Partenaires = require('../Models/modelPartenaires');
+const { createIndexes } = require('../Models/modelPartenaires');
 
 exports.generateurPDFPartenaires = (req, res) => {
   const doc = new PDFDocument();
@@ -92,15 +93,23 @@ exports.connexionPartenaire = (req, res, next) => {
   Partenaires.findOne({ email_partenaire: req.body.login })
     .then((e) => {
       if (e === null) {
-        return res.status(400).json({ message: e });
+        return res.status(403).json({ message: 'erreur de connexions' });
       }
-      const token = jwt.sign({ user: e._id, droit: 'parteniare' }, process.env.PHRASE_PASS, { expiresIn: 60 * 60 });
-
+      const token = jwt.sign({ user: e._id, droit: 'partenaire' }, process.env.PHRASE_PASS, { expiresIn: 60 * 60 });
       if (e.password_partenaire === req.body.pass) {
         res.status(200).json({ token });
       } else {
-        res.status(200).json({ message: 'login mots de pas inccorect' });
+        res.status(403).json({ message: 'login mots de pas inccorect' });
       }
     })
-    .catch((e) => { res.status(400).json({ message: e }); });
+    .catch((e) => { res.status(403).json({ message: 'erreur de connexions' }); });
+};
+
+// chekcConnexion partenaire
+
+exports.checkconnexionPartenaire = (req, res, next) => {
+  jwt.verify(req.body.token, process.env.PHRASE_PASS, (err, token) => {
+    if (err) { return res.status(200).json({ message: 'token non valide', etat: false }); }
+    return res.status(200).json({ message: 'token ok', etat: true });
+  });
 };
