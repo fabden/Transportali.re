@@ -18,5 +18,11 @@ PartenairesRouteur.route('/connexion')
   .post(ctrlPartenaires.connexionPartenaire)
   .put(ctrlPartenaires.checkconnexionPartenaire);
 
+PartenairesRouteur.route('/commande')
+  .post(ctrlPartenaires.commandePartenaire)
+  .get()
+  .put(() => {})
+  .delete(() => {});
+
 // Export
 module.exports = PartenairesRouteur;

@@ -2,7 +2,7 @@ const PDFDocument = require('pdfkit');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Partenaires = require('../Models/modelPartenaires');
-const { createIndexes } = require('../Models/modelPartenaires');
+const modelDevis = require('../Models/modelDevis');
 
 exports.generateurPDFPartenaires = (req, res) => {
   const doc = new PDFDocument();
@@ -112,4 +112,12 @@ exports.checkconnexionPartenaire = (req, res, next) => {
     if (err) { return res.status(200).json({ message: 'token non valide', etat: false }); }
     return res.status(200).json({ message: 'token ok', etat: true });
   });
+};
+
+// creation commande Partenaire
+
+exports.commandePartenaire = (req, res, next) => {
+  console.log(req.body);
+
+
 };

@@ -2,7 +2,7 @@ const PDFDocument = require('pdfkit');
 const QRCode = require('qrcode');
 const SVGtoPDF = require('svg-to-pdfkit');
 const axios = require('axios');
-const ShemaDeviscolis = require('../Models/modelDevisColis');
+const ShemaDeviscolis = require('../Models/modelDevis');
 const dataVille = require('../datasVille');
 
 ///

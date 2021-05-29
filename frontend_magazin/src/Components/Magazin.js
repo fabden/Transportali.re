@@ -235,11 +235,11 @@ const checkconexion = () =>{
                 }}
             >
                 <Fade in={open}>
-             <DevisMagazin></DevisMagazin>
+             <DevisMagazin handleClose={handleClose}></DevisMagazin>
                 </Fade>
             </Modal>
         </Container> : 
-        <ConnexionsMagazin connexion={connexion} message></ConnexionsMagazin>}
+        <ConnexionsMagazin connexion={connexion} ></ConnexionsMagazin>}
 
         </>
     )

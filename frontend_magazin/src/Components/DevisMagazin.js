@@ -3,8 +3,9 @@ import {Grid,Paper,FormControl,TextField, InputLabel, Select, MenuItem} from '@m
 import data from '../datas';
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import axios from 'axios';
 
-function DevisMagazin() {
+function DevisMagazin({handleClose}) {
 
     //state formulaire commande
     const [paramformCommande,setParamformCommande] = React.useState({
@@ -21,6 +22,34 @@ function DevisMagazin() {
             console.log(e.target);
             setParamformCommande({...paramformCommande,[e.target.name]: e.target.value})
         };
+
+    const resetFormInput = ()=>{
+        handleClose();
+        setParamformCommande({
+            ville:"Le Port",
+            adresse:"",
+            contact:"",
+            email:"",
+            telephone:"",
+            commentaire:"",
+            type:"partenaire",
+            });  
+    }
+
+    const envoiCommande = ()=>{
+
+        const  localtokencommande = localStorage.getItem('transportali')
+
+        axios.post('http://localhost:8080/api/partenaires/commande',{token: localtokencommande, addresseariver: paramformCommande,})
+        .then((e)=>{
+
+            
+           
+        })
+        .catch((e)=>{console.log(e)})
+
+        handleClose();
+    };
 
     return (
         <Grid  >
@@ -69,8 +98,8 @@ function DevisMagazin() {
                                 </Typography> 
                             </Grid> 
                             <Grid item container xs={4} justify="center" alignItems="space-around" direction="row">
-                               <Button>Annuler</Button>
-                               <Button >Valider</Button>
+                               <Button onClick={resetFormInput}>Annuler</Button>
+                               <Button onClick={envoiCommande }>Valider</Button>
                                 
                             </Grid>                      
                         </Grid>
