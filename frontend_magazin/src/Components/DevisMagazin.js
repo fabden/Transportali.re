@@ -15,7 +15,6 @@ function DevisMagazin({handleClose}) {
         email:"",
         telephone:"",
         commentaire:"",
-        type:"partenaire",
         });
 
     const changevaleurinputPartenaire =(e)=>{
@@ -32,7 +31,6 @@ function DevisMagazin({handleClose}) {
             email:"",
             telephone:"",
             commentaire:"",
-            type:"partenaire",
             });  
     }
 
@@ -40,7 +38,7 @@ function DevisMagazin({handleClose}) {
 
         const  localtokencommande = localStorage.getItem('transportali')
 
-        axios.post('http://localhost:8080/api/partenaires/commande',{token: localtokencommande, addresseariver: paramformCommande,})
+        axios.post('http://localhost:8080/api/partenaires/commande',{token: localtokencommande, addressArriver: paramformCommande,})
         .then((e)=>{
 
             

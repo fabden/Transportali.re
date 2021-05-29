@@ -117,7 +117,43 @@ exports.checkconnexionPartenaire = (req, res, next) => {
 // creation commande Partenaire
 
 exports.commandePartenaire = (req, res, next) => {
-  console.log(req.body);
+  const decodeToken = jwt.decode(req.body.token);
+  Partenaires.findById(decodeToken.user)
+    .then((e) => {
+      const monDevis = new modelDevis({
+        expediteur: {
+          id_Expediteur: e._id,
+          contact: e.nom_partenaire,
+          adresse: e.adresse_partenaire,
+          code_postale: e.code_postale_partenaire,
+          email: e.email_partenaire,
+          telephone: e.telephone_partenaire,
+          commentaire: ' commantaire expediteur',
+        },
 
+        destinataire: {
+          contact: req.body.addressArriver.contact,
+          adresse: req.body.addressArriver.adresse,
+          code_postale: req.body.addressArriver.ville,
+          email: req.body.addressArriver.email,
+          telephone: req.body.addressArriver.telephone,
+          commentaire: req.body.addressArriver.commentaire,
+        },
 
+        reference_colis: {
+          numero: '{ type: String, require: true }',
+          date_enregistrement: Date.now(),
+          date_livraisons: '{ type: String, require: true }',
+          etat: {
+            livraison: 'En Attente',
+            payement: 'facture prestataire',
+          },
+          types: 'partenaire',
+          commentaire: 'commanatire genreal',
+        },
+
+      });
+      monDevis.save();
+    })
+    .catch((e) => { console.log(e); });
 };

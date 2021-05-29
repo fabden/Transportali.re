@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const modelDevisColisSchema = mongoose.Schema({
 
   expediteur: {
+    id_Expediteur: { type: String },
     contact: { type: String, required: true },
     adresse: { type: String, require: true },
     code_postale: { type: String, require: true },
@@ -14,6 +15,7 @@ const modelDevisColisSchema = mongoose.Schema({
   },
 
   destinataire: {
+    
     contact: { type: String, required: true },
     adresse: { type: String, require: true },
     code_postale: { type: String, require: true },
