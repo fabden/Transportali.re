@@ -11,20 +11,20 @@ const ctrlPartenaires = require('../Controleurs/ctrlPartenaires');
 PartenairesRouteur.route('/')
   .get(ctrlPartenaires.consultationTouspartenaires)
   .post(ctrlPartenaires.Creationpartenaires)
-  .delete(ctrlPartenaires.suppresionpartenaires)
+  .delete(() => {})
   .put(ctrlPartenaires.modificationpartenaires);
 
 PartenairesRouteur.route('/:id')
   .get(() => {console.log("modif un partenaire")})
   .post(() => {})
-  .delete(() => {})
+  .delete(ctrlPartenaires.suppresionpartenaires)
   .put(() => {});
 
 PartenairesRouteur.route('/connexion')
   .post(ctrlPartenaires.connexionPartenaire)
   .put(ctrlPartenaires.checkconnexionPartenaire);
 
-  
+
 PartenairesRouteur.route('/commande')
   .post(ctrlPartenaires.commandePartenaire)
   .get(ctrlPartenaires.livraisonPartenaire)

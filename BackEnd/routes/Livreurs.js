@@ -11,8 +11,14 @@ const ctrlLivreur = require('../Controleurs/ctrlLivreurs');
 LivreurRouteur.route('/')
   .get(ctrlLivreur.consustationTousLivreurs)
   .post(ctrlLivreur.CreationLivreurs)
-  .delete(ctrlLivreur.suppresionLivreurs)
+  .delete(() => {})
   .put(ctrlLivreur.modificationLivreurs);
+
+LivreurRouteur.route('/:id')
+  .get(() => { console.log('modif un partenaire'); })
+  .post(() => {})
+  .delete(ctrlLivreur.suppresionLivreurs)
+  .put(() => {});
 
 LivreurRouteur.route('/connexions')
   .get(() => { console.log('connexion livreur'); });

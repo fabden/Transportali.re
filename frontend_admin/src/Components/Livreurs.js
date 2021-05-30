@@ -138,9 +138,9 @@ React.useEffect(recupDatalivreurs,[]);
 //supprime Livreurs en base de donneé
 
 const supDataLivreurs = (id) => {
-  const url = 'http://localhost:8080/api/livreurs';
+  const url = `http://localhost:8080/api/livreurs/${id}`;
   console.log(id);
-  axios.delete(url,{params: {id: id}})
+  axios.delete(url)
     .then((resp) => {    
       console.log(resp.data);
       recupDatalivreurs();   

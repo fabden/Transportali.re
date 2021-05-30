@@ -74,7 +74,7 @@ exports.modificationpartenaires = (req, res, next) => {
 
 // suppression partenaires
 exports.suppresionpartenaires = (req, res, next) => {
-  const { id } = req.query;
+  const { id } = req.params;
   Partenaires.deleteOne({ _id: id })
     .then(() => {
       res.status(200).json({

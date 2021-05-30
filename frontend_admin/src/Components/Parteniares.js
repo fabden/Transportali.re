@@ -153,9 +153,9 @@ const url = 'http://localhost:8080/api/partenaires';
 //supprime produits en base de donneé
 
 const supDataPartenaire = (id) => {
-  const url = 'http://localhost:8080/api/partenaires';
+  const url = `http://localhost:8080/api/partenaires/${id}`;
   console.log(id);
-  axios.delete(url,{params: {id: id}})
+  axios.delete(url)
     .then((resp) => {    
       console.log(resp.data);
       recupDataPartenaires();   
