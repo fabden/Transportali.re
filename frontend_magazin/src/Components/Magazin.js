@@ -121,6 +121,7 @@ React.useEffect(recupDataPartenaire,[])
 ///fonction connexion axios 
 
 const connexion = (el)=>{
+    console.log(el);
     axios.post('http://localhost:8080/api/partenaires/connexion',el)
     .then((e)=>{
         localStorage.setItem('transportali', e.data.token)

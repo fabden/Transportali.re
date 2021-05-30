@@ -90,6 +90,7 @@ exports.suppresionpartenaires = (req, res, next) => {
 
 // connexions utilisateur
 exports.connexionPartenaire = (req, res, next) => {
+  console.log(req.body.login);
   Partenaires.findOne({ email_partenaire: req.body.login })
     .then((e) => {
       if (e === null) {
