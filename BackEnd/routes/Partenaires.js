@@ -14,14 +14,21 @@ PartenairesRouteur.route('/')
   .delete(ctrlPartenaires.suppresionpartenaires)
   .put(ctrlPartenaires.modificationpartenaires);
 
+PartenairesRouteur.route('/:id')
+  .get(() => {console.log("modif un partenaire")})
+  .post(() => {})
+  .delete(() => {})
+  .put(() => {});
+
 PartenairesRouteur.route('/connexion')
   .post(ctrlPartenaires.connexionPartenaire)
   .put(ctrlPartenaires.checkconnexionPartenaire);
 
+  
 PartenairesRouteur.route('/commande')
   .post(ctrlPartenaires.commandePartenaire)
-  .get()
-  .put(() => {})
+  .get(ctrlPartenaires.livraisonPartenaire)
+  .put()
   .delete(() => {});
 
 // Export

@@ -39,11 +39,7 @@ function DevisMagazin({handleClose}) {
         const  localtokencommande = localStorage.getItem('transportali')
 
         axios.post('http://localhost:8080/api/partenaires/commande',{token: localtokencommande, addressArriver: paramformCommande,})
-        .then((e)=>{
-
-            
-           
-        })
+        .then((e)=>{    })
         .catch((e)=>{console.log(e)})
 
         handleClose();

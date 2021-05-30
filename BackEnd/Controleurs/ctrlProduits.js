@@ -47,9 +47,11 @@ exports.modificationProduits = (req, res, next) => {
 
 // suppression produits
 exports.suppresionProduits = (req, res, next) => {
-  const { id } = req.query;
+  console.log(req.params.id);
+  const { id } = req.params;
   Produits.deleteOne({ _id: id })
-    .then(() => {
+    .then((e) => {
+      console.log(e);
       res.status(200).json({
         message: 'Élément supprimé',
       });

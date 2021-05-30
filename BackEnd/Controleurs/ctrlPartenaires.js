@@ -149,11 +149,20 @@ exports.commandePartenaire = (req, res, next) => {
             payement: 'facture prestataire',
           },
           types: 'partenaire',
-          commentaire: 'commanatire genreal',
+          commentaire: 'commanatire general',
         },
 
       });
       monDevis.save();
     })
     .catch((e) => { console.log(e); });
+};
+
+// livraison en cours partenaires
+
+exports.livraisonPartenaire = (req, res, next) => {
+  const decodeToken = jwt.decode(req.query.tokenpart);
+  modelDevis.find({ 'expediteur.id_Expediteur': decodeToken.user })
+    .then((e) => { res.status(200).json(e); })
+    .catch((e) => { console.log(`probleme de filter sur find partenaire ${e}`); });
 };

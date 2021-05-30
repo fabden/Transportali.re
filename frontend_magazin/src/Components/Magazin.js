@@ -58,17 +58,6 @@ const useStyles = makeStyles((theme) => ({
 const classes = useStyles();
 ////
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-const rows = [
-    createData('Fabrice DENNEMONT', "Canapé 2 place", "St Benois", "En cours"),
-    createData('Toto le Hero', "lit 2 place", "St suzanne", "En cours"),
-    createData('Sandra Vallon', "table", "St Benois", "Terminé"),
-    createData('Fabrice DENNEMONT', "television", "St Paul", "En Attent"),
-    
-  ];
-
   ////gestion modal
   const [open, setOpen] = React.useState(false);
 
@@ -79,6 +68,51 @@ const rows = [
   const handleClose = () => {
     setOpen(false);
   };
+
+  /// recupere donnee partenaire/magazin
+
+  const [datamagazin, setdatamagazin] = React.useState([{
+    expediteur: {
+        id_Expediteur: "",
+        contact: "",
+        adresse: "",
+        code_postale: "",
+        email: "",
+        telephone: "",
+        commentaire: ""
+    },
+    destinataire: {
+        contact: "",
+        adresse: "",
+        code_postale: "",
+        email: "",
+        telephone: "",
+        commentaire: ""
+    },
+    reference_colis: {
+        etat: {
+            livraison: "",
+            payement: ""
+        },
+        numero: "",
+        date_enregistrement: "",
+        date_livraisons: "",
+        types: "",
+        commentaire: ""
+    },
+    _id: "",
+    __v: 0
+}]);
+
+const recupDataPartenaire = () => {     
+const tokenpart = localStorage.getItem('transportali')
+axios.get('http://localhost:8080/api/partenaires/commande',{ params: {tokenpart} })
+.then((e)=>{
+    setdatamagazin(e.data); 
+    console.log(e.data);
+    })
+.catch((e)=>{console.log(e)})}
+React.useEffect(recupDataPartenaire,[])
 
   /// state connexion et verification 
 
@@ -106,16 +140,17 @@ const checkconexion = () =>{
             if (!e.data.etat){
             localStorage.removeItem('transportali')
             setConnecter(false);
-            console.log( e);
+            
         }else{
             setConnecter(true);
-            console.log( e)
+            
         }})
         .catch((e)=>{console.log(e)})
 
     }
-
     React.useEffect(checkconexion ,[]);
+
+  console.log(datamagazin);
 
     return (
 
@@ -129,7 +164,6 @@ const checkconexion = () =>{
                     <Grid className={`${classes.logo} ${classes.margin_10px}`}>
                         logo DMST
                     </Grid>
-                    
                     <Typography>
                      Coordonnées Clients :
                     </Typography>
@@ -178,21 +212,21 @@ const checkconexion = () =>{
                     <Table >
                         <TableHead>
                         <TableRow>
-                            <TableCell align="center">nom</TableCell>
-                            <TableCell align="center">colis</TableCell>
-                            <TableCell align="center">ville</TableCell>
-                            <TableCell align="center">etat</TableCell>
+                            <TableCell align="center">Nom Clients</TableCell>
+                            <TableCell align="center">Colis</TableCell>
+                            <TableCell align="center">Ville</TableCell>
+                            <TableCell align="center">Etat</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
+                        {datamagazin.map((row) => (
                             <TableRow key={row.name}>
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {row.destinataire.contact}
                             </TableCell>
-                            <TableCell align="center">{row.calories}</TableCell>
-                            <TableCell align="center">{row.fat}</TableCell>
-                            <TableCell align="center">{row.carbs}</TableCell>                            
+                            <TableCell align="center">{row.reference_colis.commentaire}</TableCell>
+                            <TableCell align="center">{row.destinataire.code_postale}</TableCell>
+                            <TableCell align="center">{row.reference_colis.etat.livraison}</TableCell>                            
                             </TableRow>
                         ))}
                         </TableBody>
@@ -206,18 +240,18 @@ const checkconexion = () =>{
                     </Grid>
                     <Grid item>
                         <Typography>
-                            Ravate st denis 
+                         {datamagazin.map((er)=>(er.expediteur.contact))}
                         </Typography>
                         <Typography>
-                            235 chemin le port,97441
+                        {datamagazin.map((er)=>(er.expediteur.adresse))}
                         </Typography>
                         <Typography>
-                            0102030405
+                        {datamagazin.map((er)=>(er.expediteur.telephone))}
                         </Typography>
                     </Grid>
                     <Button variant="contained" onClick={handleOpen}>nouvelle demande</Button>
                     <Grid className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
-                    liste colis client 
+                    liste colis client ???
                     </Grid>
                 </Grid>
 

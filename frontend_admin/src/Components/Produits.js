@@ -94,9 +94,9 @@ React.useEffect(recupDataProduits,[]);
 //supprime produits en base de donneé
 
 const supDataProduits = (id) => {
-  const url = 'http://localhost:8080/api/produits';
+  const url = `http://localhost:8080/api/produits/${id}`;
   console.log(id);
-  axios.delete(url,{params: {id: id}})
+  axios.delete(url)
     .then((resp) => {    
       console.log(resp.data);
       recupDataProduits();  

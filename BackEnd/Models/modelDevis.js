@@ -15,7 +15,7 @@ const modelDevisColisSchema = mongoose.Schema({
   },
 
   destinataire: {
-    
+
     contact: { type: String, required: true },
     adresse: { type: String, require: true },
     code_postale: { type: String, require: true },
