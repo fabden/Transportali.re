@@ -103,16 +103,25 @@ const classes = useStyles();
     _id: "",
     __v: 0
 }]);
+//recupere info partnaire 
+const [infoPartanire, setinfoPartanire] = React.useState({})
+
+const recupInfoPartenaire = () => {     
+    const tokenpart = localStorage.getItem('transportali')
+    axios.get(`http://localhost:8080/api/partenaires/${tokenpart}`)
+    .then((e)=>{ setinfoPartanire(e.data[0]);  })
+    .catch((e)=>{console.log(e)})}
+    React.useEffect(recupInfoPartenaire,[infoPartanire]);
+
+
+/////
 
 const recupDataPartenaire = () => {     
 const tokenpart = localStorage.getItem('transportali')
 axios.get('http://localhost:8080/api/partenaires/commande',{ params: {tokenpart} })
-.then((e)=>{
-    setdatamagazin(e.data); 
-    console.log(e.data);
-    })
+.then((e)=>{ setdatamagazin(e.data);  })
 .catch((e)=>{console.log(e)})}
-React.useEffect(recupDataPartenaire,[])
+React.useEffect(recupDataPartenaire,[datamagazin])
 
   /// state connexion et verification 
 
@@ -150,8 +159,6 @@ const checkconexion = () =>{
 
     }
     React.useEffect(checkconexion ,[]);
-
-  console.log(datamagazin);
 
     return (
 
@@ -241,13 +248,13 @@ const checkconexion = () =>{
                     </Grid>
                     <Grid item>
                         <Typography>
-                         {datamagazin.map((er)=>(er.expediteur.contact))}
+                         {infoPartanire.nom_partenaire}
                         </Typography>
                         <Typography>
-                        {datamagazin.map((er)=>(er.expediteur.adresse))}
+                        {infoPartanire.adresse_partenaire}
                         </Typography>
                         <Typography>
-                        {datamagazin.map((er)=>(er.expediteur.telephone))}
+                        {infoPartanire.telephone_partenaire}
                         </Typography>
                     </Grid>
                     <Button variant="contained" onClick={handleOpen}>nouvelle demande</Button>
@@ -270,7 +277,7 @@ const checkconexion = () =>{
                 }}
             >
                 <Fade in={open}>
-             <DevisMagazin handleClose={handleClose}></DevisMagazin>
+             <DevisMagazin handleClose={handleClose} recupDataPartenaire={recupDataPartenaire}></DevisMagazin>
                 </Fade>
             </Modal>
         </Container> : 

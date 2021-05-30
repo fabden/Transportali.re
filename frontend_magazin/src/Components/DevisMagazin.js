@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import axios from 'axios';
 
-function DevisMagazin({handleClose}) {
+function DevisMagazin({handleClose, recupDataPartenaire}) {
 
     //state formulaire commande
     const [paramformCommande,setParamformCommande] = React.useState({
@@ -41,7 +41,7 @@ function DevisMagazin({handleClose}) {
         axios.post('http://localhost:8080/api/partenaires/commande',{token: localtokencommande, addressArriver: paramformCommande,})
         .then((e)=>{    })
         .catch((e)=>{console.log(e)})
-
+        recupDataPartenaire();
         handleClose();
     };
 

@@ -90,7 +90,6 @@ exports.suppresionpartenaires = (req, res, next) => {
 
 // connexions utilisateur
 exports.connexionPartenaire = (req, res, next) => {
-  console.log(req.body.login);
   Partenaires.findOne({ email_partenaire: req.body.login })
     .then((e) => {
       if (e === null) {
@@ -163,7 +162,54 @@ exports.commandePartenaire = (req, res, next) => {
 
 exports.livraisonPartenaire = (req, res, next) => {
   const decodeToken = jwt.decode(req.query.tokenpart);
+
+  if (jwt.decode(req.query.tokenpart) === null) {
+    return res.status(200).json([{
+      expediteur: {
+        id_Expediteur: '',
+        contact: '',
+        adresse: '',
+        code_postale: '',
+        email: '',
+        telephone: '',
+        commentaire: '',
+      },
+      destinataire: {
+        contact: '',
+        adresse: '',
+        code_postale: '',
+        email: '',
+        telephone: '',
+        commentaire: '',
+      },
+      reference_colis: {
+        etat: {
+          livraison: '',
+          payement: '',
+        },
+        numero: '',
+        date_enregistrement: '',
+        date_livraisons: '',
+        types: '',
+        commentaire: '',
+      },
+      _id: '',
+      __v: 0,
+    }]);
+  }
+
   modelDevis.find({ 'expediteur.id_Expediteur': decodeToken.user })
     .then((e) => { res.status(200).json(e); })
     .catch((e) => { console.log(`probleme de filter sur find partenaire ${e}`); });
+};
+
+// consultation UN partenaire
+exports.consultationUNpartenaires = (req, res, next) => {
+  const { id } = req.params;
+  if (jwt.decode(id) === null) {
+    return res.status(200).json([{}]);
+  }
+  Partenaires.find({ _id: jwt.decode(id).user })
+    .then((doc) => { res.status(200).json(doc); })
+    .catch((err) => { res.status(500).json({ error: err }); });
 };
