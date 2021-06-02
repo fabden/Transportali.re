@@ -20,6 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "http://82.165.56.203/admin",
   "eslintConfig": {
     "extends": [
       "react-app",
