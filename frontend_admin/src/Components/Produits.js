@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Fade, Grid, Modal, TextField } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
+import axios from 'axios';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -28,15 +29,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
- 
-];
-
 const useStyles = makeStyles((theme) => ({
   table: {
       width:'65vw',
@@ -49,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
   padding_20px:{
       padding:'20px 0 20px 0 ',
-
+  },
+  margin_10px:{
+    margin:'10px',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -61,8 +55,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Produits() {
 
-   const classes = useStyles();    
-   const [open, setOpen] = React.useState(false);
+///gestion modal
+  const classes = useStyles();    
+  const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -71,6 +66,115 @@ function Produits() {
   const handleClose = () => {
     setOpen(false);
   };   
+
+
+///recupere donnee en base
+
+const [dataproduits, setdataproduits] = React.useState([{
+  nom_produits: "",
+  longeur_produits: null,
+  largeur_produits: null,
+  hauteur_produits:null,
+  poids_produits: null
+  }]);
+
+const recupDataProduits = () => {
+  const url = ' http://82.165.56.203/api/produits';
+  axios.get(url)
+    .then((resp) => {    
+      console.log(resp.data);
+      setdataproduits(resp.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+React.useEffect(recupDataProduits,[]);
+
+//supprime produits en base de donneé
+
+const supDataProduits = (id) => {
+  const url = ` http://82.165.56.203/api/produits/${id}`;
+  console.log(id);
+  axios.delete(url)
+    .then((resp) => {    
+      console.log(resp.data);
+      recupDataProduits();  
+      setformproduits({
+        nom_produits: "",
+        longeur_produits: "",
+        largeur_produits: "",
+        hauteur_produits: "",
+        poids_produits: "",
+      });    
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// creation produit en base de donnee
+
+const [formproduits, setformproduits] = React.useState({
+  nom_produits: "",
+  longeur_produits: "",
+  largeur_produits: "",
+  hauteur_produits: "",
+  poids_produits: "",
+});
+
+const creaDataProduits = (e) => {
+  console.log(e._id);
+const url = ' http://82.165.56.203/api/produits';
+  if (e._id !==undefined){  
+    console.log("diferent indefinei");
+   axios.put(url,e)
+    .then((resp) => {    
+      console.log(resp.data);
+      handleClose();
+      recupDataProduits();   
+      setformproduits({
+        nom_produits: "",
+        longeur_produits: "",
+        largeur_produits: "",
+        hauteur_produits: "",
+        poids_produits: "",
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  } else {
+  axios.post(url,e)
+    .then((resp) => {    
+      console.log(resp.data);
+      handleClose();
+      recupDataProduits();   
+      setformproduits({
+        nom_produits: "",
+        longeur_produits: "",
+        largeur_produits: "",
+        hauteur_produits: "",
+        poids_produits: "",
+      })   
+    })
+    .catch((error) => {
+      console.log(error);
+    });}
+};
+
+const changevaleurinputproduits =(e)=>{
+  console.log(e.target);
+  setformproduits({...formproduits,[e.target.name]: e.target.value})
+};
+
+//modification donnee en base de donnee
+
+const modifproduits =(e)=>{
+  setformproduits(e);
+  handleOpen();
+
+};
 
     return (
         <Grid container justify="space-around">
@@ -88,16 +192,14 @@ function Produits() {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="center"><Button variant="contained" >Modifier</Button><Button variant="contained" color="secondary">Supprimer</Button></StyledTableCell>
+                        {dataproduits.map((row) => (
+                            <StyledTableRow >
+                            <StyledTableCell component="th" scope="row">{row.nom_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.longeur_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.largeur_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.hauteur_produits}</StyledTableCell>
+                            <StyledTableCell align="right">{row.poids_produits}</StyledTableCell>
+                            <StyledTableCell align="center"><Button className={classes.margin_10px} variant="contained" onClick={()=>{modifproduits(row)}} >Modifier</Button><Button className={classes.margin_10px} variant="contained" color="secondary" onClick={()=>{supDataProduits(row._id)}} >Supprimer</Button></StyledTableCell>
                             </StyledTableRow>
                         ))}
                         </TableBody>
@@ -105,7 +207,7 @@ function Produits() {
                 </TableContainer>
             </Grid>
             <Grid item xs alignItems="center">
-                <Button color="primary" variant="contained" onClick={handleOpen}>Nouveaux</Button>
+                <Button color="primary" variant="contained" className={classes.margin_10px} onClick={handleOpen}>Nouveaux</Button>
             </Grid>
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -117,22 +219,31 @@ function Produits() {
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                 timeout: 50,
-                }}
-            >
+                }}>
+                  
                 <Fade in={open}>
-                <Grid container xs={6} justify="center" className={classes.paper}>
+                <Grid container xs={8} justify="center" className={classes.paper}>
                     <form className={classes.root} noValidate autoComplete="off">
                         <Grid item className={classes.padding_20px}>
-                          <TextField  label="Nom Produit" variant="outlined" fullWidth  />  
+                          <TextField  label="Nom Produit" variant="outlined" fullWidth value={formproduits.nom_produits} name="nom_produits" onChange={changevaleurinputproduits}/>  
                         </Grid>
                         <Grid item container>
-                            <TextField  label="Longeur" variant="outlined" />  
-                            <TextField  label="Largeur" variant="outlined" />  
-                            <TextField  label="Hauteur" variant="outlined" />  
-                            <TextField  label="Poids" variant="outlined" />  
+                            <TextField  label="Longeur" variant="outlined" name="longeur_produits" value={formproduits.longeur_produits}  onChange={changevaleurinputproduits}/>  
+                            <TextField  label="Largeur" variant="outlined" name="largeur_produits"  value={formproduits.largeur_produits} onChange={changevaleurinputproduits}/>  
+                            <TextField  label="Hauteur" variant="outlined" name="hauteur_produits"  value={formproduits.hauteur_produits} onChange={changevaleurinputproduits}/>  
+                            <TextField  label="Poids" variant="outlined" name="poids_produits" value={formproduits.poids_produits}  onChange={changevaleurinputproduits}/>  
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
-                        <Button color="primary" variant="contained" onClick={()=>{}}>
+                        <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformproduits({
+                                                                                nom_produits: "",
+                                                                                longeur_produits: "",
+                                                                                largeur_produits: "",
+                                                                                hauteur_produits: "",
+                                                                                poids_produits: "",
+                                                                              });}} className={classes.margin_10px}>
+                            Annuler
+                        </Button>
+                        <Button color="primary" variant="contained" onClick={()=>{creaDataProduits(formproduits)}} className={classes.margin_10px}>
                             Valider
                         </Button>
                         </Grid>

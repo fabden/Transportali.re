@@ -3,31 +3,14 @@ const mongoose = require('mongoose');
 
 // Schema pour Partenaires
 const modelPartenaires = mongoose.Schema({
-
-  expediteur: {
-    nom: { type: String, required: true },
-    prenom: { type: String, require: true },
-    adresse: { type: String, require: true },
-    code_postale: { type: String, require: true },
-    Email: { type: String, required: true },
-    Telephone: { type: Number, required: true },
-  },
-
-  destinataire: {
-    nom: { type: String, required: true },
-    prenom: { type: String, require: true },
-    adresse: { type: String, require: true },
-    code_postale: { type: String, require: true },
-  },
-
-  Reference_demenagement: {
-    numero: { type: String, require: true },
-    date_enregistrement: { type: Date, require: true },
-    commentaire: { type: String },
-    nombre_colis: { type: Number },
-  },
-
+  nom_partenaire: { type: String, required: true },
+  contact_partenaire: { type: String, require: true },
+  adresse_partenaire: { type: String, require: true },
+  code_postale_partenaire: { type: String, require: true },
+  email_partenaire: { type: String, required: true },
+  telephone_partenaire: { type: Number, required: true },
+  password_partenaire: { type: String, required: true },
 });
 
 // export schema pour Partenaires
-module.exports = mongoose.model('devisColis', modelPartenaires);
+module.exports = mongoose.model('Partenaires', modelPartenaires);

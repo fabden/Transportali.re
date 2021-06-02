@@ -1,7 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {Container,Grid,Stepper,Step,StepLabel,Typography,Button,TableContainer,Table, TableHead,TableRow,TableCell,TableBody, Modal, Fade,Backdrop} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DevisMagazin from './DevisMagazin';
+import ConnexionsMagazin from './ConnexionsMagazin';
+import axios from 'axios';
 
 function Magazin() {
 // eslint-disable-next-line no-unused-vars
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor:'rgb(240, 177, 38)',
     },
     height_100:{
-        height:'95vh',
+        
     },
     maps:{
         height:'250px',
@@ -56,17 +58,6 @@ const useStyles = makeStyles((theme) => ({
 const classes = useStyles();
 ////
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-const rows = [
-    createData('Fabrice DENNEMONT', "Canapé 2 place", "St Benois", "En cours"),
-    createData('Toto le Hero', "lit 2 place", "St suzanne", "En cours"),
-    createData('Sandra Vallon', "table", "St Benois", "Terminé"),
-    createData('Fabrice DENNEMONT', "television", "St Paul", "En Attent"),
-    
-  ];
-
   ////gestion modal
   const [open, setOpen] = React.useState(false);
 
@@ -78,12 +69,141 @@ const rows = [
     setOpen(false);
   };
 
-  ///
+  /// recupere donnee partenaire/magazin
+
+  const [datamagazin, setdatamagazin] = React.useState([{
+    expediteur: {
+        id_Expediteur: "",
+        contact: "",
+        adresse: "",
+        code_postale: "",
+        email: "",
+        telephone: "",
+        commentaire: ""
+    },
+    destinataire: {
+        contact: "",
+        adresse: "",
+        code_postale: "",
+        email: "",
+        telephone: "",
+        commentaire: ""
+    },
+    reference_colis: {
+        etat: {
+            livraison: "",
+            payement: ""
+        },
+        numero: "",
+        date_enregistrement: "",
+        date_livraisons: "",
+        types: "",
+        commentaire: ""
+    },
+    _id: "",
+    __v: 0
+}]);
+//recupere info partnaire 
+const [infoPartanire, setinfoPartanire] = React.useState({})
+
+const recupInfoPartenaire = () => {     
+    const tokenpart = localStorage.getItem('transportali')
+    axios.get(` http://82.165.56.203/api/partenaires/${tokenpart}`)
+    .then((e)=>{ setinfoPartanire(e.data[0]);  })
+    .catch((e)=>{console.log(e)})}
+    React.useEffect(recupInfoPartenaire,[infoPartanire]);
+
+
+/////
+
+const recupDataPartenaire = () => {     
+const tokenpart = localStorage.getItem('transportali')
+axios.get(' http://82.165.56.203/api/partenaires/commande',{ params: {tokenpart} })
+.then((e)=>{ setdatamagazin(e.data);  })
+.catch((e)=>{console.log(e)})}
+React.useEffect(recupDataPartenaire,[datamagazin])
+
+  /// state connexion et verification 
+
+  const [connecter, setConnecter] = React.useState(false);
+
+///fonction connexion axios 
+
+const connexion = (el)=>{
+    console.log(el);
+    axios.post(' http://82.165.56.203/api/partenaires/connexion',el)
+    .then((e)=>{
+        localStorage.setItem('transportali', e.data.token)
+        setConnecter(true);
+    })
+    .catch((e)=>{console.log(e)})
+};
+
+const checkconexion = () =>{
+   const  localtoken = localStorage.getItem('transportali')
+    if(localtoken === undefined){
+       return  setConnecter(false);        
+        }
+
+        axios.put(' http://82.165.56.203/api/partenaires/connexion',{token:localtoken})
+        .then((e)=>{
+            if (!e.data.etat){
+            localStorage.removeItem('transportali')
+            setConnecter(false);
+            
+        }else{
+            setConnecter(true);
+            
+        }})
+        .catch((e)=>{console.log(e)})
+
+    }
+    React.useEffect(checkconexion ,[]);
+
+    ////fonction state selection devis client 
+
+    const [selecdata, setselecdata] = React.useState({
+        expediteur: {
+            id_Expediteur: "",
+            contact: "",
+            adresse: "",
+            code_postale: "",
+            email: "",
+            telephone: "",
+            commentaire: ""
+        },
+        destinataire: {
+            contact: "",
+            adresse: "",
+            code_postale: "",
+            email: "",
+            telephone: "",
+            commentaire: ""
+        },
+        reference_colis: {
+            etat: {
+                livraison: "",
+                payement: ""
+            },
+            numero: "",
+            date_enregistrement: "",
+            date_livraisons: "",
+            types: "",
+            commentaire: ""
+        },
+        _id: "",
+        __v: 0
+    })
+
+    const selectdata = (e)=>{
+        setselecdata(e);
+        console.log(e);
+    }
+
     return (
 
-      
-
-        
+      <>
+      {connecter ? 
         <Container maxWidth={false} disableGutters>
             <Grid container>
                  {/*parti infomation gauche */ }
@@ -92,18 +212,20 @@ const rows = [
                     <Grid className={`${classes.logo} ${classes.margin_10px}`}>
                         logo DMST
                     </Grid>
-                    
                     <Typography>
                      Coordonnées Clients :
                     </Typography>
                     <Typography>
-                      Mme intel
+                      {selecdata.destinataire.contact}
                     </Typography>
                     <Typography>
-                     12 chemin  de coux, 97441
+                    {selecdata.destinataire.adresse} 
                     </Typography>
                     <Typography>
-                     tel: 01020304
+                    {selecdata.destinataire.code_postale}
+                    </Typography>
+                    <Typography>
+                     TEL: {selecdata.destinataire.telephone}
                     </Typography>
                     <Stepper activeStep={activeStep} orientation="vertical" className={`${classes.border_raduis} ${classes.margin_10px}`}>
                         <Step key={1}>
@@ -125,7 +247,7 @@ const rows = [
                     <Typography>
                         Tel: 0102030405
                     </Typography>
-                    <Grid item xs className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
+                    <Grid item  className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
                         carte maps 
                     </Grid>
                 
@@ -141,21 +263,21 @@ const rows = [
                     <Table >
                         <TableHead>
                         <TableRow>
-                            <TableCell align="center">nom</TableCell>
-                            <TableCell align="center">colis</TableCell>
-                            <TableCell align="center">ville</TableCell>
-                            <TableCell align="center">etat</TableCell>
+                            <TableCell align="center">Nom Clients</TableCell>
+                            <TableCell align="center">Colis</TableCell>
+                            <TableCell align="center">Ville</TableCell>
+                            <TableCell align="center">Etat</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
+                        {datamagazin.map((row) => (
+                            <TableRow key={row.name} onClick={(e)=>selectdata(row)}>
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {row.destinataire.contact}
                             </TableCell>
-                            <TableCell align="center">{row.calories}</TableCell>
-                            <TableCell align="center">{row.fat}</TableCell>
-                            <TableCell align="center">{row.carbs}</TableCell>                            
+                            <TableCell align="center">{row.reference_colis.commentaire}</TableCell>
+                            <TableCell align="center">{row.destinataire.code_postale}</TableCell>
+                            <TableCell align="center">{row.reference_colis.etat.livraison}</TableCell>                            
                             </TableRow>
                         ))}
                         </TableBody>
@@ -169,18 +291,18 @@ const rows = [
                     </Grid>
                     <Grid item>
                         <Typography>
-                            Ravate st denis 
+                         {infoPartanire.nom_partenaire}
                         </Typography>
                         <Typography>
-                            235 chemin le port,97441
+                        {infoPartanire.adresse_partenaire}
                         </Typography>
                         <Typography>
-                            0102030405
+                        {infoPartanire.telephone_partenaire}
                         </Typography>
                     </Grid>
                     <Button variant="contained" onClick={handleOpen}>nouvelle demande</Button>
                     <Grid className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
-                    liste colis client 
+                    liste colis client ???
                     </Grid>
                 </Grid>
 
@@ -198,10 +320,13 @@ const rows = [
                 }}
             >
                 <Fade in={open}>
-             <DevisMagazin></DevisMagazin>
+             <DevisMagazin handleClose={handleClose} recupDataPartenaire={recupDataPartenaire}></DevisMagazin>
                 </Fade>
             </Modal>
-        </Container>
+        </Container> : 
+        <ConnexionsMagazin connexion={connexion} ></ConnexionsMagazin>}
+
+        </>
     )
 };
 

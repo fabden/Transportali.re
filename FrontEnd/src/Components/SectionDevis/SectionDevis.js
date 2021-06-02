@@ -53,7 +53,8 @@ const [devisElectroDepart,setDevisElectroDepart]=React.useState({
     email:"",
     telephone:"",
     commentaire:"",
-    },);
+    type:"particulier",
+    });
 
 const [devisElectroArrive,setDevisElectroArrive]=React.useState({
     ville:"Le Port",
@@ -64,13 +65,11 @@ const [devisElectroArrive,setDevisElectroArrive]=React.useState({
     commentaire:"",
     });
 const [paramMeubleElectro, setParamMeubleElectro] = React.useState({
-    choix_meuble_electro:"",
-    longeur:0,
-    largeur:0,
-    hauteur:0,
-    poids:0,
-    distance:0,
-    prix:0,
+    nom_produits:" ",
+    longeur_produits:0,
+    largeur_produits:0,
+    hauteur_produits:0,
+    poids_produits:0,
 });
 const [datedeviselecro, setDateDevisElectro] = React.useState("2021-05-14T10:00");
 const [coutDevis, setCoutDevis]=React.useState ({prix:0, distance_livraison:0});
@@ -85,6 +84,7 @@ const [devisDemenagemnt, setDevisDemenagement] = React.useState({
     villeDepart:"",
     VilleArriver:"",
     metreCarre:10,
+    type:"particulier",
 });
 
 ////fonction pour devis meuble electro
@@ -102,8 +102,14 @@ const changevaleurinputElectroArrive =(e)=>{
     setDevisElectroArrive({...devisElectroArrive,[e.target.name]: e.target.value})
 };
 const changevaleurinputparamMeubleElectro =(e)=>{
-    console.log(e.target);
-    setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
+    
+    const filterelementelectro = listeleElectro.filter((el)=>el.nom_produits === e.target.value);
+console.log(e.target.value)
+    if (e.target.name === "nom_produits" & e.target.value !== ""){
+        setParamMeubleElectro(filterelementelectro[0]);
+    }else{
+        setParamMeubleElectro({...paramMeubleElectro,[e.target.name]: e.target.value})
+    } 
 };
 const handleChangeElecro = () => {
     setAffichageDevisElectro(!affichageDevisElectro);
@@ -111,7 +117,7 @@ const handleChangeElecro = () => {
 
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://82.165.56.203/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro })
+    axios.post(' http://82.165.56.203/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro})
         .then((res) => setCoutDevis(res.data))
         .catch((e) => console.log(e))
 };
@@ -131,7 +137,32 @@ const changevaleurinputdemanagement =(e)=>{
 const handleChangeValeurmetrecarre =  (e, nv) => {   
     setDevisDemenagement({...devisDemenagemnt,metreCarre: nv})
 };
+
+const envoiDevisDemenagement =()=>{
+    axios.post(' http://82.165.56.203/api/devis-demenagement', devisDemenagemnt)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e))
+}
 ////
+
+///recuperation liste electromenager 
+
+const [listeleElectro, setlisteleElectro] = React.useState([{
+    _id:null,
+    nom_produits: "",
+    longeur_produits: 2,
+    largeur_produits: 2,
+    hauteur_produits: 2,
+    poids_produits: 2,
+  }]);
+
+const recupListeElectro = ()=>{
+    axios.get(' http://82.165.56.203/api/produits')
+        .then((res) => setlisteleElectro(res.data))
+        .catch((e) => console.log(e))
+}
+
+React.useEffect(recupListeElectro,[]);
 
 //style de la pages
   const classes = useStyles();
@@ -159,20 +190,9 @@ const handleChangeValeurmetrecarre =  (e, nv) => {
                         <FormControl margin="normal" className={classes.padding_10}>
                                 <FormControl  className={classes.formControl}>
                                     <InputLabel>Selectionnner </InputLabel>
-                                    <Select id='choix_meuble_electro'name='choix_meuble_electro'onChange={changevaleurinputparamMeubleElectro} native  value={paramMeubleElectro.choix_meuble_electro}>  
-                                    <option aria-label="Selectionnner votre meuble/electromenager" />                                      
-                                                <optgroup label="Meuble">
-                                                    <option value="canapé 1 place">canapé 1 place</option>
-                                                    <option value="canapé 1 place">canapé 2 places</option>
-                                                    <option value="canapé 1 place">canapé 3 places</option>
-                                                    <option value="canapé 1 place">table 2m x 3m</option>
-                                                </optgroup>
-                                                <optgroup label="electromenagé">
-                                                    <option value="Frigidere">Frigidere</option>
-                                                    <option value="Machine a laver">Machine a laver</option>
-                                                    <option value="Lave vaiselle">Lave vaiselle</option>
-                                                    <option value="seche linge">seche linge</option>                                                    
-                                                </optgroup>
+                                    <Select id='choix_meuble_electro'name='nom_produits'onChange={changevaleurinputparamMeubleElectro} native  value={paramMeubleElectro.nom_produits}>  
+                                    <option aria-label="Selectionnner votre meuble/electromenager" />
+                                    {listeleElectro.map((e) => <option value={e.nom_produits} >{e.nom_produits}</option>)}
                                     </Select>
                                 </FormControl>
                                 <Divider className={classes.margin_10} />
@@ -186,18 +206,18 @@ const handleChangeValeurmetrecarre =  (e, nv) => {
                                 <form autoComplete="off">
                                     <Grid container>
                                         <Grid xs item>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur'value={paramMeubleElectro.longeur} onChange={changevaleurinputparamMeubleElectro}/>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="longeur en cm" variant="outlined" id='longeur'name='longeur_produits'value={paramMeubleElectro.longeur_produits} onChange={changevaleurinputparamMeubleElectro}/>
                                         </Grid>
                                         <Grid xs item >
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur'value={paramMeubleElectro.largeur} onChange={changevaleurinputparamMeubleElectro} />
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Largeur en cm" variant="outlined" id='largeur'name='largeur_produits'value={paramMeubleElectro.largeur_produits} onChange={changevaleurinputparamMeubleElectro} />
                                         </Grid>
                                     </Grid>
                                     <Grid container>
                                         <Grid xs  item>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur'value={paramMeubleElectro.hauteur} onChange={changevaleurinputparamMeubleElectro}/>
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Hauteur en cm" variant="outlined" id='hauteur'name='hauteur_produits'value={paramMeubleElectro.hauteur_produits} onChange={changevaleurinputparamMeubleElectro}/>
                                         </Grid>
                                         <Grid item xs>
-                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids'value={paramMeubleElectro.poids} onChange={changevaleurinputparamMeubleElectro} />
+                                            <TextField className={classes.margin_10} size='small' type="number" label="Poids en Kg" variant="outlined" id='poids'name='poids_produits'value={paramMeubleElectro.poids_produits} onChange={changevaleurinputparamMeubleElectro} />
                                         </Grid> 
                                    </Grid>
                                     </form>
@@ -246,7 +266,7 @@ const handleChangeValeurmetrecarre =  (e, nv) => {
                                     <TextField fullWidth label="Telephone" variant="outlined" name='telephone' value={devisDemenagemnt.telephone} onChange={changevaleurinputdemanagement} />
                                 </Grid>
                             </Grid>
-                            <Button variant="contained" className={`${classes.couleurBoutton} ${classes.margin_10top}`}>Demander un devis</Button>
+                            <Button variant="contained" className={`${classes.couleurBoutton} ${classes.margin_10top}`} onClick={envoiDevisDemenagement}>Demander un devis</Button>
                         </Grid >
                     </Card>
                 </Grid >

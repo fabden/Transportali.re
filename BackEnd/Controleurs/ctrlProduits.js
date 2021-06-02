@@ -13,6 +13,7 @@ exports.CreationProduits = (req, res, next) => {
     nom_produits: req.body.nom_produits,
     longeur_produits: req.body.longeur_produits,
     largeur_produits: req.body.largeur_produits,
+    hauteur_produits: req.body.hauteur_produits,
     poids_produits: req.body.poids_produits,
   });
 
@@ -23,16 +24,34 @@ exports.CreationProduits = (req, res, next) => {
     .catch((e) => { console.log(e); });
 };
 
-// modifiction produits
+// modification produits
 exports.modificationProduits = (req, res, next) => {
-
+  const { _id } = req.body;
+  console.log(req.body._id);
+  Produits.updateOne({ _id },
+    {
+      nom_produits: req.body.nom_produits,
+      longeur_produits: req.body.longeur_produits,
+      largeur_produits: req.body.largeur_produits,
+      hauteur_produits: req.body.hauteur_produits,
+      poids_produits: req.body.poids_produits,
+    })
+    .then((e) => {
+      console.log('produit modifier sur sevreur ');
+      res.status(200).json({
+        message: 'Élément modifié',
+      });
+    })
+    .catch((e) => { console.log(e); });
 };
+
 // suppression produits
 exports.suppresionProduits = (req, res, next) => {
-  const id = "60aa18ebda31be31488f15b0";
+  console.log(req.params.id);
+  const { id } = req.params;
   Produits.deleteOne({ _id: id })
-    .exec()
-    .then(() => {
+    .then((e) => {
+      console.log(e);
       res.status(200).json({
         message: 'Élément supprimé',
       });
