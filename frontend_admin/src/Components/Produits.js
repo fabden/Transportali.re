@@ -79,7 +79,7 @@ const [dataproduits, setdataproduits] = React.useState([{
   }]);
 
 const recupDataProduits = () => {
-  const url = 'http://localhost:8080/api/produits';
+  const url = ' http://82.165.56.203/api/produits';
   axios.get(url)
     .then((resp) => {    
       console.log(resp.data);
@@ -94,7 +94,7 @@ React.useEffect(recupDataProduits,[]);
 //supprime produits en base de donneé
 
 const supDataProduits = (id) => {
-  const url = `http://localhost:8080/api/produits/${id}`;
+  const url = ` http://82.165.56.203/api/produits/${id}`;
   console.log(id);
   axios.delete(url)
     .then((resp) => {    
@@ -125,7 +125,7 @@ const [formproduits, setformproduits] = React.useState({
 
 const creaDataProduits = (e) => {
   console.log(e._id);
-const url = 'http://localhost:8080/api/produits';
+const url = ' http://82.165.56.203/api/produits';
   if (e._id !==undefined){  
     console.log("diferent indefinei");
    axios.put(url,e)

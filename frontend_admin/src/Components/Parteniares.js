@@ -78,7 +78,7 @@ function Parteniares() {
 }]);
 
 const recupDataPartenaires = () => {
-  const url = 'http://localhost:8080/api/partenaires';
+  const url = ' http://82.165.56.203/api/partenaires';
   axios.get(url)
     .then((resp) => {    
       console.log(resp.data);
@@ -109,7 +109,7 @@ const changevaleurinputpartenaire =(e)=>{
 
 const creaDataPartenaires = (e) => {
   console.log(e._id);
-const url = 'http://localhost:8080/api/partenaires';
+const url = ' http://82.165.56.203/api/partenaires';
   if (e._id !==undefined){      
    axios.put(url,e)
     .then((resp) => {    
@@ -153,7 +153,7 @@ const url = 'http://localhost:8080/api/partenaires';
 //supprime produits en base de donneé
 
 const supDataPartenaire = (id) => {
-  const url = `http://localhost:8080/api/partenaires/${id}`;
+  const url = ` http://82.165.56.203/api/partenaires/${id}`;
   console.log(id);
   axios.delete(url)
     .then((resp) => {    

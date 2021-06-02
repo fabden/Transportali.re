@@ -117,7 +117,7 @@ const handleChangeElecro = () => {
 
 //fonction calcul prix 
 const recuperer_devis_rapide = ()=>{    
-    axios.post('http://localhost:8080/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro})
+    axios.post(' http://82.165.56.203/api/devis-colis',{devisElectroDepart, devisElectroArrive, paramMeubleElectro, datedeviselecro})
         .then((res) => setCoutDevis(res.data))
         .catch((e) => console.log(e))
 };
@@ -139,7 +139,7 @@ const handleChangeValeurmetrecarre =  (e, nv) => {
 };
 
 const envoiDevisDemenagement =()=>{
-    axios.post('http://localhost:8080/api/devis-demenagement', devisDemenagemnt)
+    axios.post(' http://82.165.56.203/api/devis-demenagement', devisDemenagemnt)
         .then((res) => console.log(res))
         .catch((e) => console.log(e))
 }
@@ -157,7 +157,7 @@ const [listeleElectro, setlisteleElectro] = React.useState([{
   }]);
 
 const recupListeElectro = ()=>{
-    axios.get('http://localhost:8080/api/produits')
+    axios.get(' http://82.165.56.203/api/produits')
         .then((res) => setlisteleElectro(res.data))
         .catch((e) => console.log(e))
 }

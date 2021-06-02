@@ -82,7 +82,7 @@ const changevaleurinputlivreur =(e)=>{
 
 const creaDataLivreur = (e) => {
   console.log(e._id);
-const url = 'http://localhost:8080/api/livreurs';
+const url = ' http://82.165.56.203/api/livreurs';
   if (e._id !==undefined){      
    axios.put(url,e)
     .then((resp) => {    
@@ -124,7 +124,7 @@ const url = 'http://localhost:8080/api/livreurs';
 }]);
 
 const recupDatalivreurs = () => {
-  const url = 'http://localhost:8080/api/livreurs';
+  const url = ' http://82.165.56.203/api/livreurs';
   axios.get(url)
     .then((resp) => {    
       setdatalivreurs(resp.data)
@@ -138,7 +138,7 @@ React.useEffect(recupDatalivreurs,[]);
 //supprime Livreurs en base de donneé
 
 const supDataLivreurs = (id) => {
-  const url = `http://localhost:8080/api/livreurs/${id}`;
+  const url = ` http://82.165.56.203/api/livreurs/${id}`;
   console.log(id);
   axios.delete(url)
     .then((resp) => {    

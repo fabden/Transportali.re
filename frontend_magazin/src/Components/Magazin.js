@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor:'rgb(240, 177, 38)',
     },
     height_100:{
-        height:'95vh',
+        
     },
     maps:{
         height:'250px',
@@ -108,7 +108,7 @@ const [infoPartanire, setinfoPartanire] = React.useState({})
 
 const recupInfoPartenaire = () => {     
     const tokenpart = localStorage.getItem('transportali')
-    axios.get(`http://localhost:8080/api/partenaires/${tokenpart}`)
+    axios.get(` http://82.165.56.203/api/partenaires/${tokenpart}`)
     .then((e)=>{ setinfoPartanire(e.data[0]);  })
     .catch((e)=>{console.log(e)})}
     React.useEffect(recupInfoPartenaire,[infoPartanire]);
@@ -118,7 +118,7 @@ const recupInfoPartenaire = () => {
 
 const recupDataPartenaire = () => {     
 const tokenpart = localStorage.getItem('transportali')
-axios.get('http://localhost:8080/api/partenaires/commande',{ params: {tokenpart} })
+axios.get(' http://82.165.56.203/api/partenaires/commande',{ params: {tokenpart} })
 .then((e)=>{ setdatamagazin(e.data);  })
 .catch((e)=>{console.log(e)})}
 React.useEffect(recupDataPartenaire,[datamagazin])
@@ -131,7 +131,7 @@ React.useEffect(recupDataPartenaire,[datamagazin])
 
 const connexion = (el)=>{
     console.log(el);
-    axios.post('http://localhost:8080/api/partenaires/connexion',el)
+    axios.post(' http://82.165.56.203/api/partenaires/connexion',el)
     .then((e)=>{
         localStorage.setItem('transportali', e.data.token)
         setConnecter(true);
@@ -145,7 +145,7 @@ const checkconexion = () =>{
        return  setConnecter(false);        
         }
 
-        axios.put('http://localhost:8080/api/partenaires/connexion',{token:localtoken})
+        axios.put(' http://82.165.56.203/api/partenaires/connexion',{token:localtoken})
         .then((e)=>{
             if (!e.data.etat){
             localStorage.removeItem('transportali')
@@ -159,6 +159,46 @@ const checkconexion = () =>{
 
     }
     React.useEffect(checkconexion ,[]);
+
+    ////fonction state selection devis client 
+
+    const [selecdata, setselecdata] = React.useState({
+        expediteur: {
+            id_Expediteur: "",
+            contact: "",
+            adresse: "",
+            code_postale: "",
+            email: "",
+            telephone: "",
+            commentaire: ""
+        },
+        destinataire: {
+            contact: "",
+            adresse: "",
+            code_postale: "",
+            email: "",
+            telephone: "",
+            commentaire: ""
+        },
+        reference_colis: {
+            etat: {
+                livraison: "",
+                payement: ""
+            },
+            numero: "",
+            date_enregistrement: "",
+            date_livraisons: "",
+            types: "",
+            commentaire: ""
+        },
+        _id: "",
+        __v: 0
+    })
+
+    const selectdata = (e)=>{
+        setselecdata(e);
+        console.log(e);
+    }
 
     return (
 
@@ -176,13 +216,16 @@ const checkconexion = () =>{
                      Coordonnées Clients :
                     </Typography>
                     <Typography>
-                      Mme intel
+                      {selecdata.destinataire.contact}
                     </Typography>
                     <Typography>
-                     12 chemin  de coux, 97441
+                    {selecdata.destinataire.adresse} 
                     </Typography>
                     <Typography>
-                     tel: 01020304
+                    {selecdata.destinataire.code_postale}
+                    </Typography>
+                    <Typography>
+                     TEL: {selecdata.destinataire.telephone}
                     </Typography>
                     <Stepper activeStep={activeStep} orientation="vertical" className={`${classes.border_raduis} ${classes.margin_10px}`}>
                         <Step key={1}>
@@ -204,7 +247,7 @@ const checkconexion = () =>{
                     <Typography>
                         Tel: 0102030405
                     </Typography>
-                    <Grid item xs className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
+                    <Grid item  className={`${classes.maps} ${classes.border_raduis} ${classes.margin_10px}`}>
                         carte maps 
                     </Grid>
                 
@@ -228,7 +271,7 @@ const checkconexion = () =>{
                         </TableHead>
                         <TableBody>
                         {datamagazin.map((row) => (
-                            <TableRow key={row.name}>
+                            <TableRow key={row.name} onClick={(e)=>selectdata(row)}>
                             <TableCell component="th" scope="row">
                                 {row.destinataire.contact}
                             </TableCell>
