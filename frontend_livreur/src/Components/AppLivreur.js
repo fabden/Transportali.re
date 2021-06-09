@@ -19,6 +19,7 @@ import ConnexionsLivreurs from './ConnexionsLivreurs';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import axios from 'axios';
 
 
 const drawerWidth = 240;
@@ -131,12 +132,45 @@ function AppLivreur() {
 
 /// state connexion et verification 
 
-  const [connecter, setConnecter] = React.useState(true);
+  const [connecter, setConnecter] = React.useState(false);
+
+  ///fonction connexion axios 
+
+const connexion = (el)=>{
+    console.log(el);
+    axios.post('  http://localhost:8080/api/livreurs/connexion',el)
+    .then((e)=>{
+        localStorage.setItem('transportali', e.data.token)
+        setConnecter(true);
+    })
+    .catch((e)=>{console.log(e)})
+};
+
+const checkconexion = () =>{
+   const  localtoken = localStorage.getItem('transportali')
+    if(localtoken === undefined){
+       return  setConnecter(false);        
+        }
+
+        axios.put('  http://localhost:8080/api/livreurs/connexion',{token:localtoken})
+        .then((e)=>{
+            if (!e.data.etat){
+            localStorage.removeItem('transportali')
+            setConnecter(false);
+            
+        }else{
+            setConnecter(true);
+            
+        }})
+        .catch((e)=>{console.log(e)})
+
+    }
+    React.useEffect(checkconexion ,[]);
 
 
     return (
     <>
-    {connecter ? <ConnexionsLivreurs></ConnexionsLivreurs> :
+    {connecter ? 
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
@@ -206,7 +240,7 @@ function AppLivreur() {
                 </Tabs>
             </Drawer>
         </div>
-}
+: <ConnexionsLivreurs connexion={connexion}></ConnexionsLivreurs>}
     </>
     )
 }
