@@ -108,7 +108,7 @@ const [infoPartanire, setinfoPartanire] = React.useState({})
 
 const recupInfoPartenaire = () => {     
     const tokenpart = localStorage.getItem('transportali')
-    axios.get(` http://82.165.56.203/api/partenaires/${tokenpart}`)
+    axios.get(`  http://localhost:8080/api/partenaires/${tokenpart}`)
     .then((e)=>{ setinfoPartanire(e.data[0]);  })
     .catch((e)=>{console.log(e)})}
     React.useEffect(recupInfoPartenaire,[infoPartanire]);
@@ -118,7 +118,7 @@ const recupInfoPartenaire = () => {
 
 const recupDataPartenaire = () => {     
 const tokenpart = localStorage.getItem('transportali')
-axios.get(' http://82.165.56.203/api/partenaires/commande',{ params: {tokenpart} })
+axios.get('  http://localhost:8080/api/partenaires/commande',{ params: {tokenpart} })
 .then((e)=>{ setdatamagazin(e.data);  })
 .catch((e)=>{console.log(e)})}
 React.useEffect(recupDataPartenaire,[datamagazin])
@@ -131,7 +131,7 @@ React.useEffect(recupDataPartenaire,[datamagazin])
 
 const connexion = (el)=>{
     console.log(el);
-    axios.post(' http://82.165.56.203/api/partenaires/connexion',el)
+    axios.post('  http://localhost:8080/api/partenaires/connexion',el)
     .then((e)=>{
         localStorage.setItem('transportali', e.data.token)
         setConnecter(true);
@@ -145,7 +145,7 @@ const checkconexion = () =>{
        return  setConnecter(false);        
         }
 
-        axios.put(' http://82.165.56.203/api/partenaires/connexion',{token:localtoken})
+        axios.put('  http://localhost:8080/api/partenaires/connexion',{token:localtoken})
         .then((e)=>{
             if (!e.data.etat){
             localStorage.removeItem('transportali')

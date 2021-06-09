@@ -15,6 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import ColisAlivrer from './ColisAlivrer';
 import ColisArecuperer from './ColisArecuperer';
+import ConnexionsLivreurs from './ConnexionsLivreurs';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
@@ -128,8 +129,14 @@ function AppLivreur() {
       setValue(newValue);
     };
 
+/// state connexion et verification 
+
+  const [connecter, setConnecter] = React.useState(true);
+
+
     return (
     <>
+    {connecter ? <ConnexionsLivreurs></ConnexionsLivreurs> :
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
@@ -199,7 +206,7 @@ function AppLivreur() {
                 </Tabs>
             </Drawer>
         </div>
-
+}
     </>
     )
 }
