@@ -15,8 +15,8 @@ LivreurRouteur.route('/')
   .put(ctrlLivreur.modificationLivreurs);
 
 LivreurRouteur.route('/connexions')
-  .post(() => { console.log('connexion livreur'); })
-  .put(() => { console.log(' test connexion livreur'); });
+  .post(ctrlLivreur.connexionLivreur)
+  .put(ctrlLivreur.checkconnexionLivreur);
 
 LivreurRouteur.route('/:id')
   .get(() => { console.log('modif un partenaire'); })
