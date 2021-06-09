@@ -72,7 +72,8 @@ function Livreurs() {
 const [formlivreur, setformlivreur] = React.useState({
   nom_livreur: "",
   email_livreur: "",
-  telephone_livreur: null
+  telephone_livreur: null,
+  password_livreur:""
 });
 
 const changevaleurinputlivreur =(e)=>{
@@ -92,7 +93,8 @@ const url = '  http://localhost:8080/api/livreurs';
       setformlivreur({
         nom_livreur: "",
         email_livreur: "",
-        telephone_livreur: null
+        telephone_livreur: null,
+        password_livreur:""
       })   
     })
     .catch((error) => {
@@ -107,7 +109,8 @@ const url = '  http://localhost:8080/api/livreurs';
       setformlivreur({
         nom_livreur: "",
         email_livreur: "",
-        telephone_livreur: null
+        telephone_livreur: null,
+        password_livreur:""
       })   
     })
     .catch((error) => {
@@ -120,7 +123,8 @@ const url = '  http://localhost:8080/api/livreurs';
   const [datalivreurs, setdatalivreurs] = React.useState([{
     nom_livreur: "",
     email_livreur: "",
-    telephone_livreur: null
+    telephone_livreur: null,
+    password_livreur:""
 }]);
 
 const recupDatalivreurs = () => {
@@ -147,7 +151,8 @@ const supDataLivreurs = (id) => {
       setformlivreur({
         nom_livreur: "",
         email_livreur: "",
-        telephone_livreur: null
+        telephone_livreur: null,
+        password_livreur:""
       })   
     })
     .catch((error) => {
@@ -221,6 +226,9 @@ const modifLivreurs =(e)=>{
                           <Grid xs>
                             <TextField  label="Email" name="email_livreur" variant="outlined" fullWidth value={formlivreur.email_livreur} onChange={changevaleurinputlivreur} /> 
                           </Grid>
+                        </Grid>
+                        <Grid xs>
+                            <TextField required  label="password" name="password_livreur" variant="outlined" fullWidth value={formlivreur.password_livreur} onChange={changevaleurinputlivreur} /> 
                         </Grid>
                         <Grid xs={11} item container justify="flex-end" className={classes.padding_20px}>
                         <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformlivreur({

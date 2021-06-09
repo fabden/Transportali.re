@@ -1,6 +1,6 @@
-const Livreurs = require('../Models/modelLivreurs');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Livreurs = require('../Models/modelLivreurs');
 
 // consultation tout livreurs
 exports.consustationTousLivreurs = (req, res, next) => {
@@ -33,6 +33,7 @@ exports.modificationLivreurs = (req, res, next) => {
       nom_livreur: req.body.nom_livreur,
       email_livreur: req.body.email_livreur,
       telephone_livreur: req.body.telephone_livreur,
+      password_livreur: req.body.password_livreur,
     })
     .then((e) => {
       console.log('produit modifier sur sevreur ');
