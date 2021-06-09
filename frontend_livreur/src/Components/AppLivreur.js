@@ -138,7 +138,7 @@ function AppLivreur() {
 
 const connexion = (el)=>{
     console.log(el);
-    axios.post('  http://localhost:8080/api/livreurs/connexion',el)
+    axios.post('  http://localhost:8080/api/livreurs/connexions',el)
     .then((e)=>{
         localStorage.setItem('transportali', e.data.token)
         setConnecter(true);
@@ -152,7 +152,7 @@ const checkconexion = () =>{
        return  setConnecter(false);        
         }
 
-        axios.put('  http://localhost:8080/api/livreurs/connexion',{token:localtoken})
+        axios.put('  http://localhost:8080/api/livreurs/connexions',{token:localtoken})
         .then((e)=>{
             if (!e.data.etat){
             localStorage.removeItem('transportali')

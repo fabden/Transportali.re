@@ -14,14 +14,15 @@ LivreurRouteur.route('/')
   .delete(() => {})
   .put(ctrlLivreur.modificationLivreurs);
 
+LivreurRouteur.route('/connexions')
+  .post(() => { console.log('connexion livreur'); })
+  .put(() => { console.log(' test connexion livreur'); });
+
 LivreurRouteur.route('/:id')
   .get(() => { console.log('modif un partenaire'); })
   .post(() => {})
   .delete(ctrlLivreur.suppresionLivreurs)
   .put(() => {});
-
-LivreurRouteur.route('/connexions')
-  .get(() => { console.log('connexion livreur'); });
 
 // Export
 module.exports = LivreurRouteur;
