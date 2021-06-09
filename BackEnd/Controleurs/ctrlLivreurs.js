@@ -15,6 +15,7 @@ exports.CreationLivreurs = (req, res, next) => {
     nom_livreur: req.body.nom_livreur,
     email_livreur: req.body.email_livreur,
     telephone_livreur: req.body.telephone_livreur,
+    password_livreur: req.body.password_livreur,
   });
 
   nouveauproduit.save()

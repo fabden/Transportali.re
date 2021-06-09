@@ -234,7 +234,8 @@ const modifLivreurs =(e)=>{
                         <Button color="primary" variant="contained" onClick={()=>{handleClose(); setformlivreur({
                                                                                   nom_livreur: "",
                                                                                   email_livreur: "",
-                                                                                  telephone_livreur: null
+                                                                                  telephone_livreur: null,
+                                                                                  password_livreur:""
                                                                                 }) ;}} className={classes.margin_10px}>
                               Annulé
                           </Button>
